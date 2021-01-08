@@ -8864,7 +8864,7 @@
           }
         ],
         "ui": {
-          "active": true,
+          "active": false,
           "left": 22,
           "top": 2687,
           "zIndex": 5335,
