@@ -8,7 +8,6 @@ export interface Address {
     zipCode: string | null;
     city: string;
     status: number;
-    pessoa?:Person;
     fkPerson: number | null;
     fkJuridicalPerson: number | null;
     fkCity: number;
