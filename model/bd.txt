@@ -38,7 +38,18 @@ CREATE TABLE Approval
   fkTaxSettings     BIGINT   NULL    ,
   fkWithdrawMoney   BIGINT   NULL    ,
   fkServiceContract BIGINT   NULL    ,
+  fkMainBankAccount BIGINT   NULL    ,
+  fkLogBackuped     BIGINT   NULL    ,
   PRIMARY KEY (pkApproval)
+);
+
+CREATE TABLE ApprovalAttachment
+(
+  pkApprovalAttachment BIGINT NOT NULL,
+  status               INT    NOT NULL DEFAULT 0,
+  fkApproval           BIGINT NOT NULL,
+  fkAttachment         BIGINT NOT NULL,
+  PRIMARY KEY (pkApprovalAttachment)
 );
 
 CREATE TABLE Attachment
@@ -54,11 +65,13 @@ CREATE TABLE Attachment
 
 CREATE TABLE Balance
 (
-  pkBalance         BIGINT NOT NULL,
-  value             REAL   NOT NULL,
-  status            INT    NOT NULL DEFAULT 0,
-  fkJuridicalPerson BIGINT NOT NULL,
-  fkCurrency        BIGINT NULL    ,
+  pkBalance         BIGINT   NOT NULL,
+  value             REAL     NOT NULL,
+  consolidatedValue REAL     NULL    ,
+  consolidatedDate  DATETIME NULL    ,
+  status            INT      NOT NULL DEFAULT 0,
+  fkJuridicalPerson BIGINT   NOT NULL,
+  fkCurrency        BIGINT   NULL    ,
   PRIMARY KEY (pkBalance)
 );
 
@@ -75,14 +88,14 @@ CREATE TABLE Bank
 CREATE TABLE BankAccount
 (
   pkBankAccount     BIGINT  NOT NULL,
-  name              VARCHAR NOT NULL,
   branch            VARCHAR NOT NULL,
   account           VARCHAR NOT NULL,
-  validated         DATE    NULL    ,
+  validatedAccount  DATE    NULL    ,
   status            INT     NOT NULL DEFAULT 0,
+  fkCurrency        BIGINT  NOT NULL,
   fkJuridicalPerson BIGINT  NULL    ,
   fkPerson          BIGINT  NULL    ,
-  fkCurrency        BIGINT  NULL    ,
+  fkUserPayment     BIGINT  NULL    ,
   PRIMARY KEY (pkBankAccount)
 );
 
@@ -98,11 +111,22 @@ CREATE TABLE Category
 
 CREATE TABLE City
 (
-  pkCity  BIGINT  NOT NULL,
-  name    VARCHAR NOT NULL,
-  status  INT     NOT NULL DEFAULT 0,
-  fkState BIGINT  NOT NULL,
+  pkCity            BIGINT  NOT NULL,
+  name              VARCHAR NOT NULL,
+  status            INT     NOT NULL DEFAULT 0,
+  fkState           BIGINT  NOT NULL,
+  fkJuridicalPerson BIGINT  NULL    ,
+  fkBalance         BIGINT  NULL    ,
   PRIMARY KEY (pkCity)
+);
+
+CREATE TABLE CityAccount
+(
+  pkCityAccount BIGINT NOT NULL,
+  status        INT    NOT NULL DEFAULT 0,
+  fkCity        BIGINT NOT NULL,
+  fkBankAccount BIGINT NOT NULL,
+  PRIMARY KEY (pkCityAccount)
 );
 
 CREATE TABLE Contact
@@ -119,11 +143,12 @@ CREATE TABLE Contact
 
 CREATE TABLE Country
 (
-  pkCountry    BIGINT  NOT NULL,
-  name         VARCHAR NOT NULL,
-  abbreviation VARCHAR NOT NULL,
-  status       INT     NOT NULL DEFAULT 0,
-  fkLanguage   BIGINT  NOT NULL,
+  pkCountry         BIGINT  NOT NULL,
+  name              VARCHAR NOT NULL,
+  abbreviation      VARCHAR NOT NULL,
+  status            INT     NOT NULL DEFAULT 0,
+  fkLanguage        BIGINT  NOT NULL,
+  fkJuridicalPerson BIGINT  NULL    ,
   PRIMARY KEY (pkCountry)
 );
 
@@ -148,20 +173,6 @@ CREATE TABLE Currency
   PRIMARY KEY (pkCurrency)
 );
 
-CREATE TABLE Deposit
-(
-  pkDeposit             BIGINT   NOT NULL,
-  value                 REAL     NOT NULL,
-  date                  DATETIME NOT NULL,
-  note                  VARCHAR  NOT NULL,
-  status                INT      NOT NULL DEFAULT 0,
-  fkFromMainBankAccount BIGINT   NOT NULL,
-  fkToBankAccount       BIGINT   NOT NULL,
-  fkBalance             BIGINT   NOT NULL,
-  fkWithdrawMoney       BIGINT   NOT NULL,
-  PRIMARY KEY (pkDeposit)
-);
-
 CREATE TABLE DigitalWallet
 (
   pkDigitalWallet BIGINT  NOT NULL,
@@ -170,6 +181,30 @@ CREATE TABLE DigitalWallet
   status          INT     NOT NULL,
   fkCountry       BIGINT  NULL    ,
   PRIMARY KEY (pkDigitalWallet)
+);
+
+CREATE TABLE Email
+(
+  pkEmail           BIGINT  NOT NULL,
+  subject           VARCHAR NOT NULL,
+  emailText         TEXT    NOT NULL,
+  fkEmailController BIGINT  NULL    ,
+  fkContact         BIGINT  NULL    ,
+  PRIMARY KEY (pkEmail)
+);
+
+CREATE TABLE EmailController
+(
+  pkEmailController BIGINT  NOT NULL,
+  type              INT     NOT NULL DEFAULT 1,
+  imap              VARCHAR NOT NULL,
+  smtp              VARCHAR NOT NULL,
+  fullName          VARCHAR NOT NULL,
+  email             VARCHAR NOT NULL,
+  password          VARCHAR NOT NULL,
+  status            INT     NOT NULL DEFAULT 0,
+  fkCountry         BIGINT  NOT NULL,
+  PRIMARY KEY (pkEmailController)
 );
 
 CREATE TABLE Employee
@@ -199,13 +234,14 @@ CREATE TABLE EmployeeResponsibility
 CREATE TABLE HelpCenter
 (
   pkHelpCenter              BIGINT   NOT NULL,
-  type                      INT      NOT NULL DEFAULT 0,
+  number                    INT      NOT NULL DEFAULT 1,
   protocol                  VARCHAR  NOT NULL,
   date                      DATETIME NOT NULL,
   message                   TEXT     NOT NULL,
   status                    INT      NOT NULL DEFAULT 0,
-  fkContact                 BIGINT   NOT NULL,
-  fkHelpCenterServicesTypes BIGINT   NULL    ,
+  fkContactPhone            BIGINT   NULL    ,
+  fkContactEmail            BIGINT   NULL    ,
+  fkHelpCenterServicesTypes BIGINT   NOT NULL,
   fkUser                    BIGINT   NOT NULL,
   PRIMARY KEY (pkHelpCenter)
 );
@@ -230,6 +266,20 @@ CREATE TABLE HelpCenterMessages
   PRIMARY KEY (pkHelpCenterMessages)
 );
 
+CREATE TABLE HelpCenterService
+(
+  pkHelpCenterService BIGINT   NOT NULL,
+  date                DATETIME NOT NULL,
+  message             TEXT     NOT NULL,
+  status              INT      NOT NULL DEFAULT 0,
+  fkHelpCenter        BIGINT   NOT NULL,
+  fkUser              BIGINT   NOT NULL,
+  pkSMS               BIGINT   NULL    ,
+  fkEmail             BIGINT   NULL    ,
+  fkSMS               BIGINT   NULL    ,
+  PRIMARY KEY (pkHelpCenterService)
+);
+
 CREATE TABLE HelpCenterServicesTypes
 (
   pkHelpCenterServicesTypes BIGINT  NOT NULL,
@@ -238,6 +288,17 @@ CREATE TABLE HelpCenterServicesTypes
   status                    INT     NOT NULL DEFAULT 0,
   fkHelpCenterServicesTypes BIGINT  NULL    ,
   PRIMARY KEY (pkHelpCenterServicesTypes)
+);
+
+CREATE TABLE HelpCenterTypicalAsks
+(
+  pkHelpCenterTypicalAsks BIGINT  NOT NULL,
+  number                  INT     NULL    ,
+  ask                     VARCHAR NOT NULL,
+  answer                  TEXT    NOT NULL,
+  fkHelpCenterTypicalAsks BIGINT  NULL    ,
+  fkLanguage              BIGINT  NOT NULL,
+  PRIMARY KEY (pkHelpCenterTypicalAsks)
 );
 
 CREATE TABLE IdentificationDocument
@@ -261,7 +322,7 @@ CREATE TABLE JuridicalPerson
   name              VARCHAR NOT NULL,
   socialReason      VARCHAR NOT NULL,
   openedDate        DATE    NOT NULL,
-  pkOriginCountry   BIGINT  NULL    ,
+  fkOriginCountry   BIGINT  NULL    ,
   PRIMARY KEY (pkJuridicalPerson)
 );
 
@@ -274,6 +335,28 @@ CREATE TABLE Language
   PRIMARY KEY (pkLanguage)
 );
 
+CREATE TABLE Log
+(
+  pkLog     BIGINT   NOT NULL,
+  type      INT      NOT NULL,
+  title     VARCHAR  NOT NULL,
+  message   TEXT     NOT NULL,
+  date      DATETIME NOT NULL,
+  fkCountry BIGINT   NOT NULL,
+  PRIMARY KEY (pkLog)
+);
+
+CREATE TABLE LogBackuped
+(
+  pkLogBackuped    BIGINT   NOT NULL,
+  path             VARCHAR  NOT NULL,
+  date             DATETIME NULL    ,
+  status           INT      NOT NULL DEFAULT 0,
+  fkScreenApproval BIGINT   NOT NULL,
+  fkCountry        BIGINT   NOT NULL,
+  PRIMARY KEY (pkLogBackuped)
+);
+
 CREATE TABLE MainBankAccount
 (
   pkMainBankAccount BIGINT NOT NULL,
@@ -281,6 +364,7 @@ CREATE TABLE MainBankAccount
   status            INT    NOT NULL DEFAULT 0,
   fkBankAccount     BIGINT NOT NULL,
   fkCountry         BIGINT NOT NULL,
+  fkScreenApproval  BIGINT NOT NULL,
   PRIMARY KEY (pkMainBankAccount)
 );
 
@@ -292,9 +376,9 @@ CREATE TABLE Payment
   value             REAL     NOT NULL,
   note              VARCHAR  NULL    ,
   status            INT      NOT NULL DEFAULT 0,
+  fkCurrency        BIGINT   NOT NULL,
+  fkMainBankAccount BIGINT   NOT NULL,
   fkUserPayment     BIGINT   NULL    ,
-  fkCurrency        BIGINT   NULL    ,
-  fkMainBankAccount BIGINT   NULL    ,
   PRIMARY KEY (pkPayment)
 );
 
@@ -303,20 +387,18 @@ CREATE TABLE PaymentBill
   pkPaymentBill BIGINT  NOT NULL,
   code          VARCHAR NULL    ,
   dateOfExpire  DATE    NULL    ,
-  fkPayment     BIGINT  NULL    ,
-  fkPerson      BIGINT  NULL    ,
+  status        INT     NOT NULL DEFAULT 0,
+  fkPayment     BIGINT  NOT NULL,
+  fkPerson      BIGINT  NOT NULL,
   PRIMARY KEY (pkPaymentBill)
 );
 
 CREATE TABLE PaymentCredit
 (
-  pkPaymentCredit   BIGINT  NOT NULL,
-  nameOnCard        VARCHAR NOT NULL,
-  cardNumber        VARCHAR NOT NULL,
-  expiration        DATE    NOT NULL,
-  pkCreditCardBrand BIGINT  NOT NULL,
-  fkPayment         BIGINT  NOT NULL,
-  status            INT     NOT NULL DEFAULT 0,
+  pkPaymentCredit         BIGINT NOT NULL,
+  status                  INT    NOT NULL DEFAULT 0,
+  fkPayment               BIGINT NOT NULL,
+  fkUserPaymentCreditCard BIGINT NOT NULL,
   PRIMARY KEY (pkPaymentCredit)
 );
 
@@ -324,16 +406,17 @@ CREATE TABLE PaymentDebt
 (
   pkPaymentDebt BIGINT NOT NULL,
   status        INT    NOT NULL DEFAULT 0,
-  fkPayment     BIGINT NULL    ,
-  fkBankAccount BIGINT NULL    ,
+  fkPayment     BIGINT NOT NULL,
+  fkBankAccount BIGINT NOT NULL,
   PRIMARY KEY (pkPaymentDebt)
 );
 
 CREATE TABLE PaymentDigitalWallet
 (
-  pkPaymentDigitalWallet BIGINT NOT NULL,
-  fkDigitalWallet        BIGINT NULL    ,
-  fkPayment              BIGINT NULL    ,
+  pkPaymentDigitalWallet     BIGINT NOT NULL,
+  status                     INT    NOT NULL DEFAULT 0,
+  fkPayment                  BIGINT NULL    ,
+  fkUserPaymentDigitalWallet BIGINT NULL    ,
   PRIMARY KEY (pkPaymentDigitalWallet)
 );
 
@@ -352,19 +435,19 @@ CREATE TABLE Person
 CREATE TABLE PrepayTax
 (
   pkPrepayTax BIGINT NOT NULL,
+  status      INT    NOT NULL DEFAULT 0,
   fkBalance   BIGINT NOT NULL,
   fkPayment   BIGINT NOT NULL,
-  status      INT    NOT NULL DEFAULT 0,
   PRIMARY KEY (pkPrepayTax)
 );
 
 CREATE TABLE Receive
 (
-  pkReceive         BIGINT NOT NULL,
-  value             REAL   NULL    ,
-  status            INT    NOT NULL DEFAULT 0,
-  pkServiceOrder    BIGINT NOT NULL,
-  pkJuridicalPerson BIGINT NOT NULL,
+  pkReceive      BIGINT NOT NULL,
+  value          REAL   NULL    ,
+  status         INT    NOT NULL DEFAULT 0,
+  pkServiceOrder BIGINT NOT NULL,
+  fkUser         BIGINT NULL    ,
   PRIMARY KEY (pkReceive)
 );
 
@@ -374,7 +457,7 @@ CREATE TABLE ReceivePayment
   status                INT    NOT NULL DEFAULT 0,
   fkReceive             BIGINT NOT NULL,
   fkServiceOrderPayment BIGINT NOT NULL,
-  fkBalance             BIGINT NULL    ,
+  fkBalance             BIGINT NOT NULL,
   PRIMARY KEY (pkReceivePayment)
 );
 
@@ -390,11 +473,11 @@ CREATE TABLE Screen
 
 CREATE TABLE ScreenApproval
 (
-  pkScreenApproval  BIGINT  NOT NULL,
-  pathComplement    VARCHAR NULL    ,
-  status            INT     NOT NULL DEFAULT 0,
-  fkScreen          BIGINT  NOT NULL,
-  fkJuridicalPerson BIGINT  NOT NULL,
+  pkScreenApproval BIGINT  NOT NULL,
+  pathComplement   VARCHAR NULL    ,
+  status           INT     NOT NULL DEFAULT 0,
+  fkScreen         BIGINT  NOT NULL,
+  fkCountry        BIGINT  NULL    ,
   PRIMARY KEY (pkScreenApproval)
 );
 
@@ -494,7 +577,8 @@ CREATE TABLE ServiceOrderTax
   status            INT      NOT NULL DEFAULT 0,
   fkServiceOrder    BIGINT   NOT NULL,
   fkBalance         BIGINT   NOT NULL,
-  fkTaxSetting      BIGINT   NULL    ,
+  fkTaxSetting      BIGINT   NOT NULL,
+  fkCity            BIGINT   NOT NULL,
   PRIMARY KEY (pkServiceOrderTax)
 );
 
@@ -506,6 +590,25 @@ CREATE TABLE ServiceUnavailable
   status               INT    NOT NULL DEFAULT 0,
   fkService            BIGINT NOT NULL,
   PRIMARY KEY (pkServiceUnavailable)
+);
+
+CREATE TABLE SMS
+(
+  pkSMS           BIGINT  NOT NULL,
+  smsText         VARCHAR NOT NULL,
+  status          INT     NOT NULL DEFAULT 0,
+  fkSMSController INT     NULL    ,
+  PRIMARY KEY (pkSMS)
+);
+
+CREATE TABLE SMSController
+(
+  pkSMSController INT     NOT NULL,
+  type            INT     NOT NULL DEFAULT 1,
+  number          VARCHAR NOT NULL,
+  status          INT     NOT NULL DEFAULT 0,
+  fkCountry       BIGINT  NOT NULL,
+  PRIMARY KEY (pkSMSController)
 );
 
 CREATE TABLE State
@@ -530,17 +633,20 @@ CREATE TABLE TaxSettingAttachment
 
 CREATE TABLE TaxSettings
 (
-  pkTaxSettings    BIGINT   NOT NULL,
-  tax              REAL     NOT NULL,
-  filedDate        DATETIME NOT NULL,
-  approvatedDate   DATETIME NULL    ,
-  expiredDate      DATETIME NULL    ,
-  observation      TEXT     NOT NULL,
-  localType        INT      NOT NULL DEFAULT 1,
-  counterNeeded    BOOLEAN  NOT NULL DEFAULT false,
-  status           INT      NOT NULL DEFAULT 0,
-  fkCity           BIGINT   NOT NULL,
-  fkScreenApproval BIGINT   NULL    ,
+  pkTaxSettings     BIGINT   NOT NULL,
+  tax               REAL     NOT NULL,
+  filedDate         DATETIME NOT NULL,
+  approvatedDate    DATETIME NULL    ,
+  expiredDate       DATETIME NULL    ,
+  observation       TEXT     NOT NULL,
+  localType         INT      NOT NULL DEFAULT 1,
+  counterNeeded     BOOLEAN  NOT NULL DEFAULT false,
+  transferTaxPeriod INT      NOT NULL DEFAULT 1,
+  transferTaxDay    INT      NOT NULL DEFAULT 1,
+  status            INT      NOT NULL DEFAULT 0,
+  fkCity            BIGINT   NOT NULL,
+  fkScreenApproval  BIGINT   NOT NULL,
+  fkCityAccount     BIGINT   NOT NULL,
   PRIMARY KEY (pkTaxSettings)
 );
 
@@ -557,53 +663,127 @@ CREATE TABLE TaxSettingsCategory
   PRIMARY KEY (pkTaxSettingsCategory)
 );
 
+CREATE TABLE TransferMoney
+(
+  pkTransferMoney       BIGINT   NOT NULL,
+  type                  INT      NOT NULL,
+  value                 REAL     NOT NULL,
+  date                  DATETIME NOT NULL,
+  note                  VARCHAR  NOT NULL,
+  status                INT      NOT NULL DEFAULT 0,
+  fkFromMainBankAccount BIGINT   NOT NULL,
+  fkToBankAccount       BIGINT   NOT NULL,
+  fkBalance             BIGINT   NOT NULL,
+  fkCurrency            BIGINT   NOT NULL,
+  fkWithdrawMoney       BIGINT   NULL    ,
+  PRIMARY KEY (pkTransferMoney)
+);
+
 CREATE TABLE User
 (
-  pkUser                 BIGINT   NOT NULL,
-  username               VARCHAR  NOT NULL,
-  password               VARCHAR  NOT NULL,
-  dateOfCreatingAccount  DATETIME NOT NULL,
-  dateOfFinishingAccount DATETIME NULL    ,
-  facebookAccount        VARCHAR  NULL    ,
-  status                 INT      NOT NULL DEFAULT 0,
-  fkPerson               BIGINT   NULL    ,
-  fkJuridicalPerson      BIGINT   NULL    ,
-  fkEmployee             BIGINT   NULL    ,
+  pkUser                  BIGINT   NOT NULL,
+  username                VARCHAR  NOT NULL,
+  password                VARCHAR  NOT NULL,
+  dateOfCreatingAccount   DATETIME NOT NULL,
+  dateOfFinishingAccount  DATETIME NULL    ,
+  facebookAccount         VARCHAR  NULL    ,
+  useTwoStepsVerification BOOLEAN  NOT NULL,
+  status                  INT      NOT NULL DEFAULT 0,
+  fkPerson                BIGINT   NULL    ,
+  fkJuridicalPerson       BIGINT   NULL    ,
+  fkEmployee              BIGINT   NULL    ,
+  fkBalance               BIGINT   NOT NULL,
   PRIMARY KEY (pkUser)
+);
+
+CREATE TABLE UserActivation
+(
+  pkUserActivation           BIGINT   NOT NULL,
+  type                       INT      NOT NULL DEFAULT 1,
+  code                       VARCHAR  NOT NULL,
+  date                       DATETIME NOT NULL,
+  dateActive                 DATETIME NULL    ,
+  status                     INT      NOT NULL,
+  fkUserLogin                BIGINT   NOT NULL,
+  fkEmail                    BIGINT   NULL    ,
+  fkSMS                      BIGINT   NULL    ,
+  fkUserTwoStepsVerification BIGINT   NULL    ,
+  PRIMARY KEY (pkUserActivation)
 );
 
 CREATE TABLE UserAttachment
 (
   pkUserAttachment         BIGINT  NOT NULL,
+  isProfilePicture         BOOLEAN NOT NULL DEFAULT false,
+  status                   INT     NOT NULL DEFAULT 0,
   fkAttachment             BIGINT  NOT NULL,
   fkUser                   BIGINT  NOT NULL,
   fkIdentificationDocument BIGINT  NULL    ,
-  isLogo                   BOOLEAN NOT NULL DEFAULT false,
   PRIMARY KEY (pkUserAttachment)
+);
+
+CREATE TABLE UserLogin
+(
+  pkUserLogin BIGINT   NOT NULL,
+  dispositive VARCHAR  NOT NULL,
+  date        DATETIME NOT NULL,
+  trust       BOOLEAN  NOT NULL DEFAULT false,
+  status      INT      NOT NULL DEFAULT 0,
+  fkAddress   BIGINT   NOT NULL,
+  fkUser      BIGINT   NULL    ,
+  PRIMARY KEY (pkUserLogin)
 );
 
 CREATE TABLE UserPayment
 (
   pkUserPayment BIGINT  NOT NULL,
   type          INT     NOT NULL,
-  card          VARCHAR NULL    ,
-  name          VARCHAR NULL    ,
-  expiraton     DATE    NULL    ,
-  applePay      VARCHAR NULL    ,
-  googlePay     VARCHAR NULL    ,
-  payPal        VARCHAR NULL    ,
   default       BOOLEAN NOT NULL DEFAULT false,
   status        INT     NOT NULL DEFAULT 0,
   fkUser        BIGINT  NOT NULL,
   PRIMARY KEY (pkUserPayment)
 );
 
+CREATE TABLE UserPaymentCreditCard
+(
+  pkUserPaymentCreditCard BIGINT  NOT NULL,
+  cardNumber              VARCHAR NOT NULL,
+  nameOnCard              VARCHAR NOT NULL,
+  dateOfExpirity          DATE    NOT NULL,
+  fkUserPayment           BIGINT  NOT NULL,
+  fkCreditCardBrand       BIGINT  NULL    ,
+  PRIMARY KEY (pkUserPaymentCreditCard)
+);
+
+CREATE TABLE UserPaymentDigitalWallet
+(
+  pkUserPaymentDigitalWallet BIGINT   NOT NULL,
+  userCodeAccess             VARCHAR  NOT NULL,
+  datePairedUp               DATETIME NOT NULL,
+  status                     INT      NOT NULL,
+  fkUserPayment              BIGINT   NOT NULL,
+  fkDigitalWallet            BIGINT   NOT NULL,
+  PRIMARY KEY (pkUserPaymentDigitalWallet)
+);
+
 CREATE TABLE UserSettings
 (
   pkUserSettings        BIGINT NOT NULL,
+  status                INT    NOT NULL DEFAULT 0,
   fkUser                BIGINT NOT NULL,
   fkSignatureAttachment BIGINT NULL    ,
   PRIMARY KEY (pkUserSettings)
+);
+
+CREATE TABLE UserTwoStepsVerification
+(
+  pkUserTwoStepsVerification BIGINT   NOT NULL,
+  dispositive                VARCHAR  NOT NULL,
+  code                       VARCHAR  NOT NULL,
+  datePaired                 DATETIME NOT NULL,
+  status                     INT      NOT NULL,
+  fkUser                     BIGINT   NULL    ,
+  PRIMARY KEY (pkUserTwoStepsVerification)
 );
 
 CREATE TABLE WithdrawMoney
@@ -611,10 +791,12 @@ CREATE TABLE WithdrawMoney
   pkWithdrawMoney  BIGINT   NOT NULL,
   value            REAL     NOT NULL,
   date             DATETIME NOT NULL,
+  dateApprovated   DATETIME NULL    ,
   status           INT      NOT NULL DEFAULT 0,
   fkCurrency       BIGINT   NOT NULL,
   fkBankAccount    BIGINT   NOT NULL,
-  fkUser           BIGINT   NOT NULL,
+  fkUser           BIGINT   NULL    ,
+  fkCity           BIGINT   NULL    ,
   fkScreenApproval BIGINT   NULL    ,
   PRIMARY KEY (pkWithdrawMoney)
 );
@@ -759,11 +941,6 @@ ALTER TABLE Receive
     FOREIGN KEY (pkServiceOrder)
     REFERENCES ServiceOrder (pkServiceOrder);
 
-ALTER TABLE Receive
-  ADD CONSTRAINT FK_JuridicalPerson_TO_Receive
-    FOREIGN KEY (pkJuridicalPerson)
-    REFERENCES JuridicalPerson (pkJuridicalPerson);
-
 ALTER TABLE ReceivePayment
   ADD CONSTRAINT FK_Receive_TO_ReceivePayment
     FOREIGN KEY (fkReceive)
@@ -796,7 +973,7 @@ ALTER TABLE Person
 
 ALTER TABLE JuridicalPerson
   ADD CONSTRAINT FK_Country_TO_JuridicalPerson
-    FOREIGN KEY (pkOriginCountry)
+    FOREIGN KEY (fkOriginCountry)
     REFERENCES Country (pkCountry);
 
 ALTER TABLE IdentificationDocument
@@ -904,11 +1081,6 @@ ALTER TABLE ScreenApproval
     FOREIGN KEY (fkScreen)
     REFERENCES Screen (pkScreen);
 
-ALTER TABLE ScreenApproval
-  ADD CONSTRAINT FK_JuridicalPerson_TO_ScreenApproval
-    FOREIGN KEY (fkJuridicalPerson)
-    REFERENCES JuridicalPerson (pkJuridicalPerson);
-
 ALTER TABLE Approval
   ADD CONSTRAINT FK_ScreenApproval_TO_Approval
     FOREIGN KEY (fkScreenApproval)
@@ -1004,11 +1176,6 @@ ALTER TABLE CreditCardBrand
     FOREIGN KEY (fkCountry)
     REFERENCES Country (pkCountry);
 
-ALTER TABLE PaymentCredit
-  ADD CONSTRAINT FK_CreditCardBrand_TO_PaymentCredit
-    FOREIGN KEY (pkCreditCardBrand)
-    REFERENCES CreditCardBrand (pkCreditCardBrand);
-
 ALTER TABLE ServiceOrderPayment
   ADD CONSTRAINT FK_Payment_TO_ServiceOrderPayment
     FOREIGN KEY (fkPayment)
@@ -1028,11 +1195,6 @@ ALTER TABLE PaymentCredit
   ADD CONSTRAINT FK_Payment_TO_PaymentCredit
     FOREIGN KEY (fkPayment)
     REFERENCES Payment (pkPayment);
-
-ALTER TABLE PaymentDigitalWallet
-  ADD CONSTRAINT FK_DigitalWallet_TO_PaymentDigitalWallet
-    FOREIGN KEY (fkDigitalWallet)
-    REFERENCES DigitalWallet (pkDigitalWallet);
 
 ALTER TABLE WithdrawMoney
   ADD CONSTRAINT FK_User_TO_WithdrawMoney
@@ -1074,13 +1236,13 @@ ALTER TABLE Approval
     FOREIGN KEY (fkWithdrawMoney)
     REFERENCES WithdrawMoney (pkWithdrawMoney);
 
-ALTER TABLE Deposit
-  ADD CONSTRAINT FK_MainBankAccount_TO_Deposit
+ALTER TABLE TransferMoney
+  ADD CONSTRAINT FK_MainBankAccount_TO_TransferMoney
     FOREIGN KEY (fkFromMainBankAccount)
     REFERENCES MainBankAccount (pkMainBankAccount);
 
-ALTER TABLE Deposit
-  ADD CONSTRAINT FK_BankAccount_TO_Deposit
+ALTER TABLE TransferMoney
+  ADD CONSTRAINT FK_BankAccount_TO_TransferMoney
     FOREIGN KEY (fkToBankAccount)
     REFERENCES BankAccount (pkBankAccount);
 
@@ -1089,13 +1251,13 @@ ALTER TABLE BankAccount
     FOREIGN KEY (fkCurrency)
     REFERENCES Currency (pkCurrency);
 
-ALTER TABLE Deposit
-  ADD CONSTRAINT FK_Balance_TO_Deposit
+ALTER TABLE TransferMoney
+  ADD CONSTRAINT FK_Balance_TO_TransferMoney
     FOREIGN KEY (fkBalance)
     REFERENCES Balance (pkBalance);
 
-ALTER TABLE Deposit
-  ADD CONSTRAINT FK_WithdrawMoney_TO_Deposit
+ALTER TABLE TransferMoney
+  ADD CONSTRAINT FK_WithdrawMoney_TO_TransferMoney
     FOREIGN KEY (fkWithdrawMoney)
     REFERENCES WithdrawMoney (pkWithdrawMoney);
 
@@ -1151,7 +1313,7 @@ ALTER TABLE HelpCenterMessages
 
 ALTER TABLE HelpCenter
   ADD CONSTRAINT FK_Contact_TO_HelpCenter
-    FOREIGN KEY (fkContact)
+    FOREIGN KEY (fkContactPhone)
     REFERENCES Contact (pkContact);
 
 ALTER TABLE HelpCenter
@@ -1163,5 +1325,240 @@ ALTER TABLE HelpCenter
   ADD CONSTRAINT FK_User_TO_HelpCenter
     FOREIGN KEY (fkUser)
     REFERENCES User (pkUser);
+
+ALTER TABLE UserPaymentDigitalWallet
+  ADD CONSTRAINT FK_UserPayment_TO_UserPaymentDigitalWallet
+    FOREIGN KEY (fkUserPayment)
+    REFERENCES UserPayment (pkUserPayment);
+
+ALTER TABLE UserPaymentDigitalWallet
+  ADD CONSTRAINT FK_DigitalWallet_TO_UserPaymentDigitalWallet
+    FOREIGN KEY (fkDigitalWallet)
+    REFERENCES DigitalWallet (pkDigitalWallet);
+
+ALTER TABLE PaymentDigitalWallet
+  ADD CONSTRAINT FK_UserPaymentDigitalWallet_TO_PaymentDigitalWallet
+    FOREIGN KEY (fkUserPaymentDigitalWallet)
+    REFERENCES UserPaymentDigitalWallet (pkUserPaymentDigitalWallet);
+
+ALTER TABLE MainBankAccount
+  ADD CONSTRAINT FK_ScreenApproval_TO_MainBankAccount
+    FOREIGN KEY (fkScreenApproval)
+    REFERENCES ScreenApproval (pkScreenApproval);
+
+ALTER TABLE Approval
+  ADD CONSTRAINT FK_MainBankAccount_TO_Approval
+    FOREIGN KEY (fkMainBankAccount)
+    REFERENCES MainBankAccount (pkMainBankAccount);
+
+ALTER TABLE UserPaymentCreditCard
+  ADD CONSTRAINT FK_UserPayment_TO_UserPaymentCreditCard
+    FOREIGN KEY (fkUserPayment)
+    REFERENCES UserPayment (pkUserPayment);
+
+ALTER TABLE PaymentCredit
+  ADD CONSTRAINT FK_UserPaymentCreditCard_TO_PaymentCredit
+    FOREIGN KEY (fkUserPaymentCreditCard)
+    REFERENCES UserPaymentCreditCard (pkUserPaymentCreditCard);
+
+ALTER TABLE UserPaymentCreditCard
+  ADD CONSTRAINT FK_CreditCardBrand_TO_UserPaymentCreditCard
+    FOREIGN KEY (fkCreditCardBrand)
+    REFERENCES CreditCardBrand (pkCreditCardBrand);
+
+ALTER TABLE BankAccount
+  ADD CONSTRAINT FK_UserPayment_TO_BankAccount
+    FOREIGN KEY (fkUserPayment)
+    REFERENCES UserPayment (pkUserPayment);
+
+ALTER TABLE ApprovalAttachment
+  ADD CONSTRAINT FK_Approval_TO_ApprovalAttachment
+    FOREIGN KEY (fkApproval)
+    REFERENCES Approval (pkApproval);
+
+ALTER TABLE ApprovalAttachment
+  ADD CONSTRAINT FK_Attachment_TO_ApprovalAttachment
+    FOREIGN KEY (fkAttachment)
+    REFERENCES Attachment (pkAttachment);
+
+ALTER TABLE HelpCenterTypicalAsks
+  ADD CONSTRAINT FK_HelpCenterTypicalAsks_TO_HelpCenterTypicalAsks
+    FOREIGN KEY (fkHelpCenterTypicalAsks)
+    REFERENCES HelpCenterTypicalAsks (pkHelpCenterTypicalAsks);
+
+ALTER TABLE HelpCenter
+  ADD CONSTRAINT FK_Contact_TO_HelpCenter1
+    FOREIGN KEY (fkContactEmail)
+    REFERENCES Contact (pkContact);
+
+ALTER TABLE HelpCenterService
+  ADD CONSTRAINT FK_HelpCenter_TO_HelpCenterService
+    FOREIGN KEY (fkHelpCenter)
+    REFERENCES HelpCenter (pkHelpCenter);
+
+ALTER TABLE HelpCenterTypicalAsks
+  ADD CONSTRAINT FK_Language_TO_HelpCenterTypicalAsks
+    FOREIGN KEY (fkLanguage)
+    REFERENCES Language (pkLanguage);
+
+ALTER TABLE HelpCenterService
+  ADD CONSTRAINT FK_User_TO_HelpCenterService
+    FOREIGN KEY (fkUser)
+    REFERENCES User (pkUser);
+
+ALTER TABLE EmailController
+  ADD CONSTRAINT FK_Country_TO_EmailController
+    FOREIGN KEY (fkCountry)
+    REFERENCES Country (pkCountry);
+
+ALTER TABLE SMSController
+  ADD CONSTRAINT FK_Country_TO_SMSController
+    FOREIGN KEY (fkCountry)
+    REFERENCES Country (pkCountry);
+
+ALTER TABLE Email
+  ADD CONSTRAINT FK_EmailController_TO_Email
+    FOREIGN KEY (fkEmailController)
+    REFERENCES EmailController (pkEmailController);
+
+ALTER TABLE Email
+  ADD CONSTRAINT FK_Contact_TO_Email
+    FOREIGN KEY (fkContact)
+    REFERENCES Contact (pkContact);
+
+ALTER TABLE SMS
+  ADD CONSTRAINT FK_SMSController_TO_SMS
+    FOREIGN KEY (fkSMSController)
+    REFERENCES SMSController (pkSMSController);
+
+ALTER TABLE HelpCenterService
+  ADD CONSTRAINT FK_SMS_TO_HelpCenterService
+    FOREIGN KEY (pkSMS)
+    REFERENCES SMS (pkSMS);
+
+ALTER TABLE HelpCenterService
+  ADD CONSTRAINT FK_Email_TO_HelpCenterService
+    FOREIGN KEY (fkEmail)
+    REFERENCES Email (pkEmail);
+
+ALTER TABLE HelpCenterService
+  ADD CONSTRAINT FK_SMS_TO_HelpCenterService1
+    FOREIGN KEY (fkSMS)
+    REFERENCES SMS (pkSMS);
+
+ALTER TABLE UserActivation
+  ADD CONSTRAINT FK_Email_TO_UserActivation
+    FOREIGN KEY (fkEmail)
+    REFERENCES Email (pkEmail);
+
+ALTER TABLE UserActivation
+  ADD CONSTRAINT FK_SMS_TO_UserActivation
+    FOREIGN KEY (fkSMS)
+    REFERENCES SMS (pkSMS);
+
+ALTER TABLE UserLogin
+  ADD CONSTRAINT FK_Address_TO_UserLogin
+    FOREIGN KEY (fkAddress)
+    REFERENCES Address (pkAddress);
+
+ALTER TABLE UserActivation
+  ADD CONSTRAINT FK_UserTwoStepsVerification_TO_UserActivation
+    FOREIGN KEY (fkUserTwoStepsVerification)
+    REFERENCES UserTwoStepsVerification (pkUserTwoStepsVerification);
+
+ALTER TABLE UserTwoStepsVerification
+  ADD CONSTRAINT FK_User_TO_UserTwoStepsVerification
+    FOREIGN KEY (fkUser)
+    REFERENCES User (pkUser);
+
+ALTER TABLE UserActivation
+  ADD CONSTRAINT FK_UserLogin_TO_UserActivation
+    FOREIGN KEY (fkUserLogin)
+    REFERENCES UserLogin (pkUserLogin);
+
+ALTER TABLE UserLogin
+  ADD CONSTRAINT FK_User_TO_UserLogin
+    FOREIGN KEY (fkUser)
+    REFERENCES User (pkUser);
+
+ALTER TABLE Log
+  ADD CONSTRAINT FK_Country_TO_Log
+    FOREIGN KEY (fkCountry)
+    REFERENCES Country (pkCountry);
+
+ALTER TABLE Approval
+  ADD CONSTRAINT FK_LogBackuped_TO_Approval
+    FOREIGN KEY (fkLogBackuped)
+    REFERENCES LogBackuped (pkLogBackuped);
+
+ALTER TABLE LogBackuped
+  ADD CONSTRAINT FK_ScreenApproval_TO_LogBackuped
+    FOREIGN KEY (fkScreenApproval)
+    REFERENCES ScreenApproval (pkScreenApproval);
+
+ALTER TABLE LogBackuped
+  ADD CONSTRAINT FK_Country_TO_LogBackuped
+    FOREIGN KEY (fkCountry)
+    REFERENCES Country (pkCountry);
+
+ALTER TABLE Country
+  ADD CONSTRAINT FK_JuridicalPerson_TO_Country
+    FOREIGN KEY (fkJuridicalPerson)
+    REFERENCES JuridicalPerson (pkJuridicalPerson);
+
+ALTER TABLE ScreenApproval
+  ADD CONSTRAINT FK_Country_TO_ScreenApproval
+    FOREIGN KEY (fkCountry)
+    REFERENCES Country (pkCountry);
+
+ALTER TABLE CityAccount
+  ADD CONSTRAINT FK_City_TO_CityAccount
+    FOREIGN KEY (fkCity)
+    REFERENCES City (pkCity);
+
+ALTER TABLE TaxSettings
+  ADD CONSTRAINT FK_CityAccount_TO_TaxSettings
+    FOREIGN KEY (fkCityAccount)
+    REFERENCES CityAccount (pkCityAccount);
+
+ALTER TABLE CityAccount
+  ADD CONSTRAINT FK_BankAccount_TO_CityAccount
+    FOREIGN KEY (fkBankAccount)
+    REFERENCES BankAccount (pkBankAccount);
+
+ALTER TABLE TransferMoney
+  ADD CONSTRAINT FK_Currency_TO_TransferMoney
+    FOREIGN KEY (fkCurrency)
+    REFERENCES Currency (pkCurrency);
+
+ALTER TABLE City
+  ADD CONSTRAINT FK_JuridicalPerson_TO_City
+    FOREIGN KEY (fkJuridicalPerson)
+    REFERENCES JuridicalPerson (pkJuridicalPerson);
+
+ALTER TABLE City
+  ADD CONSTRAINT FK_Balance_TO_City
+    FOREIGN KEY (fkBalance)
+    REFERENCES Balance (pkBalance);
+
+ALTER TABLE Receive
+  ADD CONSTRAINT FK_User_TO_Receive
+    FOREIGN KEY (fkUser)
+    REFERENCES User (pkUser);
+
+ALTER TABLE ServiceOrderTax
+  ADD CONSTRAINT FK_City_TO_ServiceOrderTax
+    FOREIGN KEY (fkCity)
+    REFERENCES City (pkCity);
+
+ALTER TABLE WithdrawMoney
+  ADD CONSTRAINT FK_City_TO_WithdrawMoney
+    FOREIGN KEY (fkCity)
+    REFERENCES City (pkCity);
+
+ALTER TABLE User
+  ADD CONSTRAINT FK_Balance_TO_User
+    FOREIGN KEY (fkBalance)
+    REFERENCES Balance (pkBalance);
 
       
