@@ -17,7 +17,7 @@
     },
     "database": "MySQL",
     "databaseName": "Servicos",
-    "canvasType": "ERD",
+    "canvasType": "GeneratorCode",
     "language": "TypeScript",
     "tableCase": "pascalCase",
     "columnCase": "camelCase",
@@ -10440,10 +10440,10 @@
           }
         ],
         "ui": {
-          "active": true,
+          "active": false,
           "left": 1610,
           "top": 525,
-          "zIndex": 6250,
+          "zIndex": 6251,
           "widthName": 86,
           "widthComment": 60
         },
