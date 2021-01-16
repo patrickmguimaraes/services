@@ -3,11 +3,11 @@
 CREATE TABLE Address
 (
   pkAddress         BIGINT  NOT NULL,
+  type              INT     NOT NULL DEFAULT 1,
   street            VARCHAR NOT NULL,
   number            VARCHAR NOT NULL,
   neighborhood      VARCHAR NOT NULL,
   zipCode           VARCHAR NULL    ,
-  city              VARCHAR NOT NULL,
   status            INT     NOT NULL DEFAULT 0,
   fkPerson          BIGINT  NULL    ,
   fkJuridicalPerson BIGINT  NULL    ,
@@ -70,18 +70,30 @@ CREATE TABLE Balance
   consolidatedValue REAL     NULL    ,
   consolidatedDate  DATETIME NULL    ,
   status            INT      NOT NULL DEFAULT 0,
-  fkJuridicalPerson BIGINT   NOT NULL,
-  fkCurrency        BIGINT   NULL    ,
+  fkJuridicalPerson BIGINT   NULL    ,
+  fkPerson          BIGINT   NULL    ,
+  fkCurrency        BIGINT   NOT NULL,
+  fkBalanceBlocked  BIGINT   NULL    ,
   PRIMARY KEY (pkBalance)
+);
+
+CREATE TABLE BalanceBlocked
+(
+  pkBalanceBlocked BIGINT NOT NULL,
+  value            REAL   NOT NULL,
+  status           INT    NOT NULL DEFAULT 0,
+  fkLoanMoney      BIGINT NULL    ,
+  PRIMARY KEY (pkBalanceBlocked)
 );
 
 CREATE TABLE Bank
 (
-  pkBank    BIGINT  NOT NULL,
-  name      VARCHAR NOT NULL,
-  code      VARCHAR NOT NULL,
-  status    INT     NOT NULL DEFAULT 0,
-  fkCountry BIGINT  NULL    ,
+  pkBank            BIGINT  NOT NULL,
+  name              VARCHAR NOT NULL,
+  code              VARCHAR NOT NULL,
+  status            INT     NOT NULL DEFAULT 0,
+  fkCountry         BIGINT  NULL    ,
+  fkJuridicalPerson BIGINT  NULL    ,
   PRIMARY KEY (pkBank)
 );
 
@@ -96,7 +108,18 @@ CREATE TABLE BankAccount
   fkJuridicalPerson BIGINT  NULL    ,
   fkPerson          BIGINT  NULL    ,
   fkUserPayment     BIGINT  NULL    ,
+  fkBank            BIGINT  NOT NULL,
+  fkBankBranch      BIGINT  NULL    ,
   PRIMARY KEY (pkBankAccount)
+);
+
+CREATE TABLE BankBranch
+(
+  pkBankBranch      BIGINT  NOT NULL,
+  branch            VARCHAR NULL    ,
+  fkBank            BIGINT  NULL    ,
+  fkJuridicalPerson BIGINT  NULL    ,
+  PRIMARY KEY (pkBankBranch)
 );
 
 CREATE TABLE Category
@@ -141,14 +164,21 @@ CREATE TABLE Contact
   PRIMARY KEY (pkContact)
 );
 
+CREATE TABLE Counter
+(
+  pkCounter         BIGINT NOT NULL,
+  status            INT    NOT NULL DEFAULT 0,
+  fkJuridicalPerson BIGINT NULL    ,
+  PRIMARY KEY (pkCounter)
+);
+
 CREATE TABLE Country
 (
-  pkCountry         BIGINT  NOT NULL,
-  name              VARCHAR NOT NULL,
-  abbreviation      VARCHAR NOT NULL,
-  status            INT     NOT NULL DEFAULT 0,
-  fkLanguage        BIGINT  NOT NULL,
-  fkJuridicalPerson BIGINT  NULL    ,
+  pkCountry    BIGINT  NOT NULL,
+  name         VARCHAR NOT NULL,
+  abbreviation VARCHAR NOT NULL,
+  status       INT     NOT NULL DEFAULT 0,
+  fkLanguage   BIGINT  NOT NULL,
   PRIMARY KEY (pkCountry)
 );
 
@@ -322,6 +352,8 @@ CREATE TABLE JuridicalPerson
   name              VARCHAR NOT NULL,
   socialReason      VARCHAR NOT NULL,
   openedDate        DATE    NOT NULL,
+  companyType       INT     NOT NULL DEFAULT 1,
+  legalStructure    INT     NOT NULL DEFAULT 1,
   fkOriginCountry   BIGINT  NULL    ,
   PRIMARY KEY (pkJuridicalPerson)
 );
@@ -333,6 +365,74 @@ CREATE TABLE Language
   status     INT     NOT NULL DEFAULT 0,
   fkCountry  BIGINT  NULL    ,
   PRIMARY KEY (pkLanguage)
+);
+
+CREATE TABLE LoanBankProgram
+(
+  pkLoanBankAssociated     BIGINT   NOT NULL,
+  name                     VARCHAR  NOT NULL,
+  associationBeginning     DATETIME NOT NULL,
+  associationEnd           DATETIME NOT NULL,
+  interest                 REAL     NOT NULL,
+  status                   INT      NOT NULL DEFAULT 0,
+  fkBank                   BIGINT   NOT NULL,
+  fkLoanBankProgramProfile BIGINT   NULL    ,
+  PRIMARY KEY (pkLoanBankAssociated)
+);
+
+CREATE TABLE LoanBankProgramProfile
+(
+  pkLoanBankProgramProfile BIGINT  NOT NULL,
+  forCompany               BOOLEAN NOT NULL DEFAULT false,
+  minimumMonths            INT     NOT NULL,
+  maximumMonths            INT     NOT NULL,
+  minimumSpend             REAL    NULL    ,
+  minimumSpendSinceDate    DATE    NULL    ,
+  PRIMARY KEY (pkLoanBankProgramProfile)
+);
+
+CREATE TABLE LoanBankProgramProfileBranch
+(
+  pkLoanBankProgramProfileBranch BIGINT NOT NULL,
+  status                         INT    NOT NULL DEFAULT 0,
+  pkLoanBankProgramProfile       BIGINT NULL    ,
+  pkBankBranch                   BIGINT NULL    ,
+  PRIMARY KEY (pkLoanBankProgramProfileBranch)
+);
+
+CREATE TABLE LoanBankProgramProfileCategory
+(
+  pkLoanBankProgramProfileCategory BIGINT NOT NULL,
+  status                           INT    NULL    ,
+  fkCategory                       BIGINT NOT NULL,
+  fkLoanBankProgramProfile         BIGINT NOT NULL,
+  PRIMARY KEY (pkLoanBankProgramProfileCategory)
+);
+
+CREATE TABLE LoanMoney
+(
+  pkLoanMoney        BIGINT   NOT NULL,
+  value              REAL     NOT NULL,
+  date               DATETIME NOT NULL,
+  status             INT      NOT NULL,
+  fkPerson           BIGINT   NULL    ,
+  fkJuridicalPerson  BIGINT   NULL    ,
+  fkLoanMoneyRequest BIGINT   NOT NULL,
+  fkPayment          BIGINT   NULL    ,
+  fkCurrency         BIGINT   NULL    ,
+  PRIMARY KEY (pkLoanMoney)
+);
+
+CREATE TABLE LoanMoneyRequest
+(
+  pkLoanMoneyRequest   BIGINT   NOT NULL,
+  value                REAL     NOT NULL,
+  months               INT      NOT NULL,
+  date                 DATETIME NULL    ,
+  fkJuridicalPerson    BIGINT   NULL    ,
+  fkPerson             BIGINT   NULL    ,
+  fkLoanBankAssociated BIGINT   NULL    ,
+  PRIMARY KEY (pkLoanMoneyRequest)
 );
 
 CREATE TABLE Log
@@ -382,6 +482,15 @@ CREATE TABLE Payment
   PRIMARY KEY (pkPayment)
 );
 
+CREATE TABLE PaymentBalance
+(
+  pkPaymentBalance BIGINT NOT NULL,
+  status           INT    NOT NULL DEFAULT 0,
+  fkPayment        BIGINT NOT NULL,
+  fkBalanceBlocked BIGINT NOT NULL,
+  PRIMARY KEY (pkPaymentBalance)
+);
+
 CREATE TABLE PaymentBill
 (
   pkPaymentBill BIGINT  NOT NULL,
@@ -418,6 +527,15 @@ CREATE TABLE PaymentDigitalWallet
   fkPayment                  BIGINT NULL    ,
   fkUserPaymentDigitalWallet BIGINT NULL    ,
   PRIMARY KEY (pkPaymentDigitalWallet)
+);
+
+CREATE TABLE PaymentTransfer
+(
+  pkPaymentTransfer BIGINT NOT NULL,
+  status            INT    NOT NULL DEFAULT 0,
+  fkPayment         BIGINT NULL    ,
+  fkBankAccount     BIGINT NULL    ,
+  PRIMARY KEY (pkPaymentTransfer)
 );
 
 CREATE TABLE Person
@@ -576,9 +694,11 @@ CREATE TABLE ServiceOrderTax
   tax               REAL     NOT NULL,
   status            INT      NOT NULL DEFAULT 0,
   fkServiceOrder    BIGINT   NOT NULL,
+  fkTaxFormula      BIGINT   NOT NULL,
   fkBalance         BIGINT   NOT NULL,
   fkTaxSetting      BIGINT   NOT NULL,
   fkCity            BIGINT   NOT NULL,
+  fkCounter         BIGINT   NULL    ,
   PRIMARY KEY (pkServiceOrderTax)
 );
 
@@ -621,6 +741,18 @@ CREATE TABLE State
   PRIMARY KEY (pkState)
 );
 
+CREATE TABLE TaxFormula
+(
+  pkTaxFormula  BIGINT  NOT NULL,
+  name          VARCHAR NOT NULL,
+  percentage    REAL    NULL    ,
+  companyType   INT     NOT NULL DEFAULT 1,
+  status        INT     NOT NULL DEFAULT 0,
+  fkTaxSettings BIGINT  NULL    ,
+  fkTaxFormula  BIGINT  NULL    ,
+  PRIMARY KEY (pkTaxFormula)
+);
+
 CREATE TABLE TaxSettingAttachment
 (
   pkTaxSettingAttachment BIGINT  NOT NULL,
@@ -634,7 +766,6 @@ CREATE TABLE TaxSettingAttachment
 CREATE TABLE TaxSettings
 (
   pkTaxSettings     BIGINT   NOT NULL,
-  tax               REAL     NOT NULL,
   filedDate         DATETIME NOT NULL,
   approvatedDate    DATETIME NULL    ,
   expiredDate       DATETIME NULL    ,
@@ -661,6 +792,16 @@ CREATE TABLE TaxSettingsCategory
   fkTaxSettings         BIGINT  NULL    ,
   fkCategory            BIGINT  NULL    ,
   PRIMARY KEY (pkTaxSettingsCategory)
+);
+
+CREATE TABLE TaxSettingsCounter
+(
+  pkTaxSettingsCounter BIGINT NOT NULL,
+  byPercent            REAL   NULL    ,
+  byOrder              REAL   NULL    ,
+  status               INT    NOT NULL DEFAULT 0,
+  fkTaxSettings        BIGINT NOT NULL,
+  PRIMARY KEY (pkTaxSettingsCounter)
 );
 
 CREATE TABLE TransferMoney
@@ -692,6 +833,7 @@ CREATE TABLE User
   fkPerson                BIGINT   NULL    ,
   fkJuridicalPerson       BIGINT   NULL    ,
   fkEmployee              BIGINT   NULL    ,
+  fkCounter               BIGINT   NULL    ,
   fkBalance               BIGINT   NOT NULL,
   PRIMARY KEY (pkUser)
 );
@@ -950,11 +1092,6 @@ ALTER TABLE Balance
   ADD CONSTRAINT FK_JuridicalPerson_TO_Balance
     FOREIGN KEY (fkJuridicalPerson)
     REFERENCES JuridicalPerson (pkJuridicalPerson);
-
-ALTER TABLE ServiceOrderTax
-  ADD CONSTRAINT FK_ServiceOrder_TO_ServiceOrderTax
-    FOREIGN KEY (fkServiceOrder)
-    REFERENCES ServiceOrder (pkServiceOrder);
 
 ALTER TABLE ServiceOrderTax
   ADD CONSTRAINT FK_Balance_TO_ServiceOrderTax
@@ -1501,11 +1638,6 @@ ALTER TABLE LogBackuped
     FOREIGN KEY (fkCountry)
     REFERENCES Country (pkCountry);
 
-ALTER TABLE Country
-  ADD CONSTRAINT FK_JuridicalPerson_TO_Country
-    FOREIGN KEY (fkJuridicalPerson)
-    REFERENCES JuridicalPerson (pkJuridicalPerson);
-
 ALTER TABLE ScreenApproval
   ADD CONSTRAINT FK_Country_TO_ScreenApproval
     FOREIGN KEY (fkCountry)
@@ -1560,5 +1692,175 @@ ALTER TABLE User
   ADD CONSTRAINT FK_Balance_TO_User
     FOREIGN KEY (fkBalance)
     REFERENCES Balance (pkBalance);
+
+ALTER TABLE Counter
+  ADD CONSTRAINT FK_JuridicalPerson_TO_Counter
+    FOREIGN KEY (fkJuridicalPerson)
+    REFERENCES JuridicalPerson (pkJuridicalPerson);
+
+ALTER TABLE User
+  ADD CONSTRAINT FK_Counter_TO_User
+    FOREIGN KEY (fkCounter)
+    REFERENCES Counter (pkCounter);
+
+ALTER TABLE ServiceOrderTax
+  ADD CONSTRAINT FK_Counter_TO_ServiceOrderTax
+    FOREIGN KEY (fkCounter)
+    REFERENCES Counter (pkCounter);
+
+ALTER TABLE TaxFormula
+  ADD CONSTRAINT FK_TaxSettings_TO_TaxFormula
+    FOREIGN KEY (fkTaxSettings)
+    REFERENCES TaxSettings (pkTaxSettings);
+
+ALTER TABLE TaxFormula
+  ADD CONSTRAINT FK_TaxFormula_TO_TaxFormula
+    FOREIGN KEY (fkTaxFormula)
+    REFERENCES TaxFormula (pkTaxFormula);
+
+ALTER TABLE ServiceOrderTax
+  ADD CONSTRAINT FK_ServiceOrder_TO_ServiceOrderTax
+    FOREIGN KEY (fkServiceOrder)
+    REFERENCES ServiceOrder (pkServiceOrder);
+
+ALTER TABLE ServiceOrderTax
+  ADD CONSTRAINT FK_TaxFormula_TO_ServiceOrderTax
+    FOREIGN KEY (fkTaxFormula)
+    REFERENCES TaxFormula (pkTaxFormula);
+
+ALTER TABLE TaxSettingsCounter
+  ADD CONSTRAINT FK_TaxSettings_TO_TaxSettingsCounter
+    FOREIGN KEY (fkTaxSettings)
+    REFERENCES TaxSettings (pkTaxSettings);
+
+ALTER TABLE Balance
+  ADD CONSTRAINT FK_Person_TO_Balance
+    FOREIGN KEY (fkPerson)
+    REFERENCES Person (pkPerson);
+
+ALTER TABLE LoanMoney
+  ADD CONSTRAINT FK_Person_TO_LoanMoney
+    FOREIGN KEY (fkPerson)
+    REFERENCES Person (pkPerson);
+
+ALTER TABLE LoanMoney
+  ADD CONSTRAINT FK_JuridicalPerson_TO_LoanMoney
+    FOREIGN KEY (fkJuridicalPerson)
+    REFERENCES JuridicalPerson (pkJuridicalPerson);
+
+ALTER TABLE LoanMoney
+  ADD CONSTRAINT FK_LoanMoneyRequest_TO_LoanMoney
+    FOREIGN KEY (fkLoanMoneyRequest)
+    REFERENCES LoanMoneyRequest (pkLoanMoneyRequest);
+
+ALTER TABLE PaymentTransfer
+  ADD CONSTRAINT FK_Payment_TO_PaymentTransfer
+    FOREIGN KEY (fkPayment)
+    REFERENCES Payment (pkPayment);
+
+ALTER TABLE LoanMoney
+  ADD CONSTRAINT FK_Payment_TO_LoanMoney
+    FOREIGN KEY (fkPayment)
+    REFERENCES Payment (pkPayment);
+
+ALTER TABLE LoanMoneyRequest
+  ADD CONSTRAINT FK_JuridicalPerson_TO_LoanMoneyRequest
+    FOREIGN KEY (fkJuridicalPerson)
+    REFERENCES JuridicalPerson (pkJuridicalPerson);
+
+ALTER TABLE LoanMoneyRequest
+  ADD CONSTRAINT FK_Person_TO_LoanMoneyRequest
+    FOREIGN KEY (fkPerson)
+    REFERENCES Person (pkPerson);
+
+ALTER TABLE LoanBankProgram
+  ADD CONSTRAINT FK_Bank_TO_LoanBankProgram
+    FOREIGN KEY (fkBank)
+    REFERENCES Bank (pkBank);
+
+ALTER TABLE LoanBankProgram
+  ADD CONSTRAINT FK_LoanBankProgramProfile_TO_LoanBankProgram
+    FOREIGN KEY (fkLoanBankProgramProfile)
+    REFERENCES LoanBankProgramProfile (pkLoanBankProgramProfile);
+
+ALTER TABLE LoanBankProgramProfileCategory
+  ADD CONSTRAINT FK_Category_TO_LoanBankProgramProfileCategory
+    FOREIGN KEY (fkCategory)
+    REFERENCES Category (pkCategory);
+
+ALTER TABLE LoanBankProgramProfileCategory
+  ADD CONSTRAINT FK_LoanBankProgramProfile_TO_LoanBankProgramProfileCategory
+    FOREIGN KEY (fkLoanBankProgramProfile)
+    REFERENCES LoanBankProgramProfile (pkLoanBankProgramProfile);
+
+ALTER TABLE LoanMoneyRequest
+  ADD CONSTRAINT FK_LoanBankProgram_TO_LoanMoneyRequest
+    FOREIGN KEY (fkLoanBankAssociated)
+    REFERENCES LoanBankProgram (pkLoanBankAssociated);
+
+ALTER TABLE LoanMoney
+  ADD CONSTRAINT FK_Currency_TO_LoanMoney
+    FOREIGN KEY (fkCurrency)
+    REFERENCES Currency (pkCurrency);
+
+ALTER TABLE Bank
+  ADD CONSTRAINT FK_JuridicalPerson_TO_Bank
+    FOREIGN KEY (fkJuridicalPerson)
+    REFERENCES JuridicalPerson (pkJuridicalPerson);
+
+ALTER TABLE BankAccount
+  ADD CONSTRAINT FK_BankBranch_TO_BankAccount
+    FOREIGN KEY (fkBankBranch)
+    REFERENCES BankBranch (pkBankBranch);
+
+ALTER TABLE BankAccount
+  ADD CONSTRAINT FK_Bank_TO_BankAccount
+    FOREIGN KEY (fkBank)
+    REFERENCES Bank (pkBank);
+
+ALTER TABLE BankBranch
+  ADD CONSTRAINT FK_Bank_TO_BankBranch
+    FOREIGN KEY (fkBank)
+    REFERENCES Bank (pkBank);
+
+ALTER TABLE BankBranch
+  ADD CONSTRAINT FK_JuridicalPerson_TO_BankBranch
+    FOREIGN KEY (fkJuridicalPerson)
+    REFERENCES JuridicalPerson (pkJuridicalPerson);
+
+ALTER TABLE LoanBankProgramProfileBranch
+  ADD CONSTRAINT FK_LoanBankProgramProfile_TO_LoanBankProgramProfileBranch
+    FOREIGN KEY (pkLoanBankProgramProfile)
+    REFERENCES LoanBankProgramProfile (pkLoanBankProgramProfile);
+
+ALTER TABLE LoanBankProgramProfileBranch
+  ADD CONSTRAINT FK_BankBranch_TO_LoanBankProgramProfileBranch
+    FOREIGN KEY (pkBankBranch)
+    REFERENCES BankBranch (pkBankBranch);
+
+ALTER TABLE Balance
+  ADD CONSTRAINT FK_BalanceBlocked_TO_Balance
+    FOREIGN KEY (fkBalanceBlocked)
+    REFERENCES BalanceBlocked (pkBalanceBlocked);
+
+ALTER TABLE BalanceBlocked
+  ADD CONSTRAINT FK_LoanMoney_TO_BalanceBlocked
+    FOREIGN KEY (fkLoanMoney)
+    REFERENCES LoanMoney (pkLoanMoney);
+
+ALTER TABLE PaymentTransfer
+  ADD CONSTRAINT FK_BankAccount_TO_PaymentTransfer
+    FOREIGN KEY (fkBankAccount)
+    REFERENCES BankAccount (pkBankAccount);
+
+ALTER TABLE PaymentBalance
+  ADD CONSTRAINT FK_BalanceBlocked_TO_PaymentBalance
+    FOREIGN KEY (fkBalanceBlocked)
+    REFERENCES BalanceBlocked (pkBalanceBlocked);
+
+ALTER TABLE PaymentBalance
+  ADD CONSTRAINT FK_Payment_TO_PaymentBalance
+    FOREIGN KEY (fkPayment)
+    REFERENCES Payment (pkPayment);
 
       
