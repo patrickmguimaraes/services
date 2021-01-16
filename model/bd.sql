@@ -37,7 +37,6 @@ CREATE TABLE Approval
   fkScreenApproval  BIGINT   NOT NULL,
   fkTaxSettings     BIGINT   NULL    ,
   fkWithdrawMoney   BIGINT   NULL    ,
-  fkServiceContract BIGINT   NULL    ,
   fkMainBankAccount BIGINT   NULL    ,
   fkLogBackuped     BIGINT   NULL    ,
   PRIMARY KEY (pkApproval)
@@ -73,16 +72,17 @@ CREATE TABLE Balance
   fkJuridicalPerson BIGINT   NULL    ,
   fkPerson          BIGINT   NULL    ,
   fkCurrency        BIGINT   NOT NULL,
-  fkBalanceBlocked  BIGINT   NULL    ,
   PRIMARY KEY (pkBalance)
 );
 
 CREATE TABLE BalanceBlocked
 (
-  pkBalanceBlocked BIGINT NOT NULL,
-  value            REAL   NOT NULL,
-  status           INT    NOT NULL DEFAULT 0,
-  fkLoanMoney      BIGINT NULL    ,
+  pkBalanceBlocked BIGINT  NOT NULL,
+  note             VARCHAR NOT NULL,
+  value            REAL    NOT NULL,
+  status           INT     NOT NULL DEFAULT 0,
+  fkLoanMoney      BIGINT  NOT NULL,
+  fkBalance        BIGINT  NOT NULL,
   PRIMARY KEY (pkBalanceBlocked)
 );
 
@@ -129,7 +129,15 @@ CREATE TABLE Category
   code       VARCHAR NULL    ,
   status     INT     NOT NULL DEFAULT 0,
   fkCategory BIGINT  NULL    ,
+  fkCountry  BIGINT  NULL    ,
   PRIMARY KEY (pkCategory)
+);
+
+CREATE TABLE CategoryContractTemplate
+(
+  pkCategoryContractTemplate BIGINT NOT NULL,
+  pkAttachment               BIGINT NULL    ,
+  PRIMARY KEY (pkCategoryContractTemplate)
 );
 
 CREATE TABLE City
@@ -149,6 +157,7 @@ CREATE TABLE CityAccount
   status        INT    NOT NULL DEFAULT 0,
   fkCity        BIGINT NOT NULL,
   fkBankAccount BIGINT NOT NULL,
+  fkTax         BIGINT NOT NULL,
   PRIMARY KEY (pkCityAccount)
 );
 
@@ -167,8 +176,10 @@ CREATE TABLE Contact
 CREATE TABLE Counter
 (
   pkCounter         BIGINT NOT NULL,
+  dateApproved      DATE   NULL    ,
   status            INT    NOT NULL DEFAULT 0,
-  fkJuridicalPerson BIGINT NULL    ,
+  fkJuridicalPerson BIGINT NOT NULL,
+  fkPerson          BIGINT NULL    ,
   PRIMARY KEY (pkCounter)
 );
 
@@ -241,7 +252,6 @@ CREATE TABLE Employee
 (
   pkEmployee        BIGINT  NOT NULL,
   profession        VARCHAR NOT NULL,
-  start             DATE    NOT NULL,
   status            INT     NOT NULL DEFAULT 0,
   fkPerson          BIGINT  NOT NULL,
   fkJuridicalPerson BIGINT  NOT NULL,
@@ -254,11 +264,56 @@ CREATE TABLE EmployeeResponsibility
   position                 VARCHAR  NOT NULL,
   salary                   REAL     NOT NULL,
   commission               REAL     NOT NULL,
-  start                    DATETIME NOT NULL,
+  beginning                DATETIME NOT NULL,
   end                      DATETIME NULL    ,
   status                   INT      NOT NULL DEFAULT 0,
   fkEmployee               BIGINT   NOT NULL,
   PRIMARY KEY (pkEmployeeResponsibility)
+);
+
+CREATE TABLE FiscalModule
+(
+  pkFiscalModule                BIGINT   NOT NULL,
+  date                          DATETIME NOT NULL,
+  status                        INT      NOT NULL DEFAULT 0,
+  fkTaxSettings                 BIGINT   NOT NULL,
+  fkServiceOrder                BIGINT   NOT NULL,
+  fkFiscalModuleCounterApproved BIGINT   NULL    ,
+  PRIMARY KEY (pkFiscalModule)
+);
+
+CREATE TABLE FiscalModuleCanceled
+(
+  pkFiscalModuleCanceled BIGINT   NOT NULL,
+  date                   DATETIME NULL    ,
+  status                 INT      NOT NULL DEFAULT 0,
+  fkTaxSettingsRevenue   BIGINT   NULL    ,
+  fkFiscalModuleRevenue  BIGINT   NULL    ,
+  fkFiscalModule         BIGINT   NULL    ,
+  PRIMARY KEY (pkFiscalModuleCanceled)
+);
+
+CREATE TABLE FiscalModuleCounterApproved
+(
+  pkFiscalModuleCounterApproved BIGINT   NOT NULL,
+  date                          DATETIME NOT NULL,
+  status                        INT      NOT NULL DEFAULT 0,
+  fkCounter                     BIGINT   NOT NULL,
+  fkAttachment                  BIGINT   NULL    ,
+  PRIMARY KEY (pkFiscalModuleCounterApproved)
+);
+
+CREATE TABLE FiscalModuleRevenue
+(
+  pkFiscalModuleRevenue   BIGINT   NOT NULL,
+  isSendingInGroup        BOOLEAN  NOT NULL DEFAULT false,
+  dateSent                DATETIME NULL    ,
+  answeredRevenueItemCode VARCHAR  NULL    ,
+  status                  INT      NOT NULL DEFAULT 0,
+  fkTaxSettingsRevenue    BIGINT   NOT NULL,
+  fkFiscalModule          BIGINT   NULL    ,
+  fkServiceOrder          BIGINT   NULL    ,
+  PRIMARY KEY (pkFiscalModuleRevenue)
 );
 
 CREATE TABLE HelpCenter
@@ -336,7 +391,7 @@ CREATE TABLE IdentificationDocument
   pkIdentificationDocument BIGINT  NOT NULL,
   type                     VARCHAR NOT NULL,
   value                    VARCHAR NOT NULL,
-  dateOfIssue                      NULL    ,
+  dateOfIssue              DATE    NULL    ,
   dateOfExpiration         DATE    NULL    ,
   status                   INT     NOT NULL DEFAULT 0,
   fkPerson                 BIGINT  NULL    ,
@@ -344,6 +399,15 @@ CREATE TABLE IdentificationDocument
   fkState                  BIGINT  NULL    ,
   fkCountry                BIGINT  NULL    ,
   PRIMARY KEY (pkIdentificationDocument)
+);
+
+CREATE TABLE IdentificationDocumentAttachment
+(
+  pkIdentificationDocumentAttachment BIGINT NOT NULL,
+  status                             INT    NOT NULL DEFAULT 0,
+  fkIdentificationDocument           BIGINT NULL    ,
+  fkAttachment                       BIGINT NULL    ,
+  PRIMARY KEY (pkIdentificationDocumentAttachment)
 );
 
 CREATE TABLE JuridicalPerson
@@ -371,9 +435,9 @@ CREATE TABLE LoanBankProgram
 (
   pkLoanBankAssociated     BIGINT   NOT NULL,
   name                     VARCHAR  NOT NULL,
-  associationBeginning     DATETIME NOT NULL,
-  associationEnd           DATETIME NOT NULL,
-  interest                 REAL     NOT NULL,
+  beginning                DATETIME NOT NULL,
+  end                      DATETIME NOT NULL,
+  interestRate             REAL     NOT NULL,
   status                   INT      NOT NULL DEFAULT 0,
   fkBank                   BIGINT   NOT NULL,
   fkLoanBankProgramProfile BIGINT   NULL    ,
@@ -388,6 +452,7 @@ CREATE TABLE LoanBankProgramProfile
   maximumMonths            INT     NOT NULL,
   minimumSpend             REAL    NULL    ,
   minimumSpendSinceDate    DATE    NULL    ,
+  status                   INT     NOT NULL DEFAULT 0,
   PRIMARY KEY (pkLoanBankProgramProfile)
 );
 
@@ -395,8 +460,8 @@ CREATE TABLE LoanBankProgramProfileBranch
 (
   pkLoanBankProgramProfileBranch BIGINT NOT NULL,
   status                         INT    NOT NULL DEFAULT 0,
-  pkLoanBankProgramProfile       BIGINT NULL    ,
-  pkBankBranch                   BIGINT NULL    ,
+  fkLoanBankProgramProfile       BIGINT NULL    ,
+  fkBankBranch                   BIGINT NULL    ,
   PRIMARY KEY (pkLoanBankProgramProfileBranch)
 );
 
@@ -425,13 +490,14 @@ CREATE TABLE LoanMoney
 
 CREATE TABLE LoanMoneyRequest
 (
-  pkLoanMoneyRequest   BIGINT   NOT NULL,
-  value                REAL     NOT NULL,
-  months               INT      NOT NULL,
-  date                 DATETIME NULL    ,
-  fkJuridicalPerson    BIGINT   NULL    ,
-  fkPerson             BIGINT   NULL    ,
-  fkLoanBankAssociated BIGINT   NULL    ,
+  pkLoanMoneyRequest BIGINT   NOT NULL,
+  value              REAL     NOT NULL,
+  months             INT      NOT NULL,
+  date               DATETIME NOT NULL,
+  status             INT      NOT NULL DEFAULT 0,
+  fkJuridicalPerson  BIGINT   NULL    ,
+  fkPerson           BIGINT   NULL    ,
+  fkLoanBankProgram  BIGINT   NOT NULL,
   PRIMARY KEY (pkLoanMoneyRequest)
 );
 
@@ -553,30 +619,24 @@ CREATE TABLE Person
 CREATE TABLE PrepayTax
 (
   pkPrepayTax BIGINT NOT NULL,
+  value       REAL   NOT NULL,
   status      INT    NOT NULL DEFAULT 0,
   fkBalance   BIGINT NOT NULL,
   fkPayment   BIGINT NOT NULL,
+  fkUser      BIGINT NOT NULL,
   PRIMARY KEY (pkPrepayTax)
 );
 
-CREATE TABLE Receive
+CREATE TABLE Refound
 (
-  pkReceive      BIGINT NOT NULL,
-  value          REAL   NULL    ,
-  status         INT    NOT NULL DEFAULT 0,
-  pkServiceOrder BIGINT NOT NULL,
-  fkUser         BIGINT NULL    ,
-  PRIMARY KEY (pkReceive)
-);
-
-CREATE TABLE ReceivePayment
-(
-  pkReceivePayment      BIGINT NOT NULL,
-  status                INT    NOT NULL DEFAULT 0,
-  fkReceive             BIGINT NOT NULL,
-  fkServiceOrderPayment BIGINT NOT NULL,
-  fkBalance             BIGINT NOT NULL,
-  PRIMARY KEY (pkReceivePayment)
+  pkRefound           BIGINT   NOT NULL,
+  note                VARCHAR  NOT NULL,
+  value               REAL     NOT NULL,
+  date                DATETIME NOT NULL,
+  fkBalance           BIGINT   NULL    ,
+  fkBalanceBlocked    BIGINT   NULL    ,
+  fkBalanceRefoundFee BIGINT   NULL    ,
+  PRIMARY KEY (pkRefound)
 );
 
 CREATE TABLE Screen
@@ -614,18 +674,21 @@ CREATE TABLE Service
   pkService                BIGINT  NOT NULL,
   cost                     REAL    NOT NULL,
   time                     INT     NOT NULL,
+  discountRate             REAL    NOT NULL DEFAULT 0,
+  cancelRate               REAL    NOT NULL DEFAULT 0,
   withContract             BOOLEAN NOT NULL DEFAULT false,
   status                   INT     NOT NULL DEFAULT 0,
-  fkEmployeeResponsibility BIGINT  NOT NULL,
+  fkEmployeeResponsibility BIGINT  NULL    ,
   fkAddress                BIGINT  NULL    ,
-  fkServiceCategory        BIGINT  NULL    ,
+  fkServiceCategory        BIGINT  NOT NULL,
+  fkJuridicalPerson        BIGINT  NULL    ,
   PRIMARY KEY (pkService)
 );
 
 CREATE TABLE ServiceAppointment
 (
   pkServiceAppointment BIGINT   NOT NULL,
-  start                DATETIME NULL    ,
+  beginning            DATETIME NULL    ,
   end                  DATETIME NULL    ,
   status               INT      NOT NULL DEFAULT 0,
   fkService            BIGINT   NOT NULL,
@@ -642,70 +705,109 @@ CREATE TABLE ServiceCategory
   PRIMARY KEY (pkServiceCategory)
 );
 
-CREATE TABLE ServiceContract
-(
-  pkServiceContract     BIGINT   NOT NULL,
-  status                INT      NOT NULL,
-  filedDate             DATETIME NOT NULL,
-  expiredDate           DATETIME NULL    ,
-  pkService             BIGINT   NULL    ,
-  fkTemplateAttachment  BIGINT   NULL    ,
-  fkSignatureAttachment BIGINT   NULL    ,
-  fkScreenApproval      BIGINT   NULL    ,
-  PRIMARY KEY (pkServiceContract)
-);
-
 CREATE TABLE ServiceOrder
 (
   pkServiceOrder    BIGINT   NOT NULL,
-  number            VARCHAR  NOT NULL,
-  code              VARCHAR  NULL    ,
+  code              VARCHAR  NOT NULL,
   date              DATETIME NOT NULL,
   cost              REAL     NOT NULL,
   discount          REAL     NOT NULL DEFAULT 0,
+  fee               REAL     NOT NULL DEFAULT 0,
   total             REAL     NOT NULL,
-  servicesCharge    REAL     NOT NULL DEFAULT 0,
   primaryPayment    INT      NOT NULL DEFAULT 1,
   status            INT      NOT NULL DEFAULT 0,
   fkAppointment     BIGINT   NOT NULL,
-  fkPerson          BIGINT   NULL    ,
   fkJuridicalPerson BIGINT   NOT NULL,
+  fkCurrency        BIGINT   NOT NULL,
+  fkPerson          BIGINT   NULL    ,
   fkAddress         BIGINT   NULL    ,
   PRIMARY KEY (pkServiceOrder)
+);
+
+CREATE TABLE ServiceOrderAttachment
+(
+  pkServiceOrderAttachment BIGINT NOT NULL,
+  status                   INT    NOT NULL DEFAULT 0,
+  fkServiceOrder           BIGINT NOT NULL,
+  pkServiceContract        BIGINT NULL    ,
+  fkUser                   BIGINT NULL    ,
+  fkAttachment             BIGINT NULL    ,
+  PRIMARY KEY (pkServiceOrderAttachment)
+);
+
+CREATE TABLE ServiceOrderCanceled
+(
+  pkServiceOrderCanceled BIGINT   NOT NULL,
+  date                   DATETIME NULL    ,
+  detail                 TEXT     NOT NULL,
+  status                 INT      NOT NULL DEFAULT 0,
+  pkServiceOrder         BIGINT   NOT NULL,
+  fkUser                 BIGINT   NOT NULL,
+  PRIMARY KEY (pkServiceOrderCanceled)
 );
 
 CREATE TABLE ServiceOrderPayment
 (
   pkServiceOrderPayment BIGINT   NOT NULL,
   number                INT      NOT NULL,
+  note                  VARCHAR  NULL    ,
   date                  DATETIME NOT NULL,
   value                 REAL     NOT NULL,
   paymentType           INT      NOT NULL DEFAULT 1,
   status                INT      NOT NULL DEFAULT 0,
   fkServiceOrder        BIGINT   NOT NULL,
-  fkPayment             BIGINT   NULL    ,
+  fkPayment             BIGINT   NOT NULL,
+  fkBalance             BIGINT   NOT NULL,
   PRIMARY KEY (pkServiceOrderPayment)
+);
+
+CREATE TABLE ServiceOrderRefund
+(
+  pkServiceOrderRefund   BIGINT   NOT NULL,
+  value                  REAL     NOT NULL,
+  fee                    REAL     NOT NULL,
+  date                   DATETIME NULL    ,
+  status                 INT      NOT NULL DEFAULT 0,
+  fkServiceOrderPayment  BIGINT   NOT NULL,
+  fkServiceOrderCanceled BIGINT   NOT NULL,
+  fkRefound              BIGINT   NOT NULL,
+  pkRefoundFee           BIGINT   NOT NULL,
+  PRIMARY KEY (pkServiceOrderRefund)
 );
 
 CREATE TABLE ServiceOrderTax
 (
   pkServiceOrderTax BIGINT   NOT NULL,
-  date              DATETIME NULL    ,
-  tax               REAL     NOT NULL,
+  note              VARCHAR  NOT NULL,
+  date              DATETIME NOT NULL,
+  value             REAL     NOT NULL,
   status            INT      NOT NULL DEFAULT 0,
   fkServiceOrder    BIGINT   NOT NULL,
   fkTaxFormula      BIGINT   NOT NULL,
-  fkBalance         BIGINT   NOT NULL,
   fkTaxSetting      BIGINT   NOT NULL,
-  fkCity            BIGINT   NOT NULL,
-  fkCounter         BIGINT   NULL    ,
+  fkFiscalModule    BIGINT   NULL    ,
+  fkBalanceCity     BIGINT   NULL    ,
+  pkBalanceCompany  BIGINT   NULL    ,
   PRIMARY KEY (pkServiceOrderTax)
+);
+
+CREATE TABLE ServiceTemplateContract
+(
+  pkServiceTemplateContract  BIGINT   NOT NULL,
+  beginning                  DATETIME NOT NULL,
+  end                        DATETIME NULL    ,
+  status                     INT      NOT NULL,
+  fkCategoryContractTemplate BIGINT   NOT NULL,
+  fkService                  BIGINT   NOT NULL,
+  fkTemplateAttachment       BIGINT   NOT NULL,
+  fkSignatureAttachment      BIGINT   NOT NULL,
+  PRIMARY KEY (pkServiceTemplateContract)
 );
 
 CREATE TABLE ServiceUnavailable
 (
   pkServiceUnavailable BIGINT NOT NULL,
-  start                DATE   NOT NULL,
+  beginning            DATE   NOT NULL,
   end                  DATE   NULL    ,
   status               INT    NOT NULL DEFAULT 0,
   fkService            BIGINT NOT NULL,
@@ -741,16 +843,43 @@ CREATE TABLE State
   PRIMARY KEY (pkState)
 );
 
+CREATE TABLE Tax
+(
+  pkTax  BIGINT  NOT NULL,
+  name   VARCHAR NOT NULL,
+  status INT     NOT NULL DEFAULT 0,
+  PRIMARY KEY (pkTax)
+);
+
 CREATE TABLE TaxFormula
 (
-  pkTaxFormula  BIGINT  NOT NULL,
-  name          VARCHAR NOT NULL,
-  percentage    REAL    NULL    ,
-  companyType   INT     NOT NULL DEFAULT 1,
-  status        INT     NOT NULL DEFAULT 0,
-  fkTaxSettings BIGINT  NULL    ,
-  fkTaxFormula  BIGINT  NULL    ,
+  pkTaxFormula          BIGINT NOT NULL,
+  number                INT    NOT NULL,
+  rate                  REAL   NULL    ,
+  companyType           INT    NOT NULL DEFAULT 1,
+  status                INT    NOT NULL DEFAULT 0,
+  fkTax                 BIGINT NOT NULL,
+  fkTaxSettings         BIGINT NULL    ,
+  fkTaxFormula          BIGINT NULL    ,
+  fkBankAccount         BIGINT NULL    ,
+  fkTaxSettingsCategory BIGINT NULL    ,
   PRIMARY KEY (pkTaxFormula)
+);
+
+CREATE TABLE TaxReceipt
+(
+  pkTaxReceipt           BIGINT   NOT NULL,
+  code                   VARCHAR  NOT NULL,
+  date                   DATETIME NOT NULL,
+  dateCanceled           DATETIME NULL    ,
+  status                 INT      NOT NULL DEFAULT 0,
+  fkFiscalModule         BIGINT   NOT NULL,
+  fkUser                 BIGINT   NULL    ,
+  fkEmail                BIGINT   NULL    ,
+  fkServiceOrder         BIGINT   NULL    ,
+  pkServiceOrderCanceled BIGINT   NULL    ,
+  fkCity                 BIGINT   NULL    ,
+  PRIMARY KEY (pkTaxReceipt)
 );
 
 CREATE TABLE TaxSettingAttachment
@@ -771,13 +900,14 @@ CREATE TABLE TaxSettings
   expiredDate       DATETIME NULL    ,
   observation       TEXT     NOT NULL,
   localType         INT      NOT NULL DEFAULT 1,
-  counterNeeded     BOOLEAN  NOT NULL DEFAULT false,
+  hasRevenue        BOOLEAN  NOT NULL DEFAULT false,
   transferTaxPeriod INT      NOT NULL DEFAULT 1,
   transferTaxDay    INT      NOT NULL DEFAULT 1,
   status            INT      NOT NULL DEFAULT 0,
   fkCity            BIGINT   NOT NULL,
   fkScreenApproval  BIGINT   NOT NULL,
   fkCityAccount     BIGINT   NOT NULL,
+  fkCounter         BIGINT   NOT NULL,
   PRIMARY KEY (pkTaxSettings)
 );
 
@@ -787,7 +917,6 @@ CREATE TABLE TaxSettingsCategory
   tax                   REAL    NULL    ,
   localType             INT     NOT NULL DEFAULT 1,
   freeTax               BOOLEAN NOT NULL DEFAULT false,
-  counterNeeded         BOOLEAN NOT NULL DEFAULT false,
   status                INT     NOT NULL,
   fkTaxSettings         BIGINT  NULL    ,
   fkCategory            BIGINT  NULL    ,
@@ -796,27 +925,42 @@ CREATE TABLE TaxSettingsCategory
 
 CREATE TABLE TaxSettingsCounter
 (
-  pkTaxSettingsCounter BIGINT NOT NULL,
-  byPercent            REAL   NULL    ,
-  byOrder              REAL   NULL    ,
-  status               INT    NOT NULL DEFAULT 0,
-  fkTaxSettings        BIGINT NOT NULL,
+  pkTaxSettingsCounter BIGINT  NOT NULL,
+  byPercent            REAL    NULL    ,
+  byOrderFixedPrice    REAL    NULL    ,
+  official             BOOLEAN NOT NULL DEFAULT false,
+  substituto           BOOLEAN NOT NULL DEFAULT false,
+  status               INT     NOT NULL DEFAULT 0,
+  fkTaxSettings        BIGINT  NOT NULL,
+  fkCounter            BIGINT  NOT NULL,
   PRIMARY KEY (pkTaxSettingsCounter)
+);
+
+CREATE TABLE TaxSettingsRevenue
+(
+  pkTaxSettingsRevenue BIGINT  NOT NULL,
+  name                 VARCHAR NOT NULL,
+  code                 VARCHAR NOT NULL,
+  path                 VARCHAR NOT NULL,
+  fkTaxSettings        BIGINT  NOT NULL,
+  PRIMARY KEY (pkTaxSettingsRevenue)
 );
 
 CREATE TABLE TransferMoney
 (
   pkTransferMoney       BIGINT   NOT NULL,
   type                  INT      NOT NULL,
+  note                  VARCHAR  NOT NULL,
   value                 REAL     NOT NULL,
   date                  DATETIME NOT NULL,
-  note                  VARCHAR  NOT NULL,
+  identification        VARCHAR  NOT NULL,
   status                INT      NOT NULL DEFAULT 0,
   fkFromMainBankAccount BIGINT   NOT NULL,
   fkToBankAccount       BIGINT   NOT NULL,
   fkBalance             BIGINT   NOT NULL,
   fkCurrency            BIGINT   NOT NULL,
   fkWithdrawMoney       BIGINT   NULL    ,
+  fkFiscalModule        BIGINT   NULL    ,
   PRIMARY KEY (pkTransferMoney)
 );
 
@@ -1078,25 +1222,10 @@ ALTER TABLE ServiceOrderPayment
     FOREIGN KEY (fkServiceOrder)
     REFERENCES ServiceOrder (pkServiceOrder);
 
-ALTER TABLE Receive
-  ADD CONSTRAINT FK_ServiceOrder_TO_Receive
-    FOREIGN KEY (pkServiceOrder)
-    REFERENCES ServiceOrder (pkServiceOrder);
-
-ALTER TABLE ReceivePayment
-  ADD CONSTRAINT FK_Receive_TO_ReceivePayment
-    FOREIGN KEY (fkReceive)
-    REFERENCES Receive (pkReceive);
-
 ALTER TABLE Balance
   ADD CONSTRAINT FK_JuridicalPerson_TO_Balance
     FOREIGN KEY (fkJuridicalPerson)
     REFERENCES JuridicalPerson (pkJuridicalPerson);
-
-ALTER TABLE ServiceOrderTax
-  ADD CONSTRAINT FK_Balance_TO_ServiceOrderTax
-    FOREIGN KEY (fkBalance)
-    REFERENCES Balance (pkBalance);
 
 ALTER TABLE TaxSettings
   ADD CONSTRAINT FK_City_TO_TaxSettings
@@ -1163,18 +1292,18 @@ ALTER TABLE ServiceOrder
     FOREIGN KEY (fkAddress)
     REFERENCES Address (pkAddress);
 
-ALTER TABLE ServiceContract
-  ADD CONSTRAINT FK_Service_TO_ServiceContract
-    FOREIGN KEY (pkService)
+ALTER TABLE ServiceTemplateContract
+  ADD CONSTRAINT FK_Service_TO_ServiceTemplateContract
+    FOREIGN KEY (fkService)
     REFERENCES Service (pkService);
 
-ALTER TABLE ServiceContract
-  ADD CONSTRAINT FK_Attachment_TO_ServiceContract
+ALTER TABLE ServiceTemplateContract
+  ADD CONSTRAINT FK_Attachment_TO_ServiceTemplateContract
     FOREIGN KEY (fkTemplateAttachment)
     REFERENCES Attachment (pkAttachment);
 
-ALTER TABLE ServiceContract
-  ADD CONSTRAINT FK_Attachment_TO_ServiceContract1
+ALTER TABLE ServiceTemplateContract
+  ADD CONSTRAINT FK_Attachment_TO_ServiceTemplateContract1
     FOREIGN KEY (fkSignatureAttachment)
     REFERENCES Attachment (pkAttachment);
 
@@ -1225,16 +1354,6 @@ ALTER TABLE Approval
 
 ALTER TABLE PrepayTax
   ADD CONSTRAINT FK_Balance_TO_PrepayTax
-    FOREIGN KEY (fkBalance)
-    REFERENCES Balance (pkBalance);
-
-ALTER TABLE ReceivePayment
-  ADD CONSTRAINT FK_ServiceOrderPayment_TO_ReceivePayment
-    FOREIGN KEY (fkServiceOrderPayment)
-    REFERENCES ServiceOrderPayment (pkServiceOrderPayment);
-
-ALTER TABLE ReceivePayment
-  ADD CONSTRAINT FK_Balance_TO_ReceivePayment
     FOREIGN KEY (fkBalance)
     REFERENCES Balance (pkBalance);
 
@@ -1397,16 +1516,6 @@ ALTER TABLE TransferMoney
   ADD CONSTRAINT FK_WithdrawMoney_TO_TransferMoney
     FOREIGN KEY (fkWithdrawMoney)
     REFERENCES WithdrawMoney (pkWithdrawMoney);
-
-ALTER TABLE ServiceContract
-  ADD CONSTRAINT FK_ScreenApproval_TO_ServiceContract
-    FOREIGN KEY (fkScreenApproval)
-    REFERENCES ScreenApproval (pkScreenApproval);
-
-ALTER TABLE Approval
-  ADD CONSTRAINT FK_ServiceContract_TO_Approval
-    FOREIGN KEY (fkServiceContract)
-    REFERENCES ServiceContract (pkServiceContract);
 
 ALTER TABLE Service
   ADD CONSTRAINT FK_ServiceCategory_TO_Service
@@ -1673,15 +1782,10 @@ ALTER TABLE City
     FOREIGN KEY (fkBalance)
     REFERENCES Balance (pkBalance);
 
-ALTER TABLE Receive
-  ADD CONSTRAINT FK_User_TO_Receive
+ALTER TABLE TaxReceipt
+  ADD CONSTRAINT FK_User_TO_TaxReceipt
     FOREIGN KEY (fkUser)
     REFERENCES User (pkUser);
-
-ALTER TABLE ServiceOrderTax
-  ADD CONSTRAINT FK_City_TO_ServiceOrderTax
-    FOREIGN KEY (fkCity)
-    REFERENCES City (pkCity);
 
 ALTER TABLE WithdrawMoney
   ADD CONSTRAINT FK_City_TO_WithdrawMoney
@@ -1700,11 +1804,6 @@ ALTER TABLE Counter
 
 ALTER TABLE User
   ADD CONSTRAINT FK_Counter_TO_User
-    FOREIGN KEY (fkCounter)
-    REFERENCES Counter (pkCounter);
-
-ALTER TABLE ServiceOrderTax
-  ADD CONSTRAINT FK_Counter_TO_ServiceOrderTax
     FOREIGN KEY (fkCounter)
     REFERENCES Counter (pkCounter);
 
@@ -1795,7 +1894,7 @@ ALTER TABLE LoanBankProgramProfileCategory
 
 ALTER TABLE LoanMoneyRequest
   ADD CONSTRAINT FK_LoanBankProgram_TO_LoanMoneyRequest
-    FOREIGN KEY (fkLoanBankAssociated)
+    FOREIGN KEY (fkLoanBankProgram)
     REFERENCES LoanBankProgram (pkLoanBankAssociated);
 
 ALTER TABLE LoanMoney
@@ -1830,18 +1929,13 @@ ALTER TABLE BankBranch
 
 ALTER TABLE LoanBankProgramProfileBranch
   ADD CONSTRAINT FK_LoanBankProgramProfile_TO_LoanBankProgramProfileBranch
-    FOREIGN KEY (pkLoanBankProgramProfile)
+    FOREIGN KEY (fkLoanBankProgramProfile)
     REFERENCES LoanBankProgramProfile (pkLoanBankProgramProfile);
 
 ALTER TABLE LoanBankProgramProfileBranch
   ADD CONSTRAINT FK_BankBranch_TO_LoanBankProgramProfileBranch
-    FOREIGN KEY (pkBankBranch)
+    FOREIGN KEY (fkBankBranch)
     REFERENCES BankBranch (pkBankBranch);
-
-ALTER TABLE Balance
-  ADD CONSTRAINT FK_BalanceBlocked_TO_Balance
-    FOREIGN KEY (fkBalanceBlocked)
-    REFERENCES BalanceBlocked (pkBalanceBlocked);
 
 ALTER TABLE BalanceBlocked
   ADD CONSTRAINT FK_LoanMoney_TO_BalanceBlocked
@@ -1862,5 +1956,260 @@ ALTER TABLE PaymentBalance
   ADD CONSTRAINT FK_Payment_TO_PaymentBalance
     FOREIGN KEY (fkPayment)
     REFERENCES Payment (pkPayment);
+
+ALTER TABLE BalanceBlocked
+  ADD CONSTRAINT FK_Balance_TO_BalanceBlocked
+    FOREIGN KEY (fkBalance)
+    REFERENCES Balance (pkBalance);
+
+ALTER TABLE ServiceOrderCanceled
+  ADD CONSTRAINT FK_ServiceOrder_TO_ServiceOrderCanceled
+    FOREIGN KEY (pkServiceOrder)
+    REFERENCES ServiceOrder (pkServiceOrder);
+
+ALTER TABLE ServiceOrderCanceled
+  ADD CONSTRAINT FK_User_TO_ServiceOrderCanceled
+    FOREIGN KEY (fkUser)
+    REFERENCES User (pkUser);
+
+ALTER TABLE ServiceOrderRefund
+  ADD CONSTRAINT FK_ServiceOrderPayment_TO_ServiceOrderRefund
+    FOREIGN KEY (fkServiceOrderPayment)
+    REFERENCES ServiceOrderPayment (pkServiceOrderPayment);
+
+ALTER TABLE ServiceOrderRefund
+  ADD CONSTRAINT FK_ServiceOrderCanceled_TO_ServiceOrderRefund
+    FOREIGN KEY (fkServiceOrderCanceled)
+    REFERENCES ServiceOrderCanceled (pkServiceOrderCanceled);
+
+ALTER TABLE ServiceOrder
+  ADD CONSTRAINT FK_Currency_TO_ServiceOrder
+    FOREIGN KEY (fkCurrency)
+    REFERENCES Currency (pkCurrency);
+
+ALTER TABLE Service
+  ADD CONSTRAINT FK_JuridicalPerson_TO_Service
+    FOREIGN KEY (fkJuridicalPerson)
+    REFERENCES JuridicalPerson (pkJuridicalPerson);
+
+ALTER TABLE ServiceOrderAttachment
+  ADD CONSTRAINT FK_ServiceTemplateContract_TO_ServiceOrderAttachment
+    FOREIGN KEY (pkServiceContract)
+    REFERENCES ServiceTemplateContract (pkServiceTemplateContract);
+
+ALTER TABLE ServiceOrderAttachment
+  ADD CONSTRAINT FK_ServiceOrder_TO_ServiceOrderAttachment
+    FOREIGN KEY (fkServiceOrder)
+    REFERENCES ServiceOrder (pkServiceOrder);
+
+ALTER TABLE ServiceOrderAttachment
+  ADD CONSTRAINT FK_User_TO_ServiceOrderAttachment
+    FOREIGN KEY (fkUser)
+    REFERENCES User (pkUser);
+
+ALTER TABLE ServiceOrderAttachment
+  ADD CONSTRAINT FK_Attachment_TO_ServiceOrderAttachment
+    FOREIGN KEY (fkAttachment)
+    REFERENCES Attachment (pkAttachment);
+
+ALTER TABLE PrepayTax
+  ADD CONSTRAINT FK_User_TO_PrepayTax
+    FOREIGN KEY (fkUser)
+    REFERENCES User (pkUser);
+
+ALTER TABLE ServiceOrderRefund
+  ADD CONSTRAINT FK_Refound_TO_ServiceOrderRefund
+    FOREIGN KEY (fkRefound)
+    REFERENCES Refound (pkRefound);
+
+ALTER TABLE Category
+  ADD CONSTRAINT FK_Country_TO_Category
+    FOREIGN KEY (fkCountry)
+    REFERENCES Country (pkCountry);
+
+ALTER TABLE CategoryContractTemplate
+  ADD CONSTRAINT FK_Attachment_TO_CategoryContractTemplate
+    FOREIGN KEY (pkAttachment)
+    REFERENCES Attachment (pkAttachment);
+
+ALTER TABLE ServiceTemplateContract
+  ADD CONSTRAINT FK_CategoryContractTemplate_TO_ServiceTemplateContract
+    FOREIGN KEY (fkCategoryContractTemplate)
+    REFERENCES CategoryContractTemplate (pkCategoryContractTemplate);
+
+ALTER TABLE ServiceOrderRefund
+  ADD CONSTRAINT FK_Refound_TO_ServiceOrderRefund1
+    FOREIGN KEY (pkRefoundFee)
+    REFERENCES Refound (pkRefound);
+
+ALTER TABLE Refound
+  ADD CONSTRAINT FK_Balance_TO_Refound
+    FOREIGN KEY (fkBalance)
+    REFERENCES Balance (pkBalance);
+
+ALTER TABLE Refound
+  ADD CONSTRAINT FK_BalanceBlocked_TO_Refound
+    FOREIGN KEY (fkBalanceBlocked)
+    REFERENCES BalanceBlocked (pkBalanceBlocked);
+
+ALTER TABLE Refound
+  ADD CONSTRAINT FK_Balance_TO_Refound1
+    FOREIGN KEY (fkBalanceRefoundFee)
+    REFERENCES Balance (pkBalance);
+
+ALTER TABLE ServiceOrderPayment
+  ADD CONSTRAINT FK_Balance_TO_ServiceOrderPayment
+    FOREIGN KEY (fkBalance)
+    REFERENCES Balance (pkBalance);
+
+ALTER TABLE TaxReceipt
+  ADD CONSTRAINT FK_Email_TO_TaxReceipt
+    FOREIGN KEY (fkEmail)
+    REFERENCES Email (pkEmail);
+
+ALTER TABLE FiscalModule
+  ADD CONSTRAINT FK_TaxSettings_TO_FiscalModule
+    FOREIGN KEY (fkTaxSettings)
+    REFERENCES TaxSettings (pkTaxSettings);
+
+ALTER TABLE FiscalModule
+  ADD CONSTRAINT FK_ServiceOrder_TO_FiscalModule
+    FOREIGN KEY (fkServiceOrder)
+    REFERENCES ServiceOrder (pkServiceOrder);
+
+ALTER TABLE TaxReceipt
+  ADD CONSTRAINT FK_FiscalModule_TO_TaxReceipt
+    FOREIGN KEY (fkFiscalModule)
+    REFERENCES FiscalModule (pkFiscalModule);
+
+ALTER TABLE ServiceOrderTax
+  ADD CONSTRAINT FK_Balance_TO_ServiceOrderTax
+    FOREIGN KEY (fkBalanceCity)
+    REFERENCES Balance (pkBalance);
+
+ALTER TABLE ServiceOrderTax
+  ADD CONSTRAINT FK_FiscalModule_TO_ServiceOrderTax
+    FOREIGN KEY (fkFiscalModule)
+    REFERENCES FiscalModule (pkFiscalModule);
+
+ALTER TABLE ServiceOrderTax
+  ADD CONSTRAINT FK_Balance_TO_ServiceOrderTax1
+    FOREIGN KEY (pkBalanceCompany)
+    REFERENCES Balance (pkBalance);
+
+ALTER TABLE TaxSettingsRevenue
+  ADD CONSTRAINT FK_TaxSettings_TO_TaxSettingsRevenue
+    FOREIGN KEY (fkTaxSettings)
+    REFERENCES TaxSettings (pkTaxSettings);
+
+ALTER TABLE FiscalModuleRevenue
+  ADD CONSTRAINT FK_TaxSettingsRevenue_TO_FiscalModuleRevenue
+    FOREIGN KEY (fkTaxSettingsRevenue)
+    REFERENCES TaxSettingsRevenue (pkTaxSettingsRevenue);
+
+ALTER TABLE FiscalModuleRevenue
+  ADD CONSTRAINT FK_ServiceOrder_TO_FiscalModuleRevenue
+    FOREIGN KEY (fkServiceOrder)
+    REFERENCES ServiceOrder (pkServiceOrder);
+
+ALTER TABLE FiscalModuleRevenue
+  ADD CONSTRAINT FK_FiscalModule_TO_FiscalModuleRevenue
+    FOREIGN KEY (fkFiscalModule)
+    REFERENCES FiscalModule (pkFiscalModule);
+
+ALTER TABLE TaxReceipt
+  ADD CONSTRAINT FK_ServiceOrder_TO_TaxReceipt
+    FOREIGN KEY (fkServiceOrder)
+    REFERENCES ServiceOrder (pkServiceOrder);
+
+ALTER TABLE TaxReceipt
+  ADD CONSTRAINT FK_ServiceOrderCanceled_TO_TaxReceipt
+    FOREIGN KEY (pkServiceOrderCanceled)
+    REFERENCES ServiceOrderCanceled (pkServiceOrderCanceled);
+
+ALTER TABLE FiscalModuleCanceled
+  ADD CONSTRAINT FK_TaxSettingsRevenue_TO_FiscalModuleCanceled
+    FOREIGN KEY (fkTaxSettingsRevenue)
+    REFERENCES TaxSettingsRevenue (pkTaxSettingsRevenue);
+
+ALTER TABLE FiscalModuleCanceled
+  ADD CONSTRAINT FK_FiscalModuleRevenue_TO_FiscalModuleCanceled
+    FOREIGN KEY (fkFiscalModuleRevenue)
+    REFERENCES FiscalModuleRevenue (pkFiscalModuleRevenue);
+
+ALTER TABLE FiscalModuleCanceled
+  ADD CONSTRAINT FK_FiscalModule_TO_FiscalModuleCanceled
+    FOREIGN KEY (fkFiscalModule)
+    REFERENCES FiscalModule (pkFiscalModule);
+
+ALTER TABLE TaxReceipt
+  ADD CONSTRAINT FK_City_TO_TaxReceipt
+    FOREIGN KEY (fkCity)
+    REFERENCES City (pkCity);
+
+ALTER TABLE TransferMoney
+  ADD CONSTRAINT FK_FiscalModule_TO_TransferMoney
+    FOREIGN KEY (fkFiscalModule)
+    REFERENCES FiscalModule (pkFiscalModule);
+
+ALTER TABLE Counter
+  ADD CONSTRAINT FK_Person_TO_Counter
+    FOREIGN KEY (fkPerson)
+    REFERENCES Person (pkPerson);
+
+ALTER TABLE TaxSettingsCounter
+  ADD CONSTRAINT FK_Counter_TO_TaxSettingsCounter
+    FOREIGN KEY (fkCounter)
+    REFERENCES Counter (pkCounter);
+
+ALTER TABLE IdentificationDocumentAttachment
+  ADD CONSTRAINT FK_IdentificationDocument_TO_IdentificationDocumentAttachment
+    FOREIGN KEY (fkIdentificationDocument)
+    REFERENCES IdentificationDocument (pkIdentificationDocument);
+
+ALTER TABLE IdentificationDocumentAttachment
+  ADD CONSTRAINT FK_Attachment_TO_IdentificationDocumentAttachment
+    FOREIGN KEY (fkAttachment)
+    REFERENCES Attachment (pkAttachment);
+
+ALTER TABLE TaxFormula
+  ADD CONSTRAINT FK_BankAccount_TO_TaxFormula
+    FOREIGN KEY (fkBankAccount)
+    REFERENCES BankAccount (pkBankAccount);
+
+ALTER TABLE TaxFormula
+  ADD CONSTRAINT FK_TaxSettingsCategory_TO_TaxFormula
+    FOREIGN KEY (fkTaxSettingsCategory)
+    REFERENCES TaxSettingsCategory (pkTaxSettingsCategory);
+
+ALTER TABLE TaxFormula
+  ADD CONSTRAINT FK_Tax_TO_TaxFormula
+    FOREIGN KEY (fkTax)
+    REFERENCES Tax (pkTax);
+
+ALTER TABLE CityAccount
+  ADD CONSTRAINT FK_Tax_TO_CityAccount
+    FOREIGN KEY (fkTax)
+    REFERENCES Tax (pkTax);
+
+ALTER TABLE FiscalModule
+  ADD CONSTRAINT FK_FiscalModuleCounterApproved_TO_FiscalModule
+    FOREIGN KEY (fkFiscalModuleCounterApproved)
+    REFERENCES FiscalModuleCounterApproved (pkFiscalModuleCounterApproved);
+
+ALTER TABLE FiscalModuleCounterApproved
+  ADD CONSTRAINT FK_Counter_TO_FiscalModuleCounterApproved
+    FOREIGN KEY (fkCounter)
+    REFERENCES Counter (pkCounter);
+
+ALTER TABLE TaxSettings
+  ADD CONSTRAINT FK_Counter_TO_TaxSettings
+    FOREIGN KEY (fkCounter)
+    REFERENCES Counter (pkCounter);
+
+ALTER TABLE FiscalModuleCounterApproved
+  ADD CONSTRAINT FK_Attachment_TO_FiscalModuleCounterApproved
+    FOREIGN KEY (fkAttachment)
+    REFERENCES Attachment (pkAttachment);
 
       

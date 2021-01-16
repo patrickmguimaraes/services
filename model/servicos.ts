@@ -32,7 +32,6 @@ export interface Approval {
   fkScreenApproval: number;
   fkTaxSettings: number | null;
   fkWithdrawMoney: number | null;
-  fkServiceContract: number | null;
   fkMainBankAccount: number | null;
   fkLogBackuped: number | null;
 }
@@ -62,14 +61,15 @@ export interface Balance {
   fkJuridicalPerson: number | null;
   fkPerson: number | null;
   fkCurrency: number;
-  fkBalanceBlocked: number | null;
 }
 
 export interface BalanceBlocked {
   pkBalanceBlocked: number;
+  note: string;
   value: string;
   status: number;
-  fkLoanMoney: number | null;
+  fkLoanMoney: number;
+  fkBalance: number;
 }
 
 export interface Bank {
@@ -108,6 +108,12 @@ export interface Category {
   code: string | null;
   status: number;
   fkCategory: number | null;
+  fkCountry: number | null;
+}
+
+export interface CategoryContractTemplate {
+  pkCategoryContractTemplate: number;
+  pkAttachment: number | null;
 }
 
 export interface City {
@@ -124,6 +130,7 @@ export interface CityAccount {
   status: number;
   fkCity: number;
   fkBankAccount: number;
+  fkTax: number;
 }
 
 export interface Contact {
@@ -138,8 +145,10 @@ export interface Contact {
 
 export interface Counter {
   pkCounter: number;
+  dateApproved: string | null;
   status: number;
-  fkJuridicalPerson: number | null;
+  fkJuridicalPerson: number;
+  fkPerson: number | null;
 }
 
 export interface Country {
@@ -198,7 +207,6 @@ export interface EmailController {
 export interface Employee {
   pkEmployee: number;
   profession: string;
-  start: string;
   status: number;
   fkPerson: number;
   fkJuridicalPerson: number;
@@ -209,10 +217,47 @@ export interface EmployeeResponsibility {
   position: string;
   salary: string;
   commission: string;
-  start: string;
+  beginning: string;
   end: string | null;
   status: number;
   fkEmployee: number;
+}
+
+export interface FiscalModule {
+  pkFiscalModule: number;
+  date: string;
+  status: number;
+  fkTaxSettings: number;
+  fkServiceOrder: number;
+  fkFiscalModuleCounterApproved: number | null;
+}
+
+export interface FiscalModuleCanceled {
+  pkFiscalModuleCanceled: number;
+  date: string | null;
+  status: number;
+  fkTaxSettingsRevenue: number | null;
+  fkFiscalModuleRevenue: number | null;
+  fkFiscalModule: number | null;
+}
+
+export interface FiscalModuleCounterApproved {
+  pkFiscalModuleCounterApproved: number;
+  date: string;
+  status: number;
+  fkCounter: number;
+  fkAttachment: number | null;
+}
+
+export interface FiscalModuleRevenue {
+  pkFiscalModuleRevenue: number;
+  isSendingInGroup: boolean;
+  dateSent: string | null;
+  answeredRevenueItemCode: string | null;
+  status: number;
+  fkTaxSettingsRevenue: number;
+  fkFiscalModule: number | null;
+  fkServiceOrder: number | null;
 }
 
 export interface HelpCenter {
@@ -286,6 +331,13 @@ export interface IdentificationDocument {
   fkCountry: number | null;
 }
 
+export interface IdentificationDocumentAttachment {
+  pkIdentificationDocumentAttachment: number;
+  status: number;
+  fkIdentificationDocument: number | null;
+  fkAttachment: number | null;
+}
+
 export interface JuridicalPerson {
   pkJuridicalPerson: number;
   name: string;
@@ -306,9 +358,9 @@ export interface Language {
 export interface LoanBankProgram {
   pkLoanBankAssociated: number;
   name: string;
-  associationBeginning: string;
-  associationEnd: string;
-  interest: string;
+  beginning: string;
+  end: string;
+  interestRate: string;
   status: number;
   fkBank: number;
   fkLoanBankProgramProfile: number | null;
@@ -321,13 +373,14 @@ export interface LoanBankProgramProfile {
   maximumMonths: number;
   minimumSpend: string | null;
   minimumSpendSinceDate: string | null;
+  status: number;
 }
 
 export interface LoanBankProgramProfileBranch {
   pkLoanBankProgramProfileBranch: number;
   status: number;
-  pkLoanBankProgramProfile: number | null;
-  pkBankBranch: number | null;
+  fkLoanBankProgramProfile: number | null;
+  fkBankBranch: number | null;
 }
 
 export interface LoanBankProgramProfileCategory {
@@ -353,10 +406,11 @@ export interface LoanMoneyRequest {
   pkLoanMoneyRequest: number;
   value: string;
   months: number;
-  date: string | null;
+  date: string;
+  status: number;
   fkJuridicalPerson: number | null;
   fkPerson: number | null;
-  fkLoanBankAssociated: number | null;
+  fkLoanBankProgram: number;
 }
 
 export interface Log {
@@ -454,25 +508,21 @@ export interface Person {
 
 export interface PrepayTax {
   pkPrepayTax: number;
+  value: string;
   status: number;
   fkBalance: number;
   fkPayment: number;
+  fkUser: number;
 }
 
-export interface Receive {
-  pkReceive: number;
-  value: string | null;
-  status: number;
-  pkServiceOrder: number;
-  fkUser: number | null;
-}
-
-export interface ReceivePayment {
-  pkReceivePayment: number;
-  status: number;
-  fkReceive: number;
-  fkServiceOrderPayment: number;
-  fkBalance: number;
+export interface Refound {
+  pkRefound: number;
+  note: string;
+  value: string;
+  date: string;
+  fkBalance: number | null;
+  fkBalanceBlocked: number | null;
+  fkBalanceRefoundFee: number | null;
 }
 
 export interface Screen {
@@ -503,16 +553,19 @@ export interface Service {
   pkService: number;
   cost: string;
   time: number;
+  discountRate: string;
+  cancelRate: string;
   withContract: boolean;
   status: number;
-  fkEmployeeResponsibility: number;
+  fkEmployeeResponsibility: number | null;
   fkAddress: number | null;
-  fkServiceCategory: number | null;
+  fkServiceCategory: number;
+  fkJuridicalPerson: number | null;
 }
 
 export interface ServiceAppointment {
   pkServiceAppointment: number;
-  start: string | null;
+  beginning: string | null;
   end: string | null;
   status: number;
   fkService: number;
@@ -526,61 +579,94 @@ export interface ServiceCategory {
   fkCategory: number | null;
 }
 
-export interface ServiceContract {
-  pkServiceContract: number;
-  status: number;
-  filedDate: string;
-  expiredDate: string | null;
-  pkService: number | null;
-  fkTemplateAttachment: number | null;
-  fkSignatureAttachment: number | null;
-  fkScreenApproval: number | null;
-}
-
 export interface ServiceOrder {
   pkServiceOrder: number;
-  number: string;
-  code: string | null;
+  code: string;
   date: string;
   cost: string;
   discount: string;
+  fee: string;
   total: string;
-  servicesCharge: string;
   primaryPayment: number;
   status: number;
   fkAppointment: number;
-  fkPerson: number | null;
   fkJuridicalPerson: number;
+  fkCurrency: number;
+  fkPerson: number | null;
   fkAddress: number | null;
+}
+
+export interface ServiceOrderAttachment {
+  pkServiceOrderAttachment: number;
+  status: number;
+  fkServiceOrder: number;
+  pkServiceContract: number | null;
+  fkUser: number | null;
+  fkAttachment: number | null;
+}
+
+export interface ServiceOrderCanceled {
+  pkServiceOrderCanceled: number;
+  date: string | null;
+  detail: string;
+  status: number;
+  pkServiceOrder: number;
+  fkUser: number;
 }
 
 export interface ServiceOrderPayment {
   pkServiceOrderPayment: number;
   number: number;
+  note: string | null;
   date: string;
   value: string;
   paymentType: number;
   status: number;
   fkServiceOrder: number;
-  fkPayment: number | null;
+  fkPayment: number;
+  fkBalance: number;
+}
+
+export interface ServiceOrderRefund {
+  pkServiceOrderRefund: number;
+  value: string;
+  fee: string;
+  date: string | null;
+  status: number;
+  fkServiceOrderPayment: number;
+  fkServiceOrderCanceled: number;
+  fkRefound: number;
+  pkRefoundFee: number;
 }
 
 export interface ServiceOrderTax {
   pkServiceOrderTax: number;
-  date: string | null;
-  tax: string;
+  note: string;
+  date: string;
+  value: string;
   status: number;
   fkServiceOrder: number;
   fkTaxFormula: number;
-  fkBalance: number;
   fkTaxSetting: number;
-  fkCity: number;
-  fkCounter: number | null;
+  fkFiscalModule: number | null;
+  fkBalanceCity: number | null;
+  pkBalanceCompany: number | null;
+}
+
+export interface ServiceTemplateContract {
+  pkServiceTemplateContract: number;
+  beginning: string;
+  end: string | null;
+  status: number;
+  fkCategoryContractTemplate: number;
+  fkService: number;
+  fkTemplateAttachment: number;
+  fkSignatureAttachment: number;
 }
 
 export interface ServiceUnavailable {
   pkServiceUnavailable: number;
-  start: string;
+  beginning: string;
   end: string | null;
   status: number;
   fkService: number;
@@ -609,14 +695,37 @@ export interface State {
   fkCountry: number;
 }
 
+export interface Tax {
+  pkTax: number;
+  name: string;
+  status: number;
+}
+
 export interface TaxFormula {
   pkTaxFormula: number;
-  name: string;
-  percentage: string | null;
+  number: number;
+  rate: string | null;
   companyType: number;
   status: number;
+  fkTax: number;
   fkTaxSettings: number | null;
   fkTaxFormula: number | null;
+  fkBankAccount: number | null;
+  fkTaxSettingsCategory: number | null;
+}
+
+export interface TaxReceipt {
+  pkTaxReceipt: number;
+  code: string;
+  date: string;
+  dateCanceled: string | null;
+  status: number;
+  fkFiscalModule: number;
+  fkUser: number | null;
+  fkEmail: number | null;
+  fkServiceOrder: number | null;
+  pkServiceOrderCanceled: number | null;
+  fkCity: number | null;
 }
 
 export interface TaxSettingAttachment {
@@ -634,13 +743,14 @@ export interface TaxSettings {
   expiredDate: string | null;
   observation: string;
   localType: number;
-  counterNeeded: boolean;
+  hasRevenue: boolean;
   transferTaxPeriod: number;
   transferTaxDay: number;
   status: number;
   fkCity: number;
   fkScreenApproval: number;
   fkCityAccount: number;
+  fkCounter: number;
 }
 
 export interface TaxSettingsCategory {
@@ -648,7 +758,6 @@ export interface TaxSettingsCategory {
   tax: string | null;
   localType: number;
   freeTax: boolean;
-  counterNeeded: boolean;
   status: number;
   fkTaxSettings: number | null;
   fkCategory: number | null;
@@ -657,23 +766,36 @@ export interface TaxSettingsCategory {
 export interface TaxSettingsCounter {
   pkTaxSettingsCounter: number;
   byPercent: string | null;
-  byOrder: string | null;
+  byOrderFixedPrice: string | null;
+  official: boolean;
+  substituto: boolean;
   status: number;
+  fkTaxSettings: number;
+  fkCounter: number;
+}
+
+export interface TaxSettingsRevenue {
+  pkTaxSettingsRevenue: number;
+  name: string;
+  code: string;
+  path: string;
   fkTaxSettings: number;
 }
 
 export interface TransferMoney {
   pkTransferMoney: number;
   type: number;
+  note: string;
   value: string;
   date: string;
-  note: string;
+  identification: string;
   status: number;
   fkFromMainBankAccount: number;
   fkToBankAccount: number;
   fkBalance: number;
   fkCurrency: number;
   fkWithdrawMoney: number | null;
+  fkFiscalModule: number | null;
 }
 
 export interface User {
