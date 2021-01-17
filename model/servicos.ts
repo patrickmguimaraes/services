@@ -119,9 +119,10 @@ export interface CategoryContractTemplate {
 export interface City {
   pkCity: number;
   name: string;
+  abbreviation: string;
   status: number;
   fkState: number;
-  fkJuridicalPerson: number | null;
+  fkDepartmentOfFinance: number | null;
   fkBalance: number | null;
 }
 
@@ -176,6 +177,16 @@ export interface Currency {
   fkCountry: number | null;
 }
 
+export interface DepartmentOfFinance {
+  pkDepartmentOfFinance: number;
+  region: string | null;
+  status: number;
+  fkJuridicalPerson: number;
+  fkResponsable: number;
+  fkAddress: number;
+  fkState: number;
+}
+
 export interface DigitalWallet {
   pkDigitalWallet: number;
   name: string;
@@ -225,39 +236,33 @@ export interface EmployeeResponsibility {
 
 export interface FiscalModule {
   pkFiscalModule: number;
-  date: string;
+  code: string;
+  url: string;
   status: number;
   fkTaxSettings: number;
-  fkServiceOrder: number;
-  fkFiscalModuleCounterApproved: number | null;
 }
 
-export interface FiscalModuleCanceled {
-  pkFiscalModuleCanceled: number;
-  date: string | null;
+export interface FiscalModuleFunction {
+  pkFiscalModuleFunction: number;
+  name: string;
+  code: string;
+  url: string;
+  template: string;
   status: number;
-  fkTaxSettingsRevenue: number | null;
-  fkFiscalModuleRevenue: number | null;
-  fkFiscalModule: number | null;
+  fkFiscalModule: number;
 }
 
-export interface FiscalModuleCounterApproved {
-  pkFiscalModuleCounterApproved: number;
-  date: string;
+export interface FiscalModuleFunctionTag {
+  pkFiscalModuleFunctionTag: number;
+  sequence: number;
+  tag: string | null;
+  value: string | null;
+  length: number | null;
+  completeWithZeroRight: boolean;
+  completeWithZeroLeft: boolean;
   status: number;
-  fkCounter: number;
-  fkAttachment: number | null;
-}
-
-export interface FiscalModuleRevenue {
-  pkFiscalModuleRevenue: number;
-  isSendingInGroup: boolean;
-  dateSent: string | null;
-  answeredRevenueItemCode: string | null;
-  status: number;
-  fkTaxSettingsRevenue: number;
-  fkFiscalModule: number | null;
-  fkServiceOrder: number | null;
+  fkTagReference: number;
+  fkFiscalModuleFunctionTag: number | null;
 }
 
 export interface HelpCenter {
@@ -648,9 +653,9 @@ export interface ServiceOrderTax {
   fkServiceOrder: number;
   fkTaxFormula: number;
   fkTaxSetting: number;
-  fkFiscalModule: number | null;
   fkBalanceCity: number | null;
   pkBalanceCompany: number | null;
+  fkTaxReceipt: number | null;
 }
 
 export interface ServiceTemplateContract {
@@ -695,10 +700,19 @@ export interface State {
   fkCountry: number;
 }
 
+export interface TagReference {
+  pkTagReference: number;
+  code: string;
+  name: string;
+  status: number;
+  fkCountry: number | null;
+}
+
 export interface Tax {
   pkTax: number;
   name: string;
   status: number;
+  fkCountry: number | null;
 }
 
 export interface TaxFormula {
@@ -720,12 +734,39 @@ export interface TaxReceipt {
   date: string;
   dateCanceled: string | null;
   status: number;
-  fkFiscalModule: number;
-  fkUser: number | null;
-  fkEmail: number | null;
-  fkServiceOrder: number | null;
+  fkUser: number;
+  fkEmail: number;
+  fkServiceOrder: number;
+  fkCity: number;
   pkServiceOrderCanceled: number | null;
-  fkCity: number | null;
+  fkTaxReceiptCounterApproved: number | null;
+}
+
+export interface TaxReceiptCanceled {
+  pkTaxReceiptCanceled: number;
+  date: string | null;
+  status: number;
+  fkTaxReceipt: number;
+  fkFiscalModuleFunction: number;
+  fkTaxReceiptFiscalModule: number;
+}
+
+export interface TaxReceiptCounterApproved {
+  pkTaxReceiptCounterApproved: number;
+  date: string;
+  status: number;
+  fkCounter: number;
+  fkAttachment: number | null;
+}
+
+export interface TaxReceiptFiscalModule {
+  pkTaxReceiptFiscalModule: number;
+  isSendingInGroup: boolean;
+  dateSent: string | null;
+  answeredRevenueItemCode: string | null;
+  status: number;
+  fkFiscalModuleFunction: number;
+  fkTaxReceipt: number;
 }
 
 export interface TaxSettingAttachment {
@@ -774,14 +815,6 @@ export interface TaxSettingsCounter {
   fkCounter: number;
 }
 
-export interface TaxSettingsRevenue {
-  pkTaxSettingsRevenue: number;
-  name: string;
-  code: string;
-  path: string;
-  fkTaxSettings: number;
-}
-
 export interface TransferMoney {
   pkTransferMoney: number;
   type: number;
@@ -795,7 +828,7 @@ export interface TransferMoney {
   fkBalance: number;
   fkCurrency: number;
   fkWithdrawMoney: number | null;
-  fkFiscalModule: number | null;
+  fkTaxReceipt: number | null;
 }
 
 export interface User {
