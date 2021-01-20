@@ -1,0 +1,16 @@
+{
+  "name": "services",
+  "version": "1.0.0",
+  "description": "Project base for Serviços Plataforma Digital",
+  "private": true,
+  "engines": {
+    "node": "^12.0.0"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0"
+  },
+  "devDependencies": {}
+}

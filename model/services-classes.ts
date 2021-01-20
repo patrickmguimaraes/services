@@ -1,5 +1,4 @@
 
-        
 export interface Address {
   pkAddress: number;
   type: number;
@@ -113,6 +112,7 @@ export interface Bill {
   pkBill: number;
   code: string;
   number: string;
+  controlCode: string | null;
   type: number;
   issueDate: string;
   dueDate: string;
@@ -129,6 +129,7 @@ export interface Bill {
   fkJuridicalPerson: number | null;
   fkPerson: number | null;
   fkAttachment: number;
+  fkBalanceItemFee: number | null;
 }
 
 export interface BillFinancialModuleFunction {
@@ -194,6 +195,7 @@ export interface Country {
   name: string;
   abbreviation: string;
   status: number;
+  timeZone: number | null;
   fkLanguage: number;
 }
 
@@ -203,6 +205,13 @@ export interface CreditCardBrand {
   code: string;
   status: number;
   fkCountry: number | null;
+}
+
+export interface CreditCardFinancialModuleFunction {
+  pkCreditCardFinancialModuleFunction: number;
+  status: number;
+  fkFinancialModuleFunction: number | null;
+  fkPaymentCredit: number | null;
 }
 
 export interface Currency {
@@ -281,11 +290,12 @@ export interface FinanceModuleApproval {
 export interface FinancialModule {
   pkFinancialModule: number;
   date: string;
-  controlCode: string;
+  wallet: string | null;
   status: number;
+  fkMainBankAccount: number;
+  fkLogo: number;
   fkScreenApproval: number;
   fkUser: number;
-  fkMainBankAccount: number | null;
 }
 
 export interface FinancialModuleFunction {
@@ -295,6 +305,13 @@ export interface FinancialModuleFunction {
   information: string | null;
   status: number;
   fkFinancialModule: number;
+}
+
+export interface FinancialModuleTermsOfService {
+  pkFinancialModuleTermsOfService: number;
+  status: number;
+  fkFinancialModule: number;
+  fkAttachment: number;
 }
 
 export interface FiscalModule {
@@ -567,6 +584,8 @@ export interface PaymentBill {
 
 export interface PaymentCredit {
   pkPaymentCredit: number;
+  transactionId: string;
+  code: string;
   status: number;
   fkPayment: number;
   fkUserPaymentCreditCard: number;
@@ -992,6 +1011,7 @@ export interface UserLogin {
 export interface UserPayment {
   pkUserPayment: number;
   type: number;
+  date: string;
   default: boolean;
   status: number;
   fkUser: number;
@@ -1007,9 +1027,12 @@ export interface UserPaymentCreditCard {
   pkUserPaymentCreditCard: number;
   cardNumber: string;
   nameOnCard: string;
-  dateOfExpirity: string;
+  expirationDate: string;
+  pairingId: string | null;
   fkCreditCardBrand: number;
   fkUserPayment: number;
+  fkBillingAddress: number | null;
+  pkShippingAddress: number | null;
 }
 
 export interface UserPaymentDigitalWallet {
