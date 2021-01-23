@@ -8,5 +8,5 @@ export class UserPaymentDigitalWallet {
   datePairedUp: Date = new Date();;
   digitalWallet: DigitalWallet = new DigitalWallet();
   userPayment: UserPayment = new UserPayment();
-  userPaymentDigitalWalletPaymentDigitalWallet: Array<PaymentDigitalWallet> = new Array<PaymentDigitalWallet>();
+  userPaymentDigitalWalletPaymentDigitalWalletList: Array<PaymentDigitalWallet> = new Array<PaymentDigitalWallet>();
 }

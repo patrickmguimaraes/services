@@ -9,5 +9,5 @@ export class CityAccount {
   city: City = new City();
   bankAccount: BankAccount = new BankAccount();
   tax: Tax = new Tax();
-  cityAccountTaxSettings: Array<TaxSettings> = new Array<TaxSettings>();
+  cityAccountTaxSettingsList: Array<TaxSettings> = new Array<TaxSettings>();
 }

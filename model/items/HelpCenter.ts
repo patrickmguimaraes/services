@@ -14,5 +14,5 @@ export class HelpCenter {
   contactEmail: Contact = new Contact();
   helpCenterServicesTypes: HelpCenterServicesTypes = new HelpCenterServicesTypes();
   user: User = new User();
-  helpCenterHelpCenterService: Array<HelpCenterService> = new Array<HelpCenterService>();
+  helpCenterHelpCenterServiceList: Array<HelpCenterService> = new Array<HelpCenterService>();
 }

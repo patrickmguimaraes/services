@@ -10,6 +10,6 @@ export class BalanceBlocked {
   status: number = 0;
   loanMoney: LoanMoney = new LoanMoney();
   balance: Balance = new Balance();
-  balanceBlockedRefound: Array<Refound> = new Array<Refound>();
-  balanceBlockedBalanceItem: Array<BalanceItem> = new Array<BalanceItem>();
+  balanceBlockedRefoundList: Array<Refound> = new Array<Refound>();
+  balanceBlockedBalanceItemList: Array<BalanceItem> = new Array<BalanceItem>();
 }

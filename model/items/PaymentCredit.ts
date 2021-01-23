@@ -9,5 +9,5 @@ export class PaymentCredit {
   status: number = 0;
   payment: Payment = new Payment();
   userPaymentCreditCard: UserPaymentCreditCard = new UserPaymentCreditCard();
-  paymentCreditCreditCardFinancialModuleFunction: Array<CreditCardFinancialModuleFunction> = new Array<CreditCardFinancialModuleFunction>();
+  paymentCreditCreditCardFinancialModuleFunctionList: Array<CreditCardFinancialModuleFunction> = new Array<CreditCardFinancialModuleFunction>();
 }

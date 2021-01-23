@@ -12,5 +12,5 @@ export class WithdrawMoney {
   transferMoney: TransferMoney = new TransferMoney();
   user: User = new User();
   screenApproval: ScreenApproval = new ScreenApproval();
-  withdrawMoneyWithdrawMoneyApproval: Array<WithdrawMoneyApproval> = new Array<WithdrawMoneyApproval>();
+  withdrawMoneyWithdrawMoneyApprovalList: Array<WithdrawMoneyApproval> = new Array<WithdrawMoneyApproval>();
 }

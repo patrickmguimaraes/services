@@ -16,6 +16,6 @@ export class TaxFormula {
   taxFormula: TaxFormula = new TaxFormula();
   bankAccount: BankAccount = new BankAccount();
   taxSettingsCategory: TaxSettingsCategory = new TaxSettingsCategory();
-  taxFormulaServiceOrderTax: Array<ServiceOrderTax> = new Array<ServiceOrderTax>();
-  taxFormulaTaxFormula: Array<TaxFormula> = new Array<TaxFormula>();
+  taxFormulaServiceOrderTaxList: Array<ServiceOrderTax> = new Array<ServiceOrderTax>();
+  taxFormulaTaxFormulaList: Array<TaxFormula> = new Array<TaxFormula>();
 }

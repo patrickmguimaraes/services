@@ -9,6 +9,6 @@ export class FinancialModuleFunction {
   information: String;
   status: number = 0;
   financialModule: FinancialModule = new FinancialModule();
-  financialModuleFunctionBillFinancialModuleFunction: Array<BillFinancialModuleFunction> = new Array<BillFinancialModuleFunction>();
-  financialModuleFunctionCreditCardFinancialModuleFunction: Array<CreditCardFinancialModuleFunction> = new Array<CreditCardFinancialModuleFunction>();
+  financialModuleFunctionBillFinancialModuleFunctionList: Array<BillFinancialModuleFunction> = new Array<BillFinancialModuleFunction>();
+  financialModuleFunctionCreditCardFinancialModuleFunctionList: Array<CreditCardFinancialModuleFunction> = new Array<CreditCardFinancialModuleFunction>();
 }

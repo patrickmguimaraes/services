@@ -11,5 +11,5 @@ export class Appointment {
   status: number = 0;
   user: User = new User();
   appointmentServiceOrderReferenced: ServiceOrder = new ServiceOrder();
-  appointmentServiceAppointment: Array<ServiceAppointment> = new Array<ServiceAppointment>();
+  appointmentServiceAppointmentList: Array<ServiceAppointment> = new Array<ServiceAppointment>();
 }

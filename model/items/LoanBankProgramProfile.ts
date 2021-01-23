@@ -11,6 +11,6 @@ export class LoanBankProgramProfile {
   minimumSpendSinceDate: Date = new Date(new Date().setHours(12, 0, 0, 0));
   status: number = 0;
   loanBankProgramProfileLoanBankProgramReferenced: LoanBankProgram = new LoanBankProgram();
-  loanBankProgramProfileLoanBankProgramProfileCategory: Array<LoanBankProgramProfileCategory> = new Array<LoanBankProgramProfileCategory>();
-  loanBankProgramProfileLoanBankProgramProfileBranch: Array<LoanBankProgramProfileBranch> = new Array<LoanBankProgramProfileBranch>();
+  loanBankProgramProfileLoanBankProgramProfileCategoryList: Array<LoanBankProgramProfileCategory> = new Array<LoanBankProgramProfileCategory>();
+  loanBankProgramProfileLoanBankProgramProfileBranchList: Array<LoanBankProgramProfileBranch> = new Array<LoanBankProgramProfileBranch>();
 }

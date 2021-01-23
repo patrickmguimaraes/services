@@ -14,11 +14,11 @@ export class Currency {
   symbol: string;
   status: number;
   country: Country = new Country();
-  currencyServiceOrder: Array<ServiceOrder> = new Array<ServiceOrder>();
-  currencyBalance: Array<Balance> = new Array<Balance>();
-  currencyPayment: Array<Payment> = new Array<Payment>();
-  currencyBankAccount: Array<BankAccount> = new Array<BankAccount>();
-  currencyTransferMoney: Array<TransferMoney> = new Array<TransferMoney>();
-  currencyLoanMoney: Array<LoanMoney> = new Array<LoanMoney>();
-  currencyBill: Array<Bill> = new Array<Bill>();
+  currencyServiceOrderList: Array<ServiceOrder> = new Array<ServiceOrder>();
+  currencyBalanceList: Array<Balance> = new Array<Balance>();
+  currencyPaymentList: Array<Payment> = new Array<Payment>();
+  currencyBankAccountList: Array<BankAccount> = new Array<BankAccount>();
+  currencyTransferMoneyList: Array<TransferMoney> = new Array<TransferMoney>();
+  currencyLoanMoneyList: Array<LoanMoney> = new Array<LoanMoney>();
+  currencyBillList: Array<Bill> = new Array<Bill>();
 }

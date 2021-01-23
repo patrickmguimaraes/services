@@ -18,7 +18,7 @@ export class ScreenApproval {
   screenApprovalMainBankAccountReferenced: MainBankAccount = new MainBankAccount();
   screenApprovalWithdrawMoneyReferenced: WithdrawMoney = new WithdrawMoney();
   screenApprovalTaxSettingsReferenced: TaxSettings = new TaxSettings();
-  screenApprovalApproval: Array<Approval> = new Array<Approval>();
-  screenApprovalLoanBankProgram: Array<LoanBankProgram> = new Array<LoanBankProgram>();
-  screenApprovalFinancialModule: Array<FinancialModule> = new Array<FinancialModule>();
+  screenApprovalApprovalList: Array<Approval> = new Array<Approval>();
+  screenApprovalLoanBankProgramList: Array<LoanBankProgram> = new Array<LoanBankProgram>();
+  screenApprovalFinancialModuleList: Array<FinancialModule> = new Array<FinancialModule>();
 }

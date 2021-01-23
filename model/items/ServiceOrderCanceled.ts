@@ -11,5 +11,5 @@ export class ServiceOrderCanceled {
   serviceOrder: ServiceOrder = new ServiceOrder();
   user: User = new User();
   serviceOrderCanceledTaxReceiptReferenced: TaxReceipt = new TaxReceipt();
-  serviceOrderCanceledServiceOrderRefund: Array<ServiceOrderRefund> = new Array<ServiceOrderRefund>();
+  serviceOrderCanceledServiceOrderRefundList: Array<ServiceOrderRefund> = new Array<ServiceOrderRefund>();
 }

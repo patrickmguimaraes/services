@@ -16,7 +16,7 @@ export class LoanBankProgram {
   bank: Bank = new Bank();
   loanBankProgramProfile: LoanBankProgramProfile = new LoanBankProgramProfile();
   screenApproval: ScreenApproval = new ScreenApproval();
-  loanBankProgramLoanMoneyRequest: Array<LoanMoneyRequest> = new Array<LoanMoneyRequest>();
-  loanBankProgramLoanBankProgramContract: Array<LoanBankProgramContract> = new Array<LoanBankProgramContract>();
-  loanBankProgramLoanBankProgramApproval: Array<LoanBankProgramApproval> = new Array<LoanBankProgramApproval>();
+  loanBankProgramLoanMoneyRequestList: Array<LoanMoneyRequest> = new Array<LoanMoneyRequest>();
+  loanBankProgramLoanBankProgramContractList: Array<LoanBankProgramContract> = new Array<LoanBankProgramContract>();
+  loanBankProgramLoanBankProgramApprovalList: Array<LoanBankProgramApproval> = new Array<LoanBankProgramApproval>();
 }

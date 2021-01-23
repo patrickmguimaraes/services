@@ -28,12 +28,12 @@ export class Person {
   personServiceOrderReferenced: ServiceOrder = new ServiceOrder();
   personEmployeeReferenced: Employee = new Employee();
   personUserReferenced: User = new User();
-  personIdentificationDocument: Array<IdentificationDocument> = new Array<IdentificationDocument>();
-  personContact: Array<Contact> = new Array<Contact>();
-  personAddress: Array<Address> = new Array<Address>();
-  personPaymentBill: Array<PaymentBill> = new Array<PaymentBill>();
-  personBankAccount: Array<BankAccount> = new Array<BankAccount>();
-  personLoanMoney: Array<LoanMoney> = new Array<LoanMoney>();
-  personLoanMoneyRequest: Array<LoanMoneyRequest> = new Array<LoanMoneyRequest>();
-  personBill: Array<Bill> = new Array<Bill>();
+  personIdentificationDocumentList: Array<IdentificationDocument> = new Array<IdentificationDocument>();
+  personContactList: Array<Contact> = new Array<Contact>();
+  personAddressList: Array<Address> = new Array<Address>();
+  personPaymentBillList: Array<PaymentBill> = new Array<PaymentBill>();
+  personBankAccountList: Array<BankAccount> = new Array<BankAccount>();
+  personLoanMoneyList: Array<LoanMoney> = new Array<LoanMoney>();
+  personLoanMoneyRequestList: Array<LoanMoneyRequest> = new Array<LoanMoneyRequest>();
+  personBillList: Array<Bill> = new Array<Bill>();
 }

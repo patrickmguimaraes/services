@@ -11,6 +11,6 @@ export class TaxReceiptCounterApproved {
   counter: Counter = new Counter();
   attachment: Attachment = new Attachment();
   taxReceiptCounterApprovedTaxReceiptCounterFeeReferenced: TaxReceiptCounterFee = new TaxReceiptCounterFee();
-  taxReceiptCounterApprovedTaxReceipt: Array<TaxReceipt> = new Array<TaxReceipt>();
-  taxReceiptCounterApprovedTaxReceiptCounterPayment: Array<TaxReceiptCounterPayment> = new Array<TaxReceiptCounterPayment>();
+  taxReceiptCounterApprovedTaxReceiptList: Array<TaxReceipt> = new Array<TaxReceipt>();
+  taxReceiptCounterApprovedTaxReceiptCounterPaymentList: Array<TaxReceiptCounterPayment> = new Array<TaxReceiptCounterPayment>();
 }

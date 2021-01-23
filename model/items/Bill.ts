@@ -29,5 +29,5 @@ export class Bill {
   person: Person = new Person();
   attachment: Attachment = new Attachment();
   balanceItemFee: BalanceItem = new BalanceItem();
-  billBillFinancialModuleFunction: Array<BillFinancialModuleFunction> = new Array<BillFinancialModuleFunction>();
+  billBillFinancialModuleFunctionList: Array<BillFinancialModuleFunction> = new Array<BillFinancialModuleFunction>();
 }

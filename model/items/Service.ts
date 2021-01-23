@@ -18,7 +18,7 @@ export class Service {
   address: Address = new Address();
   serviceCategory: ServiceCategory = new ServiceCategory();
   juridicalPerson: JuridicalPerson = new JuridicalPerson();
-  serviceServiceAppointment: Array<ServiceAppointment> = new Array<ServiceAppointment>();
-  serviceServiceUnavailable: Array<ServiceUnavailable> = new Array<ServiceUnavailable>();
-  serviceServiceTemplateContract: Array<ServiceTemplateContract> = new Array<ServiceTemplateContract>();
+  serviceServiceAppointmentList: Array<ServiceAppointment> = new Array<ServiceAppointment>();
+  serviceServiceUnavailableList: Array<ServiceUnavailable> = new Array<ServiceUnavailable>();
+  serviceServiceTemplateContractList: Array<ServiceTemplateContract> = new Array<ServiceTemplateContract>();
 }

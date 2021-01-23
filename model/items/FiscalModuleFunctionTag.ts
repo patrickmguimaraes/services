@@ -12,5 +12,5 @@ export class FiscalModuleFunctionTag {
   status: number = 0;
   tagReference: TagReference = new TagReference();
   fiscalModuleFunctionTag: FiscalModuleFunctionTag = new FiscalModuleFunctionTag();
-  fiscalModuleFunctionTagFiscalModuleFunctionTag: Array<FiscalModuleFunctionTag> = new Array<FiscalModuleFunctionTag>();
+  fiscalModuleFunctionTagFiscalModuleFunctionTagList: Array<FiscalModuleFunctionTag> = new Array<FiscalModuleFunctionTag>();
 }

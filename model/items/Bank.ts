@@ -11,7 +11,7 @@ export class Bank {
   status: number = 0;
   country: Country = new Country();
   juridicalPerson: JuridicalPerson = new JuridicalPerson();
-  bankBankAccount: Array<BankAccount> = new Array<BankAccount>();
-  bankLoanBankProgram: Array<LoanBankProgram> = new Array<LoanBankProgram>();
-  bankBankBranch: Array<BankBranch> = new Array<BankBranch>();
+  bankBankAccountList: Array<BankAccount> = new Array<BankAccount>();
+  bankLoanBankProgramList: Array<LoanBankProgram> = new Array<LoanBankProgram>();
+  bankBankBranchList: Array<BankBranch> = new Array<BankBranch>();
 }

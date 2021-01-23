@@ -10,5 +10,5 @@ export class TaxSettingsCategory {
   status: number;
   taxSettings: TaxSettings = new TaxSettings();
   category: Category = new Category();
-  taxSettingsCategoryTaxFormula: Array<TaxFormula> = new Array<TaxFormula>();
+  taxSettingsCategoryTaxFormulaList: Array<TaxFormula> = new Array<TaxFormula>();
 }

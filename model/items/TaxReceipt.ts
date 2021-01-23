@@ -20,7 +20,7 @@ export class TaxReceipt {
   city: City = new City();
   serviceOrderCanceled: ServiceOrderCanceled = new ServiceOrderCanceled();
   taxReceiptCounterApproved: TaxReceiptCounterApproved = new TaxReceiptCounterApproved();
-  taxReceiptServiceOrderTax: Array<ServiceOrderTax> = new Array<ServiceOrderTax>();
-  taxReceiptTaxReceiptFiscalModule: Array<TaxReceiptFiscalModule> = new Array<TaxReceiptFiscalModule>();
-  taxReceiptTaxReceiptCanceled: Array<TaxReceiptCanceled> = new Array<TaxReceiptCanceled>();
+  taxReceiptServiceOrderTaxList: Array<ServiceOrderTax> = new Array<ServiceOrderTax>();
+  taxReceiptTaxReceiptFiscalModuleList: Array<TaxReceiptFiscalModule> = new Array<TaxReceiptFiscalModule>();
+  taxReceiptTaxReceiptCanceledList: Array<TaxReceiptCanceled> = new Array<TaxReceiptCanceled>();
 }

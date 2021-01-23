@@ -12,7 +12,7 @@ export class Counter {
   juridicalPerson: JuridicalPerson = new JuridicalPerson();
   person: Person = new Person();
   counterUserReferenced: User = new User();
-  counterTaxSettings: Array<TaxSettings> = new Array<TaxSettings>();
-  counterTaxSettingsCounter: Array<TaxSettingsCounter> = new Array<TaxSettingsCounter>();
-  counterTaxReceiptCounterApproved: Array<TaxReceiptCounterApproved> = new Array<TaxReceiptCounterApproved>();
+  counterTaxSettingsList: Array<TaxSettings> = new Array<TaxSettings>();
+  counterTaxSettingsCounterList: Array<TaxSettingsCounter> = new Array<TaxSettingsCounter>();
+  counterTaxReceiptCounterApprovedList: Array<TaxReceiptCounterApproved> = new Array<TaxReceiptCounterApproved>();
 }

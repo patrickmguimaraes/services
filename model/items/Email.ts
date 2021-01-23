@@ -11,6 +11,6 @@ export class Email {
   emailController: EmailController = new EmailController();
   contact: Contact = new Contact();
   emailUserActivationReferenced: UserActivation = new UserActivation();
-  emailTaxReceipt: Array<TaxReceipt> = new Array<TaxReceipt>();
-  emailHelpCenterService: Array<HelpCenterService> = new Array<HelpCenterService>();
+  emailTaxReceiptList: Array<TaxReceipt> = new Array<TaxReceipt>();
+  emailHelpCenterServiceList: Array<HelpCenterService> = new Array<HelpCenterService>();
 }

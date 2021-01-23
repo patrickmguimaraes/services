@@ -11,5 +11,5 @@ export class TaxSettingsCounter {
   status: number = 0;
   taxSettings: TaxSettings = new TaxSettings();
   counter: Counter = new Counter();
-  taxSettingsCounterTaxReceiptCounterFee: Array<TaxReceiptCounterFee> = new Array<TaxReceiptCounterFee>();
+  taxSettingsCounterTaxReceiptCounterFeeList: Array<TaxReceiptCounterFee> = new Array<TaxReceiptCounterFee>();
 }

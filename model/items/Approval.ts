@@ -21,5 +21,5 @@ export class Approval {
   approvalMainBankAccountApprovalReferenced: MainBankAccountApproval = new MainBankAccountApproval();
   approvalLogBackupedApprovalReferenced: LogBackupedApproval = new LogBackupedApproval();
   approvalLoanBankProgramApprovalReferenced: LoanBankProgramApproval = new LoanBankProgramApproval();
-  approvalApprovalAttachment: Array<ApprovalAttachment> = new Array<ApprovalAttachment>();
+  approvalApprovalAttachmentList: Array<ApprovalAttachment> = new Array<ApprovalAttachment>();
 }

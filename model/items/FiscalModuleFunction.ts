@@ -10,6 +10,6 @@ export class FiscalModuleFunction {
   template: string;
   status: number = 0;
   fiscalModule: FiscalModule = new FiscalModule();
-  fiscalModuleFunctionTaxReceiptFiscalModule: Array<TaxReceiptFiscalModule> = new Array<TaxReceiptFiscalModule>();
-  fiscalModuleFunctionTaxReceiptCanceled: Array<TaxReceiptCanceled> = new Array<TaxReceiptCanceled>();
+  fiscalModuleFunctionTaxReceiptFiscalModuleList: Array<TaxReceiptFiscalModule> = new Array<TaxReceiptFiscalModule>();
+  fiscalModuleFunctionTaxReceiptCanceledList: Array<TaxReceiptCanceled> = new Array<TaxReceiptCanceled>();
 }

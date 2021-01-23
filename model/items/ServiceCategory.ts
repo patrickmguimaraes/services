@@ -6,5 +6,5 @@ export class ServiceCategory {
   name: string;
   status: number = 0;
   category: Category = new Category();
-  serviceCategoryService: Array<Service> = new Array<Service>();
+  serviceCategoryServiceList: Array<Service> = new Array<Service>();
 }

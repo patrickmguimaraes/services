@@ -12,5 +12,5 @@ export class DepartmentOfFinance {
   responsable: Person = new Person();
   address: Address = new Address();
   state: State = new State();
-  departmentOfFinanceCity: Array<City> = new Array<City>();
+  departmentOfFinanceCityList: Array<City> = new Array<City>();
 }

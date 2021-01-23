@@ -7,6 +7,6 @@ export class Screen {
   name: string;
   path: string;
   status: number = 0;
-  screenScreenPermission: Array<ScreenPermission> = new Array<ScreenPermission>();
-  screenScreenApproval: Array<ScreenApproval> = new Array<ScreenApproval>();
+  screenScreenPermissionList: Array<ScreenPermission> = new Array<ScreenPermission>();
+  screenScreenApprovalList: Array<ScreenApproval> = new Array<ScreenApproval>();
 }

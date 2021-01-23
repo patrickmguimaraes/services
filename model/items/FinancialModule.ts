@@ -15,7 +15,7 @@ export class FinancialModule {
   logo: Attachment = new Attachment();
   screenApproval: ScreenApproval = new ScreenApproval();
   user: User = new User();
-  financialModuleFinancialModuleFunction: Array<FinancialModuleFunction> = new Array<FinancialModuleFunction>();
-  financialModuleFinanceModuleApproval: Array<FinanceModuleApproval> = new Array<FinanceModuleApproval>();
-  financialModuleFinancialModuleTermsOfService: Array<FinancialModuleTermsOfService> = new Array<FinancialModuleTermsOfService>();
+  financialModuleFinancialModuleFunctionList: Array<FinancialModuleFunction> = new Array<FinancialModuleFunction>();
+  financialModuleFinanceModuleApprovalList: Array<FinanceModuleApproval> = new Array<FinanceModuleApproval>();
+  financialModuleFinancialModuleTermsOfServiceList: Array<FinancialModuleTermsOfService> = new Array<FinancialModuleTermsOfService>();
 }

@@ -12,7 +12,7 @@ export class Category {
   category: Category = new Category();
   country: Country = new Country();
   categoryServiceCategoryReferenced: ServiceCategory = new ServiceCategory();
-  categoryCategory: Array<Category> = new Array<Category>();
-  categoryTaxSettingsCategory: Array<TaxSettingsCategory> = new Array<TaxSettingsCategory>();
-  categoryLoanBankProgramProfileCategory: Array<LoanBankProgramProfileCategory> = new Array<LoanBankProgramProfileCategory>();
+  categoryCategoryList: Array<Category> = new Array<Category>();
+  categoryTaxSettingsCategoryList: Array<TaxSettingsCategory> = new Array<TaxSettingsCategory>();
+  categoryLoanBankProgramProfileCategoryList: Array<LoanBankProgramProfileCategory> = new Array<LoanBankProgramProfileCategory>();
 }

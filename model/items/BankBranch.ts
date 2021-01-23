@@ -8,6 +8,6 @@ export class BankBranch {
   branch: string;
   bank: Bank = new Bank();
   juridicalPerson: JuridicalPerson = new JuridicalPerson();
-  bankBranchBankAccount: Array<BankAccount> = new Array<BankAccount>();
-  bankBranchLoanBankProgramProfileBranch: Array<LoanBankProgramProfileBranch> = new Array<LoanBankProgramProfileBranch>();
+  bankBranchBankAccountList: Array<BankAccount> = new Array<BankAccount>();
+  bankBranchLoanBankProgramProfileBranchList: Array<LoanBankProgramProfileBranch> = new Array<LoanBankProgramProfileBranch>();
 }

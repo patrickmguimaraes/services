@@ -12,5 +12,5 @@ export class ServiceTemplateContract {
   service: Service = new Service();
   templateAttachment: Attachment = new Attachment();
   signatureAttachment: Attachment = new Attachment();
-  serviceContractServiceOrderAttachment: Array<ServiceOrderAttachment> = new Array<ServiceOrderAttachment>();
+  serviceContractServiceOrderAttachmentList: Array<ServiceOrderAttachment> = new Array<ServiceOrderAttachment>();
 }

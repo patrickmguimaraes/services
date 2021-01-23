@@ -26,13 +26,13 @@ export class Attachment {
   logoFinancialModuleReferenced: FinancialModule = new FinancialModule();
   attachmentTaxReceiptCounterApprovedReferenced: TaxReceiptCounterApproved = new TaxReceiptCounterApproved();
   attachmentApprovalAttachmentReferenced: ApprovalAttachment = new ApprovalAttachment();
-  attachmentTaxSettingAttachment: Array<TaxSettingAttachment> = new Array<TaxSettingAttachment>();
-  attachmentUserAttachment: Array<UserAttachment> = new Array<UserAttachment>();
-  templateAttachmentServiceTemplateContract: Array<ServiceTemplateContract> = new Array<ServiceTemplateContract>();
-  signatureAttachmentServiceTemplateContract: Array<ServiceTemplateContract> = new Array<ServiceTemplateContract>();
-  signatureAttachmentUserSettings: Array<UserSettings> = new Array<UserSettings>();
-  attachmentServiceOrderAttachment: Array<ServiceOrderAttachment> = new Array<ServiceOrderAttachment>();
-  attachmentCategoryContractTemplate: Array<CategoryContractTemplate> = new Array<CategoryContractTemplate>();
-  attachmentIdentificationDocumentAttachment: Array<IdentificationDocumentAttachment> = new Array<IdentificationDocumentAttachment>();
-  templateContractLoanBankProgramContract: Array<LoanBankProgramContract> = new Array<LoanBankProgramContract>();
+  attachmentTaxSettingAttachmentList: Array<TaxSettingAttachment> = new Array<TaxSettingAttachment>();
+  attachmentUserAttachmentList: Array<UserAttachment> = new Array<UserAttachment>();
+  templateAttachmentServiceTemplateContractList: Array<ServiceTemplateContract> = new Array<ServiceTemplateContract>();
+  signatureAttachmentServiceTemplateContractList: Array<ServiceTemplateContract> = new Array<ServiceTemplateContract>();
+  signatureAttachmentUserSettingsList: Array<UserSettings> = new Array<UserSettings>();
+  attachmentServiceOrderAttachmentList: Array<ServiceOrderAttachment> = new Array<ServiceOrderAttachment>();
+  attachmentCategoryContractTemplateList: Array<CategoryContractTemplate> = new Array<CategoryContractTemplate>();
+  attachmentIdentificationDocumentAttachmentList: Array<IdentificationDocumentAttachment> = new Array<IdentificationDocumentAttachment>();
+  templateContractLoanBankProgramContractList: Array<LoanBankProgramContract> = new Array<LoanBankProgramContract>();
 }

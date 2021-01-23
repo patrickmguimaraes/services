@@ -20,7 +20,7 @@ export class Balance {
   balanceMainBankAccountReferenced: MainBankAccount = new MainBankAccount();
   balanceCityReferenced: City = new City();
   balanceUserReferenced: User = new User();
-  balanceBalanceBlocked: Array<BalanceBlocked> = new Array<BalanceBlocked>();
-  balanceBalanceItem: Array<BalanceItem> = new Array<BalanceItem>();
-  balanceOriginBalanceItem: Array<BalanceItem> = new Array<BalanceItem>();
+  balanceBalanceBlockedList: Array<BalanceBlocked> = new Array<BalanceBlocked>();
+  balanceBalanceItemList: Array<BalanceItem> = new Array<BalanceItem>();
+  balanceOriginBalanceItemList: Array<BalanceItem> = new Array<BalanceItem>();
 }

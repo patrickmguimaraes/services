@@ -10,5 +10,5 @@ export class UserLogin {
   status: number = 0;
   address: Address = new Address();
   user: User = new User();
-  userLoginUserActivation: Array<UserActivation> = new Array<UserActivation>();
+  userLoginUserActivationList: Array<UserActivation> = new Array<UserActivation>();
 }

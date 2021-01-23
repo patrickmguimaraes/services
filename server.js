@@ -64,7 +64,7 @@ function createFiles(erdEditorFile, saveOn, addColumnFromRightTableOnLeftTable =
             tablesMatrix[relationshipsMatrix[column.id].leftTableId].allImports.push({ class: tableName });
 
             //Save a list colunm on the other side table (left) 
-            columnName = columnName + tableName, columnName + "List"
+            columnName = columnName + tableName + "List"
             referenceClass = "Array<" + tableName + ">";
             columnValue = "new Array<" + tableName + ">()";
             tablesMatrix[relationshipsMatrix[column.id].leftTableId].colunmsReferencedAndList.push({ name: columnName, type: referenceClass, value: columnValue });

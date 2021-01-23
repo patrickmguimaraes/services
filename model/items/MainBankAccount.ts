@@ -16,8 +16,8 @@ export class MainBankAccount {
   country: Country = new Country();
   screenApproval: ScreenApproval = new ScreenApproval();
   userCreator: User = new User();
-  mainBankAccountPayment: Array<Payment> = new Array<Payment>();
-  fromMainBankAccountTransferMoney: Array<TransferMoney> = new Array<TransferMoney>();
-  mainBankAccountMainBankAccountApproval: Array<MainBankAccountApproval> = new Array<MainBankAccountApproval>();
-  mainBankAccountFinancialModule: Array<FinancialModule> = new Array<FinancialModule>();
+  mainBankAccountPaymentList: Array<Payment> = new Array<Payment>();
+  fromMainBankAccountTransferMoneyList: Array<TransferMoney> = new Array<TransferMoney>();
+  mainBankAccountMainBankAccountApprovalList: Array<MainBankAccountApproval> = new Array<MainBankAccountApproval>();
+  mainBankAccountFinancialModuleList: Array<FinancialModule> = new Array<FinancialModule>();
 }

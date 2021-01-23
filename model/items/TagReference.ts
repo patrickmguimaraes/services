@@ -7,5 +7,5 @@ export class TagReference {
   name: string;
   status: number = 0;
   country: Country = new Country();
-  tagReferenceFiscalModuleFunctionTag: Array<FiscalModuleFunctionTag> = new Array<FiscalModuleFunctionTag>();
+  tagReferenceFiscalModuleFunctionTagList: Array<FiscalModuleFunctionTag> = new Array<FiscalModuleFunctionTag>();
 }

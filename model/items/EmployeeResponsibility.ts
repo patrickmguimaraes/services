@@ -10,5 +10,5 @@ export class EmployeeResponsibility {
   end: Date = new Date();;
   status: number = 0;
   employee: Employee = new Employee();
-  employeeResponsibilityService: Array<Service> = new Array<Service>();
+  employeeResponsibilityServiceList: Array<Service> = new Array<Service>();
 }

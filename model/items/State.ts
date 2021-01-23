@@ -9,7 +9,7 @@ export class State {
   abbreviation: string;
   status: number = 0;
   country: Country = new Country();
-  stateIdentificationDocument: Array<IdentificationDocument> = new Array<IdentificationDocument>();
-  stateCity: Array<City> = new Array<City>();
-  stateDepartmentOfFinance: Array<DepartmentOfFinance> = new Array<DepartmentOfFinance>();
+  stateIdentificationDocumentList: Array<IdentificationDocument> = new Array<IdentificationDocument>();
+  stateCityList: Array<City> = new Array<City>();
+  stateDepartmentOfFinanceList: Array<DepartmentOfFinance> = new Array<DepartmentOfFinance>();
 }

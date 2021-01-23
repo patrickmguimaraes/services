@@ -8,5 +8,5 @@ export class HelpCenterTypicalAsks {
   answer: string;
   helpCenterTypicalAsks: HelpCenterTypicalAsks = new HelpCenterTypicalAsks();
   language: Language = new Language();
-  helpCenterTypicalAsksHelpCenterTypicalAsks: Array<HelpCenterTypicalAsks> = new Array<HelpCenterTypicalAsks>();
+  helpCenterTypicalAsksHelpCenterTypicalAsksList: Array<HelpCenterTypicalAsks> = new Array<HelpCenterTypicalAsks>();
 }

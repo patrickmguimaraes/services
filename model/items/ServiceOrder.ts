@@ -25,8 +25,8 @@ export class ServiceOrder {
   person: Person = new Person();
   address: Address = new Address();
   serviceOrderServiceOrderCanceledReferenced: ServiceOrderCanceled = new ServiceOrderCanceled();
-  serviceOrderServiceOrderPayment: Array<ServiceOrderPayment> = new Array<ServiceOrderPayment>();
-  serviceOrderTaxReceipt: Array<TaxReceipt> = new Array<TaxReceipt>();
-  serviceOrderServiceOrderTax: Array<ServiceOrderTax> = new Array<ServiceOrderTax>();
-  serviceOrderServiceOrderAttachment: Array<ServiceOrderAttachment> = new Array<ServiceOrderAttachment>();
+  serviceOrderServiceOrderPaymentList: Array<ServiceOrderPayment> = new Array<ServiceOrderPayment>();
+  serviceOrderTaxReceiptList: Array<TaxReceipt> = new Array<TaxReceipt>();
+  serviceOrderServiceOrderTaxList: Array<ServiceOrderTax> = new Array<ServiceOrderTax>();
+  serviceOrderServiceOrderAttachmentList: Array<ServiceOrderAttachment> = new Array<ServiceOrderAttachment>();
 }

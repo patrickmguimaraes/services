@@ -13,5 +13,5 @@ export class UserPaymentCreditCard {
   userPayment: UserPayment = new UserPayment();
   billingAddress: Address = new Address();
   shippingAddress: Address = new Address();
-  userPaymentCreditCardPaymentCredit: Array<PaymentCredit> = new Array<PaymentCredit>();
+  userPaymentCreditCardPaymentCreditList: Array<PaymentCredit> = new Array<PaymentCredit>();
 }

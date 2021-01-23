@@ -10,5 +10,5 @@ export class Employee {
   person: Person = new Person();
   juridicalPerson: JuridicalPerson = new JuridicalPerson();
   employeeUserReferenced: User = new User();
-  employeeEmployeeResponsibility: Array<EmployeeResponsibility> = new Array<EmployeeResponsibility>();
+  employeeEmployeeResponsibilityList: Array<EmployeeResponsibility> = new Array<EmployeeResponsibility>();
 }

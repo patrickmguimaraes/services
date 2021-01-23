@@ -11,5 +11,5 @@ export class EmailController {
   password: string;
   status: number = 0;
   country: Country = new Country();
-  emailControllerEmail: Array<Email> = new Array<Email>();
+  emailControllerEmailList: Array<Email> = new Array<Email>();
 }

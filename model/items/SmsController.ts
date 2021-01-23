@@ -7,5 +7,5 @@ export class SMSController {
   number: string;
   status: number = 0;
   country: Country = new Country();
-  sMSControllerSMS: Array<SMS> = new Array<SMS>();
+  sMSControllerSMSList: Array<SMS> = new Array<SMS>();
 }

@@ -13,5 +13,5 @@ export class LogBackuped {
   screenApproval: ScreenApproval = new ScreenApproval();
   country: Country = new Country();
   user: User = new User();
-  logBackupedLogBackupedApproval: Array<LogBackupedApproval> = new Array<LogBackupedApproval>();
+  logBackupedLogBackupedApprovalList: Array<LogBackupedApproval> = new Array<LogBackupedApproval>();
 }

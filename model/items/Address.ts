@@ -19,9 +19,9 @@ export class Address {
   juridicalPerson: JuridicalPerson = new JuridicalPerson();
   city: City = new City();
   addressUserLoginReferenced: UserLogin = new UserLogin();
-  addressService: Array<Service> = new Array<Service>();
-  addressServiceOrder: Array<ServiceOrder> = new Array<ServiceOrder>();
-  billingAddressUserPaymentCreditCard: Array<UserPaymentCreditCard> = new Array<UserPaymentCreditCard>();
-  shippingAddressUserPaymentCreditCard: Array<UserPaymentCreditCard> = new Array<UserPaymentCreditCard>();
-  addressDepartmentOfFinance: Array<DepartmentOfFinance> = new Array<DepartmentOfFinance>();
+  addressServiceList: Array<Service> = new Array<Service>();
+  addressServiceOrderList: Array<ServiceOrder> = new Array<ServiceOrder>();
+  billingAddressUserPaymentCreditCardList: Array<UserPaymentCreditCard> = new Array<UserPaymentCreditCard>();
+  shippingAddressUserPaymentCreditCardList: Array<UserPaymentCreditCard> = new Array<UserPaymentCreditCard>();
+  addressDepartmentOfFinanceList: Array<DepartmentOfFinance> = new Array<DepartmentOfFinance>();
 }

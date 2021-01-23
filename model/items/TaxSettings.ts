@@ -27,11 +27,11 @@ export class TaxSettings {
   cityAccount: CityAccount = new CityAccount();
   counter: Counter = new Counter();
   user: User = new User();
-  taxSettingServiceOrderTax: Array<ServiceOrderTax> = new Array<ServiceOrderTax>();
-  taxSettingTaxSettingAttachment: Array<TaxSettingAttachment> = new Array<TaxSettingAttachment>();
-  taxSettingsTaxSettingsCategory: Array<TaxSettingsCategory> = new Array<TaxSettingsCategory>();
-  taxSettingsTaxFormula: Array<TaxFormula> = new Array<TaxFormula>();
-  taxSettingsTaxSettingsCounter: Array<TaxSettingsCounter> = new Array<TaxSettingsCounter>();
-  taxSettingsFiscalModule: Array<FiscalModule> = new Array<FiscalModule>();
-  taxSettingsTaxSettingsApproval: Array<TaxSettingsApproval> = new Array<TaxSettingsApproval>();
+  taxSettingServiceOrderTaxList: Array<ServiceOrderTax> = new Array<ServiceOrderTax>();
+  taxSettingTaxSettingAttachmentList: Array<TaxSettingAttachment> = new Array<TaxSettingAttachment>();
+  taxSettingsTaxSettingsCategoryList: Array<TaxSettingsCategory> = new Array<TaxSettingsCategory>();
+  taxSettingsTaxFormulaList: Array<TaxFormula> = new Array<TaxFormula>();
+  taxSettingsTaxSettingsCounterList: Array<TaxSettingsCounter> = new Array<TaxSettingsCounter>();
+  taxSettingsFiscalModuleList: Array<FiscalModule> = new Array<FiscalModule>();
+  taxSettingsTaxSettingsApprovalList: Array<TaxSettingsApproval> = new Array<TaxSettingsApproval>();
 }

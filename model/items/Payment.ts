@@ -29,5 +29,5 @@ export class Payment {
   paymentPaymentBillReferenced: PaymentBill = new PaymentBill();
   paymentPaymentDebtReferenced: PaymentDebt = new PaymentDebt();
   paymentServiceOrderPaymentReferenced: ServiceOrderPayment = new ServiceOrderPayment();
-  paymentPrepayTax: Array<PrepayTax> = new Array<PrepayTax>();
+  paymentPrepayTaxList: Array<PrepayTax> = new Array<PrepayTax>();
 }

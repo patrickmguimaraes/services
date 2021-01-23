@@ -11,7 +11,7 @@ export class Contact {
   status: number = 0;
   person: Person = new Person();
   juridicalPerson: JuridicalPerson = new JuridicalPerson();
-  contactPhoneHelpCenter: Array<HelpCenter> = new Array<HelpCenter>();
-  contactEmailHelpCenter: Array<HelpCenter> = new Array<HelpCenter>();
-  contactEmail: Array<Email> = new Array<Email>();
+  contactPhoneHelpCenterList: Array<HelpCenter> = new Array<HelpCenter>();
+  contactEmailHelpCenterList: Array<HelpCenter> = new Array<HelpCenter>();
+  contactEmailList: Array<Email> = new Array<Email>();
 }

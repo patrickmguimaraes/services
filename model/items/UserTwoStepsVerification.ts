@@ -8,5 +8,5 @@ export class UserTwoStepsVerification {
   datePaired: Date = new Date();;
   status: number;
   user: User = new User();
-  userTwoStepsVerificationUserActivation: Array<UserActivation> = new Array<UserActivation>();
+  userTwoStepsVerificationUserActivationList: Array<UserActivation> = new Array<UserActivation>();
 }

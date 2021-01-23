@@ -15,7 +15,7 @@ export class City {
   departmentOfFinance: DepartmentOfFinance = new DepartmentOfFinance();
   balance: Balance = new Balance();
   cityAddressReferenced: Address = new Address();
-  cityTaxReceipt: Array<TaxReceipt> = new Array<TaxReceipt>();
-  cityTaxSettings: Array<TaxSettings> = new Array<TaxSettings>();
-  cityCityAccount: Array<CityAccount> = new Array<CityAccount>();
+  cityTaxReceiptList: Array<TaxReceipt> = new Array<TaxReceipt>();
+  cityTaxSettingsList: Array<TaxSettings> = new Array<TaxSettings>();
+  cityCityAccountList: Array<CityAccount> = new Array<CityAccount>();
 }

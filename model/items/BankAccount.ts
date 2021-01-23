@@ -26,9 +26,9 @@ export class BankAccount {
   bankAccountUserPaymentBankAccountReferenced: UserPaymentBankAccount = new UserPaymentBankAccount();
   bankAccountCityAccountReferenced: CityAccount = new CityAccount();
   bankAccountMainBankAccountReferenced: MainBankAccount = new MainBankAccount();
-  bankAccountPaymentDebt: Array<PaymentDebt> = new Array<PaymentDebt>();
-  toBankAccountTransferMoney: Array<TransferMoney> = new Array<TransferMoney>();
-  bankAccountTaxFormula: Array<TaxFormula> = new Array<TaxFormula>();
-  bankAccountPaymentTransfer: Array<PaymentTransfer> = new Array<PaymentTransfer>();
-  bankAccountBill: Array<Bill> = new Array<Bill>();
+  bankAccountPaymentDebtList: Array<PaymentDebt> = new Array<PaymentDebt>();
+  toBankAccountTransferMoneyList: Array<TransferMoney> = new Array<TransferMoney>();
+  bankAccountTaxFormulaList: Array<TaxFormula> = new Array<TaxFormula>();
+  bankAccountPaymentTransferList: Array<PaymentTransfer> = new Array<PaymentTransfer>();
+  bankAccountBillList: Array<Bill> = new Array<Bill>();
 }

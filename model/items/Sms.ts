@@ -8,6 +8,6 @@ export class SMS {
   status: number = 0;
   sMSController: SMSController = new SMSController();
   sMSUserActivationReferenced: UserActivation = new UserActivation();
-  sMSHelpCenterService: Array<HelpCenterService> = new Array<HelpCenterService>();
-  sMSHelpCenterService: Array<HelpCenterService> = new Array<HelpCenterService>();
+  sMSHelpCenterServiceList: Array<HelpCenterService> = new Array<HelpCenterService>();
+  sMSHelpCenterServiceList: Array<HelpCenterService> = new Array<HelpCenterService>();
 }

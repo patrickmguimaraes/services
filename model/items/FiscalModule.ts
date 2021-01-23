@@ -7,5 +7,5 @@ export class FiscalModule {
   url: string;
   status: number = 0;
   taxSettings: TaxSettings = new TaxSettings();
-  fiscalModuleFiscalModuleFunction: Array<FiscalModuleFunction> = new Array<FiscalModuleFunction>();
+  fiscalModuleFiscalModuleFunctionList: Array<FiscalModuleFunction> = new Array<FiscalModuleFunction>();
 }

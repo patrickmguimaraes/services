@@ -7,5 +7,5 @@ export class CreditCardBrand {
   code: string;
   status: number;
   country: Country = new Country();
-  creditCardBrandUserPaymentCreditCard: Array<UserPaymentCreditCard> = new Array<UserPaymentCreditCard>();
+  creditCardBrandUserPaymentCreditCardList: Array<UserPaymentCreditCard> = new Array<UserPaymentCreditCard>();
 }

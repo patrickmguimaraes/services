@@ -7,6 +7,6 @@ export class HelpCenterServicesTypes {
   type: number = 1;
   status: number = 0;
   helpCenterServicesTypes: HelpCenterServicesTypes = new HelpCenterServicesTypes();
-  helpCenterServicesTypesHelpCenterServicesTypes: Array<HelpCenterServicesTypes> = new Array<HelpCenterServicesTypes>();
-  helpCenterServicesTypesHelpCenter: Array<HelpCenter> = new Array<HelpCenter>();
+  helpCenterServicesTypesHelpCenterServicesTypesList: Array<HelpCenterServicesTypes> = new Array<HelpCenterServicesTypes>();
+  helpCenterServicesTypesHelpCenterList: Array<HelpCenter> = new Array<HelpCenter>();
 }

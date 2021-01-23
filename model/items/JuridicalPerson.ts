@@ -34,12 +34,12 @@ export class JuridicalPerson {
   juridicalPersonServiceOrderReferenced: ServiceOrder = new ServiceOrder();
   juridicalPersonEmployeeReferenced: Employee = new Employee();
   juridicalPersonUserReferenced: User = new User();
-  juridicalPersonIdentificationDocument: Array<IdentificationDocument> = new Array<IdentificationDocument>();
-  juridicalPersonContact: Array<Contact> = new Array<Contact>();
-  juridicalPersonAddress: Array<Address> = new Array<Address>();
-  juridicalPersonService: Array<Service> = new Array<Service>();
-  juridicalPersonBankAccount: Array<BankAccount> = new Array<BankAccount>();
-  juridicalPersonLoanMoney: Array<LoanMoney> = new Array<LoanMoney>();
-  juridicalPersonLoanMoneyRequest: Array<LoanMoneyRequest> = new Array<LoanMoneyRequest>();
-  juridicalPersonBill: Array<Bill> = new Array<Bill>();
+  juridicalPersonIdentificationDocumentList: Array<IdentificationDocument> = new Array<IdentificationDocument>();
+  juridicalPersonContactList: Array<Contact> = new Array<Contact>();
+  juridicalPersonAddressList: Array<Address> = new Array<Address>();
+  juridicalPersonServiceList: Array<Service> = new Array<Service>();
+  juridicalPersonBankAccountList: Array<BankAccount> = new Array<BankAccount>();
+  juridicalPersonLoanMoneyList: Array<LoanMoney> = new Array<LoanMoney>();
+  juridicalPersonLoanMoneyRequestList: Array<LoanMoneyRequest> = new Array<LoanMoneyRequest>();
+  juridicalPersonBillList: Array<Bill> = new Array<Bill>();
 }

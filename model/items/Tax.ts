@@ -7,6 +7,6 @@ export class Tax {
   name: string;
   status: number = 0;
   country: Country = new Country();
-  taxCityAccount: Array<CityAccount> = new Array<CityAccount>();
-  taxTaxFormula: Array<TaxFormula> = new Array<TaxFormula>();
+  taxCityAccountList: Array<CityAccount> = new Array<CityAccount>();
+  taxTaxFormulaList: Array<TaxFormula> = new Array<TaxFormula>();
 }

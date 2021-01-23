@@ -6,6 +6,6 @@ export class Language {
   name: string;
   status: number = 0;
   country: Country = new Country();
-  languageCountry: Array<Country> = new Array<Country>();
-  languageHelpCenterTypicalAsks: Array<HelpCenterTypicalAsks> = new Array<HelpCenterTypicalAsks>();
+  languageCountryList: Array<Country> = new Array<Country>();
+  languageHelpCenterTypicalAsksList: Array<HelpCenterTypicalAsks> = new Array<HelpCenterTypicalAsks>();
 }

@@ -7,5 +7,5 @@ export class DigitalWallet {
   code: string;
   status: number;
   country: Country = new Country();
-  digitalWalletUserPaymentDigitalWallet: Array<UserPaymentDigitalWallet> = new Array<UserPaymentDigitalWallet>();
+  digitalWalletUserPaymentDigitalWalletList: Array<UserPaymentDigitalWallet> = new Array<UserPaymentDigitalWallet>();
 }

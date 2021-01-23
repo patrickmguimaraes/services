@@ -16,6 +16,6 @@ export class IdentificationDocument {
   juridicalPerson: JuridicalPerson = new JuridicalPerson();
   state: State = new State();
   country: Country = new Country();
-  identificationDocumentUserAttachment: Array<UserAttachment> = new Array<UserAttachment>();
-  identificationDocumentIdentificationDocumentAttachment: Array<IdentificationDocumentAttachment> = new Array<IdentificationDocumentAttachment>();
+  identificationDocumentUserAttachmentList: Array<UserAttachment> = new Array<UserAttachment>();
+  identificationDocumentIdentificationDocumentAttachmentList: Array<IdentificationDocumentAttachment> = new Array<IdentificationDocumentAttachment>();
 }
