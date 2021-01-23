@@ -1,13 +1,9 @@
-export class HelpCenterAssistant{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { HelpCenterMessages} from "./HelpCenterMessages";
+import { JuridicalPerson} from "./JuridicalPerson";
 
-export interface HelpCenterAssistant {
+export class HelpCenterAssistant {
   pkHelpCenterAssistant: number;
-  status: number;
-  fkJuridicalPerson: number;
+  status: number = 0;
+  juridicalPerson: JuridicalPerson = new JuridicalPerson();
+  helpCenterAssistantHelpCenterMessages: Array<HelpCenterMessages> = new Array<HelpCenterMessages>();
 }

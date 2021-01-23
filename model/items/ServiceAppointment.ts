@@ -1,16 +1,11 @@
-export class ServiceAppointment{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { Service} from "./Service";
+import { Appointment} from "./Appointment";
 
-export interface ServiceAppointment {
+export class ServiceAppointment {
   pkServiceAppointment: number;
-  beginning: string | null;
-  end: string | null;
-  status: number;
-  fkService: number;
-  fkAppointment: number;
+  beginning: Date = new Date();;
+  end: Date = new Date();;
+  status: number = 0;
+  service: Service = new Service();
+  appointment: Appointment = new Appointment();
 }

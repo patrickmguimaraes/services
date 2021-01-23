@@ -1,14 +1,9 @@
-export class LogBackupedApproval{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { LogBackuped} from "./LogBackuped";
+import { Approval} from "./Approval";
 
-export interface LogBackupedApproval {
+export class LogBackupedApproval {
   pkLogBackupedApproval: number;
-  status: number;
-  fkLogBackuped: number;
-  fkApproval: number;
+  status: number = 0;
+  logBackuped: LogBackuped = new LogBackuped();
+  approval: Approval = new Approval();
 }

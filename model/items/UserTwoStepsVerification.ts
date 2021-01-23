@@ -1,16 +1,12 @@
-export class UserTwoStepsVerification{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { UserActivation} from "./UserActivation";
+import { User} from "./User";
 
-export interface UserTwoStepsVerification {
+export class UserTwoStepsVerification {
   pkUserTwoStepsVerification: number;
   dispositive: string;
   code: string;
-  datePaired: string;
+  datePaired: Date = new Date();;
   status: number;
-  fkUser: number | null;
+  user: User = new User();
+  userTwoStepsVerificationUserActivation: Array<UserActivation> = new Array<UserActivation>();
 }

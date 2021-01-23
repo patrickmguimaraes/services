@@ -1,16 +1,12 @@
-export class HelpCenterTypicalAsks{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { HelpCenterTypicalAsks} from "./HelpCenterTypicalAsks";
+import { Language} from "./Language";
 
-export interface HelpCenterTypicalAsks {
+export class HelpCenterTypicalAsks {
   pkHelpCenterTypicalAsks: number;
-  number: number | null;
+  number: Number;
   ask: string;
   answer: string;
-  fkHelpCenterTypicalAsks: number | null;
-  fkLanguage: number;
+  helpCenterTypicalAsks: HelpCenterTypicalAsks = new HelpCenterTypicalAsks();
+  language: Language = new Language();
+  helpCenterTypicalAsksHelpCenterTypicalAsks: Array<HelpCenterTypicalAsks> = new Array<HelpCenterTypicalAsks>();
 }

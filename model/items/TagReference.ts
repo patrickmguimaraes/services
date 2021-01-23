@@ -1,15 +1,11 @@
-export class TagReference{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { FiscalModuleFunctionTag} from "./FiscalModuleFunctionTag";
+import { Country} from "./Country";
 
-export interface TagReference {
+export class TagReference {
   pkTagReference: number;
   code: string;
   name: string;
-  status: number;
-  fkCountry: number | null;
+  status: number = 0;
+  country: Country = new Country();
+  tagReferenceFiscalModuleFunctionTag: Array<FiscalModuleFunctionTag> = new Array<FiscalModuleFunctionTag>();
 }

@@ -1,16 +1,15 @@
-export class ServiceOrderCanceled{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { TaxReceipt} from "./TaxReceipt";
+import { ServiceOrder} from "./ServiceOrder";
+import { User} from "./User";
+import { ServiceOrderRefund} from "./ServiceOrderRefund";
 
-export interface ServiceOrderCanceled {
+export class ServiceOrderCanceled {
   pkServiceOrderCanceled: number;
-  date: string | null;
+  date: Date = new Date();;
   detail: string;
-  status: number;
-  pkServiceOrder: number;
-  fkUser: number;
+  status: number = 0;
+  serviceOrder: ServiceOrder = new ServiceOrder();
+  user: User = new User();
+  serviceOrderCanceledTaxReceiptReferenced: TaxReceipt = new TaxReceipt();
+  serviceOrderCanceledServiceOrderRefund: Array<ServiceOrderRefund> = new Array<ServiceOrderRefund>();
 }

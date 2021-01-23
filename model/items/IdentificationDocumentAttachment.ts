@@ -1,14 +1,9 @@
-export class IdentificationDocumentAttachment{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { IdentificationDocument} from "./IdentificationDocument";
+import { Attachment} from "./Attachment";
 
-export interface IdentificationDocumentAttachment {
+export class IdentificationDocumentAttachment {
   pkIdentificationDocumentAttachment: number;
-  status: number;
-  fkIdentificationDocument: number | null;
-  fkAttachment: number | null;
+  status: number = 0;
+  identificationDocument: IdentificationDocument = new IdentificationDocument();
+  attachment: Attachment = new Attachment();
 }

@@ -1,15 +1,14 @@
-export class Employee{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { User} from "./User";
+import { Person} from "./Person";
+import { JuridicalPerson} from "./JuridicalPerson";
+import { EmployeeResponsibility} from "./EmployeeResponsibility";
 
-export interface Employee {
+export class Employee {
   pkEmployee: number;
   profession: string;
-  status: number;
-  fkPerson: number;
-  fkJuridicalPerson: number;
+  status: number = 0;
+  person: Person = new Person();
+  juridicalPerson: JuridicalPerson = new JuridicalPerson();
+  employeeUserReferenced: User = new User();
+  employeeEmployeeResponsibility: Array<EmployeeResponsibility> = new Array<EmployeeResponsibility>();
 }

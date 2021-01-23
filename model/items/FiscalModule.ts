@@ -1,15 +1,11 @@
-export class FiscalModule{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { FiscalModuleFunction} from "./FiscalModuleFunction";
+import { TaxSettings} from "./TaxSettings";
 
-export interface FiscalModule {
+export class FiscalModule {
   pkFiscalModule: number;
   code: string;
   url: string;
-  status: number;
-  fkTaxSettings: number;
+  status: number = 0;
+  taxSettings: TaxSettings = new TaxSettings();
+  fiscalModuleFiscalModuleFunction: Array<FiscalModuleFunction> = new Array<FiscalModuleFunction>();
 }

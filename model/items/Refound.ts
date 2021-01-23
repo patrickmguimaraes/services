@@ -1,14 +1,12 @@
-export class Refound{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { ServiceOrderRefund} from "./ServiceOrderRefund";
+import { BalanceItem} from "./BalanceItem";
+import { BalanceBlocked} from "./BalanceBlocked";
 
-export interface Refound {
+export class Refound {
   pkRefound: number;
-  status: number;
-  fkBalanceItem: number;
-  fkBalanceBlocked: number | null;
+  status: number = 0;
+  balanceItem: BalanceItem = new BalanceItem();
+  balanceBlocked: BalanceBlocked = new BalanceBlocked();
+  refoundFeeServiceOrderRefundReferenced: ServiceOrderRefund = new ServiceOrderRefund();
+  refoundServiceOrderRefundReferenced: ServiceOrderRefund = new ServiceOrderRefund();
 }

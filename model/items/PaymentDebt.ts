@@ -1,14 +1,9 @@
-export class PaymentDebt{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { Payment} from "./Payment";
+import { BankAccount} from "./BankAccount";
 
-export interface PaymentDebt {
+export class PaymentDebt {
   pkPaymentDebt: number;
-  status: number;
-  fkPayment: number;
-  fkBankAccount: number;
+  status: number = 0;
+  payment: Payment = new Payment();
+  bankAccount: BankAccount = new BankAccount();
 }

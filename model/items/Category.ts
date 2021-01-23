@@ -1,16 +1,18 @@
-export class Category{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { ServiceCategory} from "./ServiceCategory";
+import { Category} from "./Category";
+import { Country} from "./Country";
+import { TaxSettingsCategory} from "./TaxSettingsCategory";
+import { LoanBankProgramProfileCategory} from "./LoanBankProgramProfileCategory";
 
-export interface Category {
+export class Category {
   pkCategory: number;
   name: string;
-  code: string | null;
-  status: number;
-  fkCategory: number | null;
-  fkCountry: number | null;
+  code: String;
+  status: number = 0;
+  category: Category = new Category();
+  country: Country = new Country();
+  categoryServiceCategoryReferenced: ServiceCategory = new ServiceCategory();
+  categoryCategory: Array<Category> = new Array<Category>();
+  categoryTaxSettingsCategory: Array<TaxSettingsCategory> = new Array<TaxSettingsCategory>();
+  categoryLoanBankProgramProfileCategory: Array<LoanBankProgramProfileCategory> = new Array<LoanBankProgramProfileCategory>();
 }

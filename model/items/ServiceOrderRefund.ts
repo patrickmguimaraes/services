@@ -1,19 +1,15 @@
-export class ServiceOrderRefund{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { ServiceOrderPayment} from "./ServiceOrderPayment";
+import { ServiceOrderCanceled} from "./ServiceOrderCanceled";
+import { Refound} from "./Refound";
 
-export interface ServiceOrderRefund {
+export class ServiceOrderRefund {
   pkServiceOrderRefund: number;
-  value: string;
-  fee: string;
-  date: string | null;
-  status: number;
-  fkServiceOrderPayment: number;
-  fkServiceOrderCanceled: number;
-  fkRefound: number | null;
-  fkRefoundFee: number | null;
+  value: number = 0.0;
+  fee: number = 0.0;
+  date: Date = new Date();;
+  status: number = 0;
+  serviceOrderPayment: ServiceOrderPayment = new ServiceOrderPayment();
+  serviceOrderCanceled: ServiceOrderCanceled = new ServiceOrderCanceled();
+  refound: Refound = new Refound();
+  refoundFee: Refound = new Refound();
 }

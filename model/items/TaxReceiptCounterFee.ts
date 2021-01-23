@@ -1,15 +1,13 @@
-export class TaxReceiptCounterFee{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { TaxReceiptCounterPayment} from "./TaxReceiptCounterPayment";
+import { TaxReceiptCounterApproved} from "./TaxReceiptCounterApproved";
+import { TaxSettingsCounter} from "./TaxSettingsCounter";
+import { BalanceItem} from "./BalanceItem";
 
-export interface TaxReceiptCounterFee {
+export class TaxReceiptCounterFee {
   pkTaxReceiptCounterFee: number;
-  status: number;
-  pkTaxReceiptCounterApproved: number;
-  pkTaxSettingsCounter: number;
-  fkBalanceItem: number;
+  status: number = 0;
+  taxReceiptCounterApproved: TaxReceiptCounterApproved = new TaxReceiptCounterApproved();
+  taxSettingsCounter: TaxSettingsCounter = new TaxSettingsCounter();
+  balanceItem: BalanceItem = new BalanceItem();
+  taxReceiptCounterFeeTaxReceiptCounterPaymentReferenced: TaxReceiptCounterPayment = new TaxReceiptCounterPayment();
 }

@@ -1,16 +1,10 @@
-export class Log{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { Country} from "./Country";
 
-export interface Log {
+export class Log {
   pkLog: number;
   type: number;
   title: string;
   message: string;
-  date: string;
-  fkCountry: number;
+  date: Date = new Date();;
+  country: Country = new Country();
 }

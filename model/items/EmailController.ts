@@ -1,19 +1,15 @@
-export class EmailController{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { Country} from "./Country";
+import { Email} from "./Email";
 
-export interface EmailController {
+export class EmailController {
   pkEmailController: number;
-  type: number;
+  type: number = 1;
   imap: string;
   smtp: string;
   fullName: string;
   email: string;
   password: string;
-  status: number;
-  fkCountry: number;
+  status: number = 0;
+  country: Country = new Country();
+  emailControllerEmail: Array<Email> = new Array<Email>();
 }

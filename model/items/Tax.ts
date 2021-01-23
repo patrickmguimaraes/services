@@ -1,14 +1,12 @@
-export class Tax{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { CityAccount} from "./CityAccount";
+import { TaxFormula} from "./TaxFormula";
+import { Country} from "./Country";
 
-export interface Tax {
+export class Tax {
   pkTax: number;
   name: string;
-  status: number;
-  fkCountry: number | null;
+  status: number = 0;
+  country: Country = new Country();
+  taxCityAccount: Array<CityAccount> = new Array<CityAccount>();
+  taxTaxFormula: Array<TaxFormula> = new Array<TaxFormula>();
 }

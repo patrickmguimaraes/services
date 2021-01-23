@@ -1,16 +1,25 @@
-export class Approval{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { User} from "./User";
+import { ScreenApproval} from "./ScreenApproval";
+import { ApprovalAttachment} from "./ApprovalAttachment";
+import { LoanBankProgramApproval} from "./LoanBankProgramApproval";
+import { LogBackupedApproval} from "./LogBackupedApproval";
+import { MainBankAccountApproval} from "./MainBankAccountApproval";
+import { WithdrawMoneyApproval} from "./WithdrawMoneyApproval";
+import { TaxSettingsApproval} from "./TaxSettingsApproval";
+import { FinanceModuleApproval} from "./FinanceModuleApproval";
 
-export interface Approval {
+export class Approval {
   pkApproval: number;
   observation: string;
-  date: string;
-  status: number;
-  fkUser: number;
-  fkScreenApproval: number;
+  date: Date = new Date();;
+  status: number = 0;
+  user: User = new User();
+  screenApproval: ScreenApproval = new ScreenApproval();
+  approvalFinanceModuleApprovalReferenced: FinanceModuleApproval = new FinanceModuleApproval();
+  approvalTaxSettingsApprovalReferenced: TaxSettingsApproval = new TaxSettingsApproval();
+  approvalWithdrawMoneyApprovalReferenced: WithdrawMoneyApproval = new WithdrawMoneyApproval();
+  approvalMainBankAccountApprovalReferenced: MainBankAccountApproval = new MainBankAccountApproval();
+  approvalLogBackupedApprovalReferenced: LogBackupedApproval = new LogBackupedApproval();
+  approvalLoanBankProgramApprovalReferenced: LoanBankProgramApproval = new LoanBankProgramApproval();
+  approvalApprovalAttachment: Array<ApprovalAttachment> = new Array<ApprovalAttachment>();
 }

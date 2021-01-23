@@ -1,15 +1,11 @@
-export class SmsController{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { Country} from "./Country";
+import { SMS} from "./SMS";
 
-export interface SmsController {
-  pkSmsController: number;
-  type: number;
+export class SMSController {
+  pkSMSController: number;
+  type: number = 1;
   number: string;
-  status: number;
-  fkCountry: number;
+  status: number = 0;
+  country: Country = new Country();
+  sMSControllerSMS: Array<SMS> = new Array<SMS>();
 }

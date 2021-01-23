@@ -1,14 +1,9 @@
-export class LoanBankProgramApproval{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { Approval} from "./Approval";
+import { LoanBankProgram} from "./LoanBankProgram";
 
-export interface LoanBankProgramApproval {
+export class LoanBankProgramApproval {
   pkLoanBankProgramApproval: number;
-  status: number;
-  fkApproval: number | null;
-  fkLoanBankProgram: number | null;
+  status: number = 0;
+  approval: Approval = new Approval();
+  loanBankProgram: LoanBankProgram = new LoanBankProgram();
 }

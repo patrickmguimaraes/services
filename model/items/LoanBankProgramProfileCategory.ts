@@ -1,14 +1,9 @@
-export class LoanBankProgramProfileCategory{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { Category} from "./Category";
+import { LoanBankProgramProfile} from "./LoanBankProgramProfile";
 
-export interface LoanBankProgramProfileCategory {
+export class LoanBankProgramProfileCategory {
   pkLoanBankProgramProfileCategory: number;
-  status: number | null;
-  fkCategory: number;
-  fkLoanBankProgramProfile: number;
+  status: Number;
+  category: Category = new Category();
+  loanBankProgramProfile: LoanBankProgramProfile = new LoanBankProgramProfile();
 }

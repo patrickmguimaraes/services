@@ -1,17 +1,15 @@
-export class Appointment{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { User} from "./User";
+import { ServiceAppointment} from "./ServiceAppointment";
+import { ServiceOrder} from "./ServiceOrder";
 
-export interface Appointment {
+export class Appointment {
   pkAppointment: number;
   number: string;
-  cost: string;
-  discount: string;
-  date: string;
-  status: number;
-  fkUser: number;
+  cost: number = 0.0;
+  discount: number = 0;
+  date: Date = new Date(new Date().setHours(12, 0, 0, 0));
+  status: number = 0;
+  user: User = new User();
+  appointmentServiceOrderReferenced: ServiceOrder = new ServiceOrder();
+  appointmentServiceAppointment: Array<ServiceAppointment> = new Array<ServiceAppointment>();
 }

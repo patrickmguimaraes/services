@@ -1,13 +1,7 @@
-export class PaymentBalance{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { Payment} from "./Payment";
 
-export interface PaymentBalance {
+export class PaymentBalance {
   pkPaymentBalance: number;
-  status: number;
-  fkPayment: number;
+  status: number = 0;
+  payment: Payment = new Payment();
 }

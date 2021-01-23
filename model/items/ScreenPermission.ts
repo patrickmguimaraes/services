@@ -1,15 +1,10 @@
-export class ScreenPermission{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { Screen} from "./Screen";
+import { User} from "./User";
 
-export interface ScreenPermission {
+export class ScreenPermission {
   pkPermissionPermission: number;
-  permission: number;
-  status: number;
-  fkScreen: number;
-  fkUser: number;
+  permission: number = 1;
+  status: number = 0;
+  screen: Screen = new Screen();
+  user: User = new User();
 }

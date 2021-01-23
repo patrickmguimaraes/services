@@ -1,15 +1,13 @@
-export class CityAccount{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { TaxSettings} from "./TaxSettings";
+import { City} from "./City";
+import { BankAccount} from "./BankAccount";
+import { Tax} from "./Tax";
 
-export interface CityAccount {
+export class CityAccount {
   pkCityAccount: number;
-  status: number;
-  fkCity: number;
-  fkBankAccount: number;
-  fkTax: number;
+  status: number = 0;
+  city: City = new City();
+  bankAccount: BankAccount = new BankAccount();
+  tax: Tax = new Tax();
+  cityAccountTaxSettings: Array<TaxSettings> = new Array<TaxSettings>();
 }

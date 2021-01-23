@@ -1,14 +1,10 @@
-export class ServiceCategory{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { Service} from "./Service";
+import { Category} from "./Category";
 
-export interface ServiceCategory {
+export class ServiceCategory {
   pkServiceCategory: number;
   name: string;
-  status: number;
-  fkCategory: number | null;
+  status: number = 0;
+  category: Category = new Category();
+  serviceCategoryService: Array<Service> = new Array<Service>();
 }

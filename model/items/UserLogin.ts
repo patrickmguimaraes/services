@@ -1,17 +1,14 @@
-export class UserLogin{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { UserActivation} from "./UserActivation";
+import { Address} from "./Address";
+import { User} from "./User";
 
-export interface UserLogin {
+export class UserLogin {
   pkUserLogin: number;
   dispositive: string;
-  date: string;
-  trust: boolean;
-  status: number;
-  fkAddress: number;
-  fkUser: number | null;
+  date: Date = new Date();;
+  trust: boolean = false;
+  status: number = 0;
+  address: Address = new Address();
+  user: User = new User();
+  userLoginUserActivation: Array<UserActivation> = new Array<UserActivation>();
 }

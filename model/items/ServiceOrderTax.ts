@@ -1,19 +1,16 @@
-export class ServiceOrderTax{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { ServiceOrder} from "./ServiceOrder";
+import { TaxFormula} from "./TaxFormula";
+import { TaxSettings} from "./TaxSettings";
+import { TaxReceipt} from "./TaxReceipt";
 
-export interface ServiceOrderTax {
+export class ServiceOrderTax {
   pkServiceOrderTax: number;
   note: string;
-  date: string;
-  value: string;
-  status: number;
-  fkServiceOrder: number;
-  fkTaxFormula: number;
-  fkTaxSetting: number;
-  fkTaxReceipt: number | null;
+  date: Date = new Date();;
+  value: number = 0.0;
+  status: number = 0;
+  serviceOrder: ServiceOrder = new ServiceOrder();
+  taxFormula: TaxFormula = new TaxFormula();
+  taxSetting: TaxSettings = new TaxSettings();
+  taxReceipt: TaxReceipt = new TaxReceipt();
 }

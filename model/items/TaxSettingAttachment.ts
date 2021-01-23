@@ -1,15 +1,10 @@
-export class TaxSettingAttachment{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { TaxSettings} from "./TaxSettings";
+import { Attachment} from "./Attachment";
 
-export interface TaxSettingAttachment {
+export class TaxSettingAttachment {
   pkTaxSettingAttachment: number;
   name: string;
-  status: number;
-  fkTaxSetting: number;
-  fkAttachment: number;
+  status: number = 0;
+  taxSetting: TaxSettings = new TaxSettings();
+  attachment: Attachment = new Attachment();
 }

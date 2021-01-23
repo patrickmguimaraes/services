@@ -1,14 +1,9 @@
-export class MainBankAccountApproval{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { MainBankAccount} from "./MainBankAccount";
+import { Approval} from "./Approval";
 
-export interface MainBankAccountApproval {
+export class MainBankAccountApproval {
   pkMainBankAccountApproval: number;
-  status: number;
-  fkMainBankAccount: number;
-  fkApproval: number;
+  status: number = 0;
+  mainBankAccount: MainBankAccount = new MainBankAccount();
+  approval: Approval = new Approval();
 }

@@ -1,16 +1,13 @@
-export class PaymentCredit{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { Payment} from "./Payment";
+import { UserPaymentCreditCard} from "./UserPaymentCreditCard";
+import { CreditCardFinancialModuleFunction} from "./CreditCardFinancialModuleFunction";
 
-export interface PaymentCredit {
+export class PaymentCredit {
   pkPaymentCredit: number;
   transactionId: string;
   code: string;
-  status: number;
-  fkPayment: number;
-  fkUserPaymentCreditCard: number;
+  status: number = 0;
+  payment: Payment = new Payment();
+  userPaymentCreditCard: UserPaymentCreditCard = new UserPaymentCreditCard();
+  paymentCreditCreditCardFinancialModuleFunction: Array<CreditCardFinancialModuleFunction> = new Array<CreditCardFinancialModuleFunction>();
 }

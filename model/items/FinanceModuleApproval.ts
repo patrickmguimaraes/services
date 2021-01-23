@@ -1,14 +1,9 @@
-export class FinanceModuleApproval{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { FinancialModule} from "./FinancialModule";
+import { Approval} from "./Approval";
 
-export interface FinanceModuleApproval {
+export class FinanceModuleApproval {
   pkFinanceModuleApproval: number;
-  status: number;
-  fkFinancialModule: number | null;
-  fkApproval: number | null;
+  status: number = 0;
+  financialModule: FinancialModule = new FinancialModule();
+  approval: Approval = new Approval();
 }

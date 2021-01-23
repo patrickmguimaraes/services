@@ -1,14 +1,9 @@
-export class FinancialModuleTermsOfService{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { FinancialModule} from "./FinancialModule";
+import { Attachment} from "./Attachment";
 
-export interface FinancialModuleTermsOfService {
+export class FinancialModuleTermsOfService {
   pkFinancialModuleTermsOfService: number;
   status: number;
-  fkFinancialModule: number;
-  fkAttachment: number;
+  financialModule: FinancialModule = new FinancialModule();
+  attachment: Attachment = new Attachment();
 }

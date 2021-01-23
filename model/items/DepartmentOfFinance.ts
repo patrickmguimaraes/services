@@ -1,17 +1,16 @@
-export class DepartmentOfFinance{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { City} from "./City";
+import { JuridicalPerson} from "./JuridicalPerson";
+import { Person} from "./Person";
+import { Address} from "./Address";
+import { State} from "./State";
 
-export interface DepartmentOfFinance {
+export class DepartmentOfFinance {
   pkDepartmentOfFinance: number;
-  region: string | null;
+  region: String;
   status: number;
-  fkJuridicalPerson: number;
-  fkResponsable: number;
-  fkAddress: number;
-  fkState: number;
+  juridicalPerson: JuridicalPerson = new JuridicalPerson();
+  responsable: Person = new Person();
+  address: Address = new Address();
+  state: State = new State();
+  departmentOfFinanceCity: Array<City> = new Array<City>();
 }

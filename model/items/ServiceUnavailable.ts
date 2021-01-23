@@ -1,15 +1,9 @@
-export class ServiceUnavailable{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { Service} from "./Service";
 
-export interface ServiceUnavailable {
+export class ServiceUnavailable {
   pkServiceUnavailable: number;
-  beginning: string;
-  end: string | null;
-  status: number;
-  fkService: number;
+  beginning: Date = new Date(new Date().setHours(12, 0, 0, 0));
+  end: Date = new Date(new Date().setHours(12, 0, 0, 0));
+  status: number = 0;
+  service: Service = new Service();
 }

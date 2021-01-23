@@ -1,14 +1,11 @@
-export class Language{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { Country} from "./Country";
+import { HelpCenterTypicalAsks} from "./HelpCenterTypicalAsks";
 
-export interface Language {
+export class Language {
   pkLanguage: number;
   name: string;
-  status: number;
-  fkCountry: number | null;
+  status: number = 0;
+  country: Country = new Country();
+  languageCountry: Array<Country> = new Array<Country>();
+  languageHelpCenterTypicalAsks: Array<HelpCenterTypicalAsks> = new Array<HelpCenterTypicalAsks>();
 }

@@ -1,18 +1,16 @@
-export class ServiceTemplateContract{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { CategoryContractTemplate} from "./CategoryContractTemplate";
+import { Service} from "./Service";
+import { Attachment} from "./Attachment";
+import { ServiceOrderAttachment} from "./ServiceOrderAttachment";
 
-export interface ServiceTemplateContract {
+export class ServiceTemplateContract {
   pkServiceTemplateContract: number;
-  beginning: string;
-  end: string | null;
+  beginning: Date = new Date();;
+  end: Date = new Date();;
   status: number;
-  fkCategoryContractTemplate: number;
-  fkService: number;
-  fkTemplateAttachment: number;
-  fkSignatureAttachment: number;
+  categoryContractTemplate: CategoryContractTemplate = new CategoryContractTemplate();
+  service: Service = new Service();
+  templateAttachment: Attachment = new Attachment();
+  signatureAttachment: Attachment = new Attachment();
+  serviceContractServiceOrderAttachment: Array<ServiceOrderAttachment> = new Array<ServiceOrderAttachment>();
 }

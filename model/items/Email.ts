@@ -1,15 +1,16 @@
-export class Email{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { TaxReceipt} from "./TaxReceipt";
+import { HelpCenterService} from "./HelpCenterService";
+import { EmailController} from "./EmailController";
+import { Contact} from "./Contact";
+import { UserActivation} from "./UserActivation";
 
-export interface Email {
+export class Email {
   pkEmail: number;
   subject: string;
   emailText: string;
-  fkEmailController: number | null;
-  fkContact: number | null;
+  emailController: EmailController = new EmailController();
+  contact: Contact = new Contact();
+  emailUserActivationReferenced: UserActivation = new UserActivation();
+  emailTaxReceipt: Array<TaxReceipt> = new Array<TaxReceipt>();
+  emailHelpCenterService: Array<HelpCenterService> = new Array<HelpCenterService>();
 }

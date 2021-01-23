@@ -1,16 +1,13 @@
-export class ServiceOrderAttachment{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { ServiceOrder} from "./ServiceOrder";
+import { ServiceTemplateContract} from "./ServiceTemplateContract";
+import { User} from "./User";
+import { Attachment} from "./Attachment";
 
-export interface ServiceOrderAttachment {
+export class ServiceOrderAttachment {
   pkServiceOrderAttachment: number;
-  status: number;
-  fkServiceOrder: number;
-  pkServiceContract: number | null;
-  fkUser: number | null;
-  fkAttachment: number | null;
+  status: number = 0;
+  serviceOrder: ServiceOrder = new ServiceOrder();
+  serviceContract: ServiceTemplateContract = new ServiceTemplateContract();
+  user: User = new User();
+  attachment: Attachment = new Attachment();
 }

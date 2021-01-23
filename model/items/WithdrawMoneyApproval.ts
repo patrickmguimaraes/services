@@ -1,14 +1,9 @@
-export class WithdrawMoneyApproval{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { Approval} from "./Approval";
+import { WithdrawMoney} from "./WithdrawMoney";
 
-export interface WithdrawMoneyApproval {
+export class WithdrawMoneyApproval {
   pkWithdrawMoneyApproval: number;
-  status: number;
-  fkApproval: number;
-  fkWithdrawMoney: number;
+  status: number = 0;
+  approval: Approval = new Approval();
+  withdrawMoney: WithdrawMoney = new WithdrawMoney();
 }

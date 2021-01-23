@@ -1,14 +1,9 @@
-export class ApprovalAttachment{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { Approval} from "./Approval";
+import { Attachment} from "./Attachment";
 
-export interface ApprovalAttachment {
+export class ApprovalAttachment {
   pkApprovalAttachment: number;
-  status: number;
-  fkApproval: number;
-  fkAttachment: number;
+  status: number = 0;
+  approval: Approval = new Approval();
+  attachment: Attachment = new Attachment();
 }

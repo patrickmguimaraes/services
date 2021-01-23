@@ -1,16 +1,15 @@
-export class BalanceBlocked{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { LoanMoney} from "./LoanMoney";
+import { Balance} from "./Balance";
+import { Refound} from "./Refound";
+import { BalanceItem} from "./BalanceItem";
 
-export interface BalanceBlocked {
+export class BalanceBlocked {
   pkBalanceBlocked: number;
   note: string;
-  value: string;
-  status: number;
-  fkLoanMoney: number;
-  fkBalance: number;
+  value: number = 0.0;
+  status: number = 0;
+  loanMoney: LoanMoney = new LoanMoney();
+  balance: Balance = new Balance();
+  balanceBlockedRefound: Array<Refound> = new Array<Refound>();
+  balanceBlockedBalanceItem: Array<BalanceItem> = new Array<BalanceItem>();
 }

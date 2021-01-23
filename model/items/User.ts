@@ -1,23 +1,62 @@
-export class User{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { Person} from "./Person";
+import { JuridicalPerson} from "./JuridicalPerson";
+import { Employee} from "./Employee";
+import { Counter} from "./Counter";
+import { Balance} from "./Balance";
+import { Appointment} from "./Appointment";
+import { UserPayment} from "./UserPayment";
+import { TaxReceipt} from "./TaxReceipt";
+import { TaxSettings} from "./TaxSettings";
+import { UserAttachment} from "./UserAttachment";
+import { UserSettings} from "./UserSettings";
+import { Approval} from "./Approval";
+import { ScreenPermission} from "./ScreenPermission";
+import { PrepayTax} from "./PrepayTax";
+import { WithdrawMoney} from "./WithdrawMoney";
+import { MainBankAccount} from "./MainBankAccount";
+import { HelpCenterMessages} from "./HelpCenterMessages";
+import { HelpCenter} from "./HelpCenter";
+import { HelpCenterService} from "./HelpCenterService";
+import { UserLogin} from "./UserLogin";
+import { UserTwoStepsVerification} from "./UserTwoStepsVerification";
+import { LogBackuped} from "./LogBackuped";
+import { ServiceOrderCanceled} from "./ServiceOrderCanceled";
+import { ServiceOrderAttachment} from "./ServiceOrderAttachment";
+import { FinancialModule} from "./FinancialModule";
 
-export interface User {
+export class User {
   pkUser: number;
   username: string;
   password: string;
-  dateOfCreatingAccount: string;
-  dateOfFinishingAccount: string | null;
-  facebookAccount: string | null;
+  dateOfCreatingAccount: Date = new Date();;
+  dateOfFinishingAccount: Date = new Date();;
+  facebookAccount: String;
   useTwoStepsVerification: boolean;
-  status: number;
-  fkPerson: number | null;
-  fkJuridicalPerson: number | null;
-  fkEmployee: number | null;
-  fkCounter: number | null;
-  fkBalance: number;
+  status: number = 0;
+  person: Person = new Person();
+  juridicalPerson: JuridicalPerson = new JuridicalPerson();
+  employee: Employee = new Employee();
+  counter: Counter = new Counter();
+  balance: Balance = new Balance();
+  userUserSettingsReferenced: UserSettings = new UserSettings();
+  userAppointment: Array<Appointment> = new Array<Appointment>();
+  userUserPayment: Array<UserPayment> = new Array<UserPayment>();
+  userTaxReceipt: Array<TaxReceipt> = new Array<TaxReceipt>();
+  userTaxSettings: Array<TaxSettings> = new Array<TaxSettings>();
+  userUserAttachment: Array<UserAttachment> = new Array<UserAttachment>();
+  userApproval: Array<Approval> = new Array<Approval>();
+  userScreenPermission: Array<ScreenPermission> = new Array<ScreenPermission>();
+  userPrepayTax: Array<PrepayTax> = new Array<PrepayTax>();
+  userWithdrawMoney: Array<WithdrawMoney> = new Array<WithdrawMoney>();
+  userCreatorMainBankAccount: Array<MainBankAccount> = new Array<MainBankAccount>();
+  userHelpCenterMessages: Array<HelpCenterMessages> = new Array<HelpCenterMessages>();
+  userCompanyHelpCenterMessages: Array<HelpCenterMessages> = new Array<HelpCenterMessages>();
+  userHelpCenter: Array<HelpCenter> = new Array<HelpCenter>();
+  userHelpCenterService: Array<HelpCenterService> = new Array<HelpCenterService>();
+  userUserLogin: Array<UserLogin> = new Array<UserLogin>();
+  userUserTwoStepsVerification: Array<UserTwoStepsVerification> = new Array<UserTwoStepsVerification>();
+  userLogBackuped: Array<LogBackuped> = new Array<LogBackuped>();
+  userServiceOrderCanceled: Array<ServiceOrderCanceled> = new Array<ServiceOrderCanceled>();
+  userServiceOrderAttachment: Array<ServiceOrderAttachment> = new Array<ServiceOrderAttachment>();
+  userFinancialModule: Array<FinancialModule> = new Array<FinancialModule>();
 }

@@ -1,17 +1,15 @@
-export class FiscalModuleFunction{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { FiscalModule} from "./FiscalModule";
+import { TaxReceiptFiscalModule} from "./TaxReceiptFiscalModule";
+import { TaxReceiptCanceled} from "./TaxReceiptCanceled";
 
-export interface FiscalModuleFunction {
+export class FiscalModuleFunction {
   pkFiscalModuleFunction: number;
   name: string;
   code: string;
   url: string;
   template: string;
-  status: number;
-  fkFiscalModule: number;
+  status: number = 0;
+  fiscalModule: FiscalModule = new FiscalModule();
+  fiscalModuleFunctionTaxReceiptFiscalModule: Array<TaxReceiptFiscalModule> = new Array<TaxReceiptFiscalModule>();
+  fiscalModuleFunctionTaxReceiptCanceled: Array<TaxReceiptCanceled> = new Array<TaxReceiptCanceled>();
 }

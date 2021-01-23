@@ -1,20 +1,21 @@
-export class TaxFormula{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { ServiceOrderTax} from "./ServiceOrderTax";
+import { Tax} from "./Tax";
+import { TaxSettings} from "./TaxSettings";
+import { TaxFormula} from "./TaxFormula";
+import { BankAccount} from "./BankAccount";
+import { TaxSettingsCategory} from "./TaxSettingsCategory";
 
-export interface TaxFormula {
+export class TaxFormula {
   pkTaxFormula: number;
   number: number;
-  rate: string | null;
-  companyType: number;
-  status: number;
-  fkTax: number;
-  fkTaxSettings: number | null;
-  fkTaxFormula: number | null;
-  fkBankAccount: number | null;
-  fkTaxSettingsCategory: number | null;
+  rate: Number = 0.0;
+  companyType: number = 1;
+  status: number = 0;
+  tax: Tax = new Tax();
+  taxSettings: TaxSettings = new TaxSettings();
+  taxFormula: TaxFormula = new TaxFormula();
+  bankAccount: BankAccount = new BankAccount();
+  taxSettingsCategory: TaxSettingsCategory = new TaxSettingsCategory();
+  taxFormulaServiceOrderTax: Array<ServiceOrderTax> = new Array<ServiceOrderTax>();
+  taxFormulaTaxFormula: Array<TaxFormula> = new Array<TaxFormula>();
 }

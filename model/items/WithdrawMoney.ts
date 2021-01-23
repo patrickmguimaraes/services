@@ -1,18 +1,16 @@
-export class WithdrawMoney{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { TransferMoney} from "./TransferMoney";
+import { User} from "./User";
+import { ScreenApproval} from "./ScreenApproval";
+import { WithdrawMoneyApproval} from "./WithdrawMoneyApproval";
 
-export interface WithdrawMoney {
+export class WithdrawMoney {
   pkWithdrawMoney: number;
-  value: string;
-  date: string;
-  dateApprovated: string | null;
-  status: number;
-  fkTransferMoney: number;
-  fkUser: number;
-  fkScreenApproval: number | null;
+  value: number = 0.0;
+  date: Date = new Date();;
+  dateApprovated: Date = new Date();;
+  status: number = 0;
+  transferMoney: TransferMoney = new TransferMoney();
+  user: User = new User();
+  screenApproval: ScreenApproval = new ScreenApproval();
+  withdrawMoneyWithdrawMoneyApproval: Array<WithdrawMoneyApproval> = new Array<WithdrawMoneyApproval>();
 }

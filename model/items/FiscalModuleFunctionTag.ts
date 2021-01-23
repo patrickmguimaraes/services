@@ -1,20 +1,16 @@
-export class FiscalModuleFunctionTag{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { TagReference} from "./TagReference";
+import { FiscalModuleFunctionTag} from "./FiscalModuleFunctionTag";
 
-export interface FiscalModuleFunctionTag {
+export class FiscalModuleFunctionTag {
   pkFiscalModuleFunctionTag: number;
-  sequence: number;
-  tag: string | null;
-  value: string | null;
-  length: number | null;
-  completeWithZeroRight: boolean;
-  completeWithZeroLeft: boolean;
-  status: number;
-  fkTagReference: number;
-  fkFiscalModuleFunctionTag: number | null;
+  sequence: number = 1;
+  tag: String;
+  value: String;
+  length: Number;
+  completeWithZeroRight: boolean = false;
+  completeWithZeroLeft: boolean = false;
+  status: number = 0;
+  tagReference: TagReference = new TagReference();
+  fiscalModuleFunctionTag: FiscalModuleFunctionTag = new FiscalModuleFunctionTag();
+  fiscalModuleFunctionTagFiscalModuleFunctionTag: Array<FiscalModuleFunctionTag> = new Array<FiscalModuleFunctionTag>();
 }

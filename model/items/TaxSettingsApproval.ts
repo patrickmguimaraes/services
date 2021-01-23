@@ -1,14 +1,9 @@
-export class TaxSettingsApproval{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { TaxSettings} from "./TaxSettings";
+import { Approval} from "./Approval";
 
-export interface TaxSettingsApproval {
+export class TaxSettingsApproval {
   pkTaxSettingsApproval: number;
-  status: number;
-  fkTaxSettings: number;
-  fkApproval: number;
+  status: number = 0;
+  taxSettings: TaxSettings = new TaxSettings();
+  approval: Approval = new Approval();
 }

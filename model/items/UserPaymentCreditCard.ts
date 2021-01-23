@@ -1,19 +1,17 @@
-export class UserPaymentCreditCard{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { PaymentCredit} from "./PaymentCredit";
+import { CreditCardBrand} from "./CreditCardBrand";
+import { UserPayment} from "./UserPayment";
+import { Address} from "./Address";
 
-export interface UserPaymentCreditCard {
+export class UserPaymentCreditCard {
   pkUserPaymentCreditCard: number;
   cardNumber: string;
   nameOnCard: string;
-  expirationDate: string;
-  pairingId: string | null;
-  fkCreditCardBrand: number;
-  fkUserPayment: number;
-  fkBillingAddress: number | null;
-  pkShippingAddress: number | null;
+  expirationDate: Date = new Date(new Date().setHours(12, 0, 0, 0));
+  pairingId: String;
+  creditCardBrand: CreditCardBrand = new CreditCardBrand();
+  userPayment: UserPayment = new UserPayment();
+  billingAddress: Address = new Address();
+  shippingAddress: Address = new Address();
+  userPaymentCreditCardPaymentCredit: Array<PaymentCredit> = new Array<PaymentCredit>();
 }

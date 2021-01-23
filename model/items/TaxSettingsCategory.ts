@@ -1,17 +1,14 @@
-export class TaxSettingsCategory{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { TaxSettings} from "./TaxSettings";
+import { Category} from "./Category";
+import { TaxFormula} from "./TaxFormula";
 
-export interface TaxSettingsCategory {
+export class TaxSettingsCategory {
   pkTaxSettingsCategory: number;
-  tax: string | null;
-  localType: number;
-  freeTax: boolean;
+  tax: Number = 0.0;
+  localType: number = 1;
+  freeTax: boolean = false;
   status: number;
-  fkTaxSettings: number | null;
-  fkCategory: number | null;
+  taxSettings: TaxSettings = new TaxSettings();
+  category: Category = new Category();
+  taxSettingsCategoryTaxFormula: Array<TaxFormula> = new Array<TaxFormula>();
 }

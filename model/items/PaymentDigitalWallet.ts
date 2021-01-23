@@ -1,14 +1,9 @@
-export class PaymentDigitalWallet{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { Payment} from "./Payment";
+import { UserPaymentDigitalWallet} from "./UserPaymentDigitalWallet";
 
-export interface PaymentDigitalWallet {
+export class PaymentDigitalWallet {
   pkPaymentDigitalWallet: number;
-  status: number;
-  fkPayment: number | null;
-  fkUserPaymentDigitalWallet: number | null;
+  status: number = 0;
+  payment: Payment = new Payment();
+  userPaymentDigitalWallet: UserPaymentDigitalWallet = new UserPaymentDigitalWallet();
 }

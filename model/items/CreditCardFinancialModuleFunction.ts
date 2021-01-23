@@ -1,14 +1,9 @@
-export class CreditCardFinancialModuleFunction{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { FinancialModuleFunction} from "./FinancialModuleFunction";
+import { PaymentCredit} from "./PaymentCredit";
 
-export interface CreditCardFinancialModuleFunction {
+export class CreditCardFinancialModuleFunction {
   pkCreditCardFinancialModuleFunction: number;
-  status: number;
-  fkFinancialModuleFunction: number | null;
-  fkPaymentCredit: number | null;
+  status: number = 0;
+  financialModuleFunction: FinancialModuleFunction = new FinancialModuleFunction();
+  paymentCredit: PaymentCredit = new PaymentCredit();
 }

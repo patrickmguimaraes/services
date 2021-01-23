@@ -1,18 +1,15 @@
-export class TaxSettingsCounter{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { TaxSettings} from "./TaxSettings";
+import { Counter} from "./Counter";
+import { TaxReceiptCounterFee} from "./TaxReceiptCounterFee";
 
-export interface TaxSettingsCounter {
+export class TaxSettingsCounter {
   pkTaxSettingsCounter: number;
-  byPercent: string | null;
-  byOrderFixedPrice: string | null;
-  official: boolean;
-  substituto: boolean;
-  status: number;
-  fkTaxSettings: number;
-  fkCounter: number;
+  byPercent: Number = 0.0;
+  byOrderFixedPrice: Number = 0.0;
+  official: boolean = false;
+  substituto: boolean = false;
+  status: number = 0;
+  taxSettings: TaxSettings = new TaxSettings();
+  counter: Counter = new Counter();
+  taxSettingsCounterTaxReceiptCounterFee: Array<TaxReceiptCounterFee> = new Array<TaxReceiptCounterFee>();
 }

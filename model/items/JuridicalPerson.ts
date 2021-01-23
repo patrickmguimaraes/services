@@ -1,17 +1,45 @@
-export class JuridicalPerson{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { Country} from "./Country";
+import { IdentificationDocument} from "./IdentificationDocument";
+import { User} from "./User";
+import { Contact} from "./Contact";
+import { Address} from "./Address";
+import { Employee} from "./Employee";
+import { Service} from "./Service";
+import { ServiceOrder} from "./ServiceOrder";
+import { Balance} from "./Balance";
+import { Bank} from "./Bank";
+import { BankAccount} from "./BankAccount";
+import { HelpCenterAssistant} from "./HelpCenterAssistant";
+import { Counter} from "./Counter";
+import { LoanMoney} from "./LoanMoney";
+import { LoanMoneyRequest} from "./LoanMoneyRequest";
+import { BankBranch} from "./BankBranch";
+import { DepartmentOfFinance} from "./DepartmentOfFinance";
+import { Bill} from "./Bill";
 
-export interface JuridicalPerson {
+export class JuridicalPerson {
   pkJuridicalPerson: number;
   name: string;
   socialReason: string;
-  openedDate: string;
-  companyType: number;
-  legalStructure: number;
-  fkOriginCountry: number | null;
+  openedDate: Date = new Date(new Date().setHours(12, 0, 0, 0));
+  companyType: number = 1;
+  legalStructure: number = 1;
+  originCountry: Country = new Country();
+  juridicalPersonDepartmentOfFinanceReferenced: DepartmentOfFinance = new DepartmentOfFinance();
+  juridicalPersonBankBranchReferenced: BankBranch = new BankBranch();
+  juridicalPersonCounterReferenced: Counter = new Counter();
+  juridicalPersonHelpCenterAssistantReferenced: HelpCenterAssistant = new HelpCenterAssistant();
+  juridicalPersonBankReferenced: Bank = new Bank();
+  juridicalPersonBalanceReferenced: Balance = new Balance();
+  juridicalPersonServiceOrderReferenced: ServiceOrder = new ServiceOrder();
+  juridicalPersonEmployeeReferenced: Employee = new Employee();
+  juridicalPersonUserReferenced: User = new User();
+  juridicalPersonIdentificationDocument: Array<IdentificationDocument> = new Array<IdentificationDocument>();
+  juridicalPersonContact: Array<Contact> = new Array<Contact>();
+  juridicalPersonAddress: Array<Address> = new Array<Address>();
+  juridicalPersonService: Array<Service> = new Array<Service>();
+  juridicalPersonBankAccount: Array<BankAccount> = new Array<BankAccount>();
+  juridicalPersonLoanMoney: Array<LoanMoney> = new Array<LoanMoney>();
+  juridicalPersonLoanMoneyRequest: Array<LoanMoneyRequest> = new Array<LoanMoneyRequest>();
+  juridicalPersonBill: Array<Bill> = new Array<Bill>();
 }

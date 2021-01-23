@@ -1,15 +1,12 @@
-export class UserPaymentDigitalWallet{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { PaymentDigitalWallet} from "./PaymentDigitalWallet";
+import { DigitalWallet} from "./DigitalWallet";
+import { UserPayment} from "./UserPayment";
 
-export interface UserPaymentDigitalWallet {
+export class UserPaymentDigitalWallet {
   pkUserPaymentDigitalWallet: number;
   userCodeAccess: string;
-  datePairedUp: string;
-  fkDigitalWallet: number;
-  fkUserPayment: number;
+  datePairedUp: Date = new Date();;
+  digitalWallet: DigitalWallet = new DigitalWallet();
+  userPayment: UserPayment = new UserPayment();
+  userPaymentDigitalWalletPaymentDigitalWallet: Array<PaymentDigitalWallet> = new Array<PaymentDigitalWallet>();
 }

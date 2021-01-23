@@ -1,14 +1,13 @@
-export class Sms{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { HelpCenterService} from "./HelpCenterService";
+import { SMSController} from "./SMSController";
+import { UserActivation} from "./UserActivation";
 
-export interface Sms {
-  pkSms: number;
+export class SMS {
+  pkSMS: number;
   smsText: string;
-  status: number;
-  fkSmsController: number | null;
+  status: number = 0;
+  sMSController: SMSController = new SMSController();
+  sMSUserActivationReferenced: UserActivation = new UserActivation();
+  sMSHelpCenterService: Array<HelpCenterService> = new Array<HelpCenterService>();
+  sMSHelpCenterService: Array<HelpCenterService> = new Array<HelpCenterService>();
 }

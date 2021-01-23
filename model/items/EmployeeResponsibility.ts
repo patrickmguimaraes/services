@@ -1,18 +1,14 @@
-export class EmployeeResponsibility{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { Employee} from "./Employee";
+import { Service} from "./Service";
 
-export interface EmployeeResponsibility {
+export class EmployeeResponsibility {
   pkEmployeeResponsibility: number;
   position: string;
-  salary: string;
-  commission: string;
-  beginning: string;
-  end: string | null;
-  status: number;
-  fkEmployee: number;
+  salary: number = 0.0;
+  commission: number = 0.0;
+  beginning: Date = new Date();;
+  end: Date = new Date();;
+  status: number = 0;
+  employee: Employee = new Employee();
+  employeeResponsibilityService: Array<Service> = new Array<Service>();
 }

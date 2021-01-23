@@ -1,15 +1,11 @@
-export class BillFinancialModuleFunction{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { Bill} from "./Bill";
+import { FinancialModuleFunction} from "./FinancialModuleFunction";
+import { Attachment} from "./Attachment";
 
-export interface BillFinancialModuleFunction {
+export class BillFinancialModuleFunction {
   pkBillFinancialModuleFunction: number;
-  status: number;
-  fkBill: number;
-  fkFinancialModuleFunction: number;
-  fkAttachment: number | null;
+  status: number = 0;
+  bill: Bill = new Bill();
+  financialModuleFunction: FinancialModuleFunction = new FinancialModuleFunction();
+  attachment: Attachment = new Attachment();
 }

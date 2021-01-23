@@ -1,21 +1,26 @@
-export class TaxReceipt{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { User} from "./User";
+import { Email} from "./Email";
+import { ServiceOrder} from "./ServiceOrder";
+import { City} from "./City";
+import { ServiceOrderCanceled} from "./ServiceOrderCanceled";
+import { TaxReceiptCounterApproved} from "./TaxReceiptCounterApproved";
+import { ServiceOrderTax} from "./ServiceOrderTax";
+import { TaxReceiptFiscalModule} from "./TaxReceiptFiscalModule";
+import { TaxReceiptCanceled} from "./TaxReceiptCanceled";
 
-export interface TaxReceipt {
+export class TaxReceipt {
   pkTaxReceipt: number;
   code: string;
-  date: string;
-  dateCanceled: string | null;
-  status: number;
-  fkUser: number;
-  fkEmail: number;
-  fkServiceOrder: number;
-  fkCity: number;
-  pkServiceOrderCanceled: number | null;
-  fkTaxReceiptCounterApproved: number | null;
+  date: Date = new Date();;
+  dateCanceled: Date = new Date();;
+  status: number = 0;
+  user: User = new User();
+  email: Email = new Email();
+  serviceOrder: ServiceOrder = new ServiceOrder();
+  city: City = new City();
+  serviceOrderCanceled: ServiceOrderCanceled = new ServiceOrderCanceled();
+  taxReceiptCounterApproved: TaxReceiptCounterApproved = new TaxReceiptCounterApproved();
+  taxReceiptServiceOrderTax: Array<ServiceOrderTax> = new Array<ServiceOrderTax>();
+  taxReceiptTaxReceiptFiscalModule: Array<TaxReceiptFiscalModule> = new Array<TaxReceiptFiscalModule>();
+  taxReceiptTaxReceiptCanceled: Array<TaxReceiptCanceled> = new Array<TaxReceiptCanceled>();
 }

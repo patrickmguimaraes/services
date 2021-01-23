@@ -1,14 +1,9 @@
-export class UserSettings{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { User} from "./User";
+import { Attachment} from "./Attachment";
 
-export interface UserSettings {
+export class UserSettings {
   pkUserSettings: number;
-  status: number;
-  fkUser: number;
-  fkSignatureAttachment: number | null;
+  status: number = 0;
+  user: User = new User();
+  signatureAttachment: Attachment = new Attachment();
 }

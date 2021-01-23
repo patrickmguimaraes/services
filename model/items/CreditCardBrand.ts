@@ -1,15 +1,11 @@
-export class CreditCardBrand{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { Country} from "./Country";
+import { UserPaymentCreditCard} from "./UserPaymentCreditCard";
 
-export interface CreditCardBrand {
+export class CreditCardBrand {
   pkCreditCardBrand: number;
   name: string;
   code: string;
   status: number;
-  fkCountry: number | null;
+  country: Country = new Country();
+  creditCardBrandUserPaymentCreditCard: Array<UserPaymentCreditCard> = new Array<UserPaymentCreditCard>();
 }

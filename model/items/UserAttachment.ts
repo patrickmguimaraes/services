@@ -1,16 +1,12 @@
-export class UserAttachment{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { Attachment} from "./Attachment";
+import { User} from "./User";
+import { IdentificationDocument} from "./IdentificationDocument";
 
-export interface UserAttachment {
+export class UserAttachment {
   pkUserAttachment: number;
-  isProfilePicture: boolean;
-  status: number;
-  fkAttachment: number;
-  fkUser: number;
-  fkIdentificationDocument: number | null;
+  isProfilePicture: boolean = false;
+  status: number = 0;
+  attachment: Attachment = new Attachment();
+  user: User = new User();
+  identificationDocument: IdentificationDocument = new IdentificationDocument();
 }

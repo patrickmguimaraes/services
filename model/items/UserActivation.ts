@@ -1,20 +1,17 @@
-export class UserActivation{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { UserLogin} from "./UserLogin";
+import { Email} from "./Email";
+import { SMS} from "./SMS";
+import { UserTwoStepsVerification} from "./UserTwoStepsVerification";
 
-export interface UserActivation {
+export class UserActivation {
   pkUserActivation: number;
-  type: number;
+  type: number = 1;
   code: string;
-  date: string;
-  dateActive: string | null;
+  date: Date = new Date();;
+  dateActive: Date = new Date();;
   status: number;
-  fkUserLogin: number;
-  fkEmail: number | null;
-  fkSms: number | null;
-  fkUserTwoStepsVerification: number | null;
+  userLogin: UserLogin = new UserLogin();
+  email: Email = new Email();
+  sMS: SMS = new SMS();
+  userTwoStepsVerification: UserTwoStepsVerification = new UserTwoStepsVerification();
 }

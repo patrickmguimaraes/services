@@ -1,15 +1,12 @@
-export class HelpCenterServicesTypes{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { HelpCenterServicesTypes} from "./HelpCenterServicesTypes";
+import { HelpCenter} from "./HelpCenter";
 
-export interface HelpCenterServicesTypes {
+export class HelpCenterServicesTypes {
   pkHelpCenterServicesTypes: number;
   name: string;
-  type: number;
-  status: number;
-  fkHelpCenterServicesTypes: number | null;
+  type: number = 1;
+  status: number = 0;
+  helpCenterServicesTypes: HelpCenterServicesTypes = new HelpCenterServicesTypes();
+  helpCenterServicesTypesHelpCenterServicesTypes: Array<HelpCenterServicesTypes> = new Array<HelpCenterServicesTypes>();
+  helpCenterServicesTypesHelpCenter: Array<HelpCenter> = new Array<HelpCenter>();
 }

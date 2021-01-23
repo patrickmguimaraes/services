@@ -1,19 +1,17 @@
-export class LogBackuped{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { ScreenApproval} from "./ScreenApproval";
+import { Country} from "./Country";
+import { User} from "./User";
+import { LogBackupedApproval} from "./LogBackupedApproval";
 
-export interface LogBackuped {
+export class LogBackuped {
   pkLogBackuped: number;
   path: string;
-  date: string | null;
-  beginning: string;
-  end: string;
-  status: number;
-  fkScreenApproval: number;
-  fkCountry: number;
-  fkUser: number | null;
+  date: Date = new Date();;
+  beginning: Date = new Date();;
+  end: Date = new Date();;
+  status: number = 0;
+  screenApproval: ScreenApproval = new ScreenApproval();
+  country: Country = new Country();
+  user: User = new User();
+  logBackupedLogBackupedApproval: Array<LogBackupedApproval> = new Array<LogBackupedApproval>();
 }

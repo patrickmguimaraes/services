@@ -1,15 +1,15 @@
-export class State{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { IdentificationDocument} from "./IdentificationDocument";
+import { Country} from "./Country";
+import { City} from "./City";
+import { DepartmentOfFinance} from "./DepartmentOfFinance";
 
-export interface State {
+export class State {
   pkState: number;
   name: string;
   abbreviation: string;
-  status: number;
-  fkCountry: number;
+  status: number = 0;
+  country: Country = new Country();
+  stateIdentificationDocument: Array<IdentificationDocument> = new Array<IdentificationDocument>();
+  stateCity: Array<City> = new Array<City>();
+  stateDepartmentOfFinance: Array<DepartmentOfFinance> = new Array<DepartmentOfFinance>();
 }

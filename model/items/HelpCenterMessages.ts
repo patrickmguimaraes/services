@@ -1,17 +1,12 @@
-export class HelpCenterMessages{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { User} from "./User";
+import { HelpCenterAssistant} from "./HelpCenterAssistant";
 
-export interface HelpCenterMessages {
+export class HelpCenterMessages {
   pkHelpCenterMessages: number;
   message: string;
-  date: string;
+  date: Date = new Date();;
   status: number;
-  fkUser: number;
-  fkUserCompany: number | null;
-  fkHelpCenterAssistant: number | null;
+  user: User = new User();
+  userCompany: User = new User();
+  helpCenterAssistant: HelpCenterAssistant = new HelpCenterAssistant();
 }

@@ -1,17 +1,14 @@
-export class TaxReceiptFiscalModule{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { FiscalModuleFunction} from "./FiscalModuleFunction";
+import { TaxReceipt} from "./TaxReceipt";
+import { TaxReceiptCanceled} from "./TaxReceiptCanceled";
 
-export interface TaxReceiptFiscalModule {
+export class TaxReceiptFiscalModule {
   pkTaxReceiptFiscalModule: number;
-  isSendingInGroup: boolean;
-  dateSent: string | null;
-  answeredRevenueItemCode: string | null;
-  status: number;
-  fkFiscalModuleFunction: number;
-  fkTaxReceipt: number;
+  isSendingInGroup: boolean = false;
+  dateSent: Date = new Date();;
+  answeredRevenueItemCode: String;
+  status: number = 0;
+  fiscalModuleFunction: FiscalModuleFunction = new FiscalModuleFunction();
+  taxReceipt: TaxReceipt = new TaxReceipt();
+  taxReceiptFiscalModuleTaxReceiptCanceledReferenced: TaxReceiptCanceled = new TaxReceiptCanceled();
 }

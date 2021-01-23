@@ -1,12 +1,8 @@
-export class CategoryContractTemplate{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { ServiceTemplateContract} from "./ServiceTemplateContract";
+import { Attachment} from "./Attachment";
 
-export interface CategoryContractTemplate {
+export class CategoryContractTemplate {
   pkCategoryContractTemplate: number;
-  pkAttachment: number | null;
+  attachment: Attachment = new Attachment();
+  categoryContractTemplateServiceTemplateContract: Array<ServiceTemplateContract> = new Array<ServiceTemplateContract>();
 }

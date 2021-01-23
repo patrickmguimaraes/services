@@ -1,20 +1,18 @@
-export class ServiceOrderPayment{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { ServiceOrder} from "./ServiceOrder";
+import { Payment} from "./Payment";
+import { BalanceItem} from "./BalanceItem";
+import { ServiceOrderRefund} from "./ServiceOrderRefund";
 
-export interface ServiceOrderPayment {
+export class ServiceOrderPayment {
   pkServiceOrderPayment: number;
   number: number;
-  note: string | null;
-  date: string;
-  value: string;
-  paymentType: number;
-  status: number;
-  fkServiceOrder: number;
-  fkPayment: number | null;
-  fkBalanceItem: number | null;
+  note: String;
+  date: Date = new Date();;
+  value: number = 0.0;
+  paymentType: number = 1;
+  status: number = 0;
+  serviceOrder: ServiceOrder = new ServiceOrder();
+  payment: Payment = new Payment();
+  balanceItem: BalanceItem = new BalanceItem();
+  serviceOrderPaymentServiceOrderRefundReferenced: ServiceOrderRefund = new ServiceOrderRefund();
 }

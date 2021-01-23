@@ -1,16 +1,12 @@
-export class TaxReceiptCanceled{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { TaxReceipt} from "./TaxReceipt";
+import { FiscalModuleFunction} from "./FiscalModuleFunction";
+import { TaxReceiptFiscalModule} from "./TaxReceiptFiscalModule";
 
-export interface TaxReceiptCanceled {
+export class TaxReceiptCanceled {
   pkTaxReceiptCanceled: number;
-  date: string | null;
-  status: number;
-  fkTaxReceipt: number;
-  fkFiscalModuleFunction: number;
-  fkTaxReceiptFiscalModule: number;
+  date: Date = new Date();;
+  status: number = 0;
+  taxReceipt: TaxReceipt = new TaxReceipt();
+  fiscalModuleFunction: FiscalModuleFunction = new FiscalModuleFunction();
+  taxReceiptFiscalModule: TaxReceiptFiscalModule = new TaxReceiptFiscalModule();
 }

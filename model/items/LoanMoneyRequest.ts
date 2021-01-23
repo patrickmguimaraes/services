@@ -1,18 +1,16 @@
-export class LoanMoneyRequest{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { LoanMoney} from "./LoanMoney";
+import { JuridicalPerson} from "./JuridicalPerson";
+import { Person} from "./Person";
+import { LoanBankProgram} from "./LoanBankProgram";
 
-export interface LoanMoneyRequest {
+export class LoanMoneyRequest {
   pkLoanMoneyRequest: number;
-  value: string;
+  value: number = 0.0;
   months: number;
-  date: string;
-  status: number;
-  fkJuridicalPerson: number | null;
-  fkPerson: number | null;
-  fkLoanBankProgram: number;
+  date: Date = new Date();;
+  status: number = 0;
+  juridicalPerson: JuridicalPerson = new JuridicalPerson();
+  person: Person = new Person();
+  loanBankProgram: LoanBankProgram = new LoanBankProgram();
+  loanMoneyRequestLoanMoneyReferenced: LoanMoney = new LoanMoney();
 }

@@ -1,14 +1,9 @@
-export class LoanBankProgramContract{
-  constructor(fields: any) {
-    for (const f in fields) {
-      this[f] = fields[f];
-    }
-  }
-}
+import { Attachment} from "./Attachment";
+import { LoanBankProgram} from "./LoanBankProgram";
 
-export interface LoanBankProgramContract {
+export class LoanBankProgramContract {
   pkLoanBankProgramContract: number;
-  status: number;
-  fkTemplateContract: number;
-  fkLoanBankProgram: number | null;
+  status: number = 0;
+  templateContract: Attachment = new Attachment();
+  loanBankProgram: LoanBankProgram = new LoanBankProgram();
 }

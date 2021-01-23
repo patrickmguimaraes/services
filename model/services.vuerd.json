@@ -2,8 +2,8 @@
   "canvas": {
     "width": 4500,
     "height": 4500,
-    "scrollTop": 398,
-    "scrollLeft": 1252,
+    "scrollTop": 273,
+    "scrollLeft": 1586,
     "show": {
       "tableComment": false,
       "columnComment": false,
@@ -17,7 +17,7 @@
     },
     "database": "MySQL",
     "databaseName": "Servicos",
-    "canvasType": "GeneratorCode",
+    "canvasType": "ERD",
     "language": "TypeScript",
     "tableCase": "pascalCase",
     "columnCase": "camelCase",
@@ -206,7 +206,7 @@
           "active": false,
           "left": 541,
           "top": 793,
-          "zIndex": 11977,
+          "zIndex": 12558,
           "widthName": 60,
           "widthComment": 60
         },
@@ -13111,6 +13111,29 @@
             "id": "025e0aac-f137-300e-74c1-1928b86d4c72"
           },
           {
+            "name": "description",
+            "comment": "",
+            "dataType": "TEXT",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 65,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            },
+            "id": "c24a7d1d-21d1-2e54-1c0d-ae4214665316"
+          },
+          {
             "name": "beginning",
             "comment": "",
             "dataType": "DATETIME",
@@ -13452,7 +13475,7 @@
           "active": false,
           "left": 4058,
           "top": 4051,
-          "zIndex": 11571,
+          "zIndex": 12554,
           "widthName": 147,
           "widthComment": 60
         },
@@ -22019,7 +22042,7 @@
             "02858562-aaf7-4632-24c4-57df155e67ad"
           ],
           "x": 3986,
-          "y": 4192.125,
+          "y": 4207.5,
           "direction": "right"
         },
         "id": "6a0bc0dc-f586-1ca7-98f7-b16057973105",
@@ -23537,7 +23560,7 @@
             "43a641e8-0038-7033-1c78-b999fbd61c77"
           ],
           "x": 3600,
-          "y": 4128.75,
+          "y": 4139,
           "direction": "left"
         },
         "id": "d01699a4-dcfa-1dda-6320-dab1038fbb7c",
@@ -23574,7 +23597,7 @@
             "4048faaa-99bc-089a-92b7-96184b444e7b"
           ],
           "x": 3793,
-          "y": 4255.5,
+          "y": 4276,
           "direction": "bottom"
         },
         "end": {
@@ -24241,7 +24264,7 @@
             "4048faaa-99bc-089a-92b7-96184b444e7b"
           ],
           "x": 3986,
-          "y": 4065.375,
+          "y": 4070.5,
           "direction": "right"
         },
         "end": {
