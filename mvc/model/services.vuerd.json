@@ -17,7 +17,7 @@
     },
     "database": "MySQL",
     "databaseName": "Servicos",
-    "canvasType": "ERD",
+    "canvasType": "SQL",
     "language": "TypeScript",
     "tableCase": "pascalCase",
     "columnCase": "camelCase",

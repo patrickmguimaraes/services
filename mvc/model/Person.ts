@@ -13,9 +13,8 @@ export class Person {
   name: string;
   lastName: string;
   bithday: Date = new Date();
-  passedAway: Date = new Date();
   maritalStatus: number;
-  statusPerson: number = 0;
+  status: number = 0;
   birthCountry: Country = new Country();
   personIdentificationDocumentList: Array<IdentificationDocument> = new Array<IdentificationDocument>();
   personContactList: Array<Contact> = new Array<Contact>();

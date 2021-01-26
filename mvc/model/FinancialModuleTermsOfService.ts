@@ -3,7 +3,7 @@ import { Attachment} from "./Attachment";
 
 export class FinancialModuleTermsOfService {
   pkFinancialModuleTermsOfService: number;
-  status: number = 0;
+  status: number;
   financialModule: FinancialModule = new FinancialModule();
   attachment: Attachment = new Attachment();
 }
