@@ -7,7 +7,7 @@ export class UserPaymentCreditCard {
   pkUserPaymentCreditCard: number;
   cardNumber: string;
   nameOnCard: string;
-  expirationDate: Date = new Date();
+  expirationDate: Date = new Date(new Date().setHours(12, 0, 0, 0));
   pairingId: String;
   creditCardBrand: CreditCardBrand = new CreditCardBrand();
   userPayment: UserPayment = new UserPayment();

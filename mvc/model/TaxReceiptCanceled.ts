@@ -4,7 +4,7 @@ import { TaxReceiptFiscalModule} from "./TaxReceiptFiscalModule";
 
 export class TaxReceiptCanceled {
   pkTaxReceiptCanceled: number;
-  date: Date = new Date(new Date().setHours(12, 0, 0, 0));
+  date: Date = new Date();
   status: number = 0;
   taxReceipt: TaxReceipt = new TaxReceipt();
   fiscalModuleFunction: FiscalModuleFunction = new FiscalModuleFunction();

@@ -1,3 +1,4 @@
+import { Service} from "./Service";
 import { ServiceOrder} from "./ServiceOrder";
 import { Balance} from "./Balance";
 import { Payment} from "./Payment";
@@ -14,6 +15,7 @@ export class Currency {
   symbol: string;
   status: number;
   country: Country = new Country();
+  currencyServiceList: Array<Service> = new Array<Service>();
   currencyServiceOrderList: Array<ServiceOrder> = new Array<ServiceOrder>();
   currencyBalanceList: Array<Balance> = new Array<Balance>();
   currencyPaymentList: Array<Payment> = new Array<Payment>();

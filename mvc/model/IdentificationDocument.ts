@@ -9,8 +9,8 @@ export class IdentificationDocument {
   pkIdentificationDocument: number;
   type: string;
   value: string;
-  issueDate: Date = new Date();
-  expirationDate: Date = new Date();
+  issueDate: Date = new Date(new Date().setHours(12, 0, 0, 0));
+  expirationDate: Date = new Date(new Date().setHours(12, 0, 0, 0));
   status: number = 0;
   person: Person = new Person();
   juridicalPerson: JuridicalPerson = new JuridicalPerson();

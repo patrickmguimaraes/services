@@ -6,7 +6,7 @@ import { TaxReceipt} from "./TaxReceipt";
 export class ServiceOrderTax {
   pkServiceOrderTax: number;
   note: string;
-  date: Date = new Date(new Date().setHours(12, 0, 0, 0));
+  date: Date = new Date();
   value: number = 0.0;
   status: number = 0;
   serviceOrder: ServiceOrder = new ServiceOrder();

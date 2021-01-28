@@ -6,8 +6,8 @@ import { WithdrawMoneyApproval} from "./WithdrawMoneyApproval";
 export class WithdrawMoney {
   pkWithdrawMoney: number;
   value: number = 0.0;
-  date: Date = new Date(new Date().setHours(12, 0, 0, 0));
-  dateApprovated: Date = new Date(new Date().setHours(12, 0, 0, 0));
+  date: Date = new Date();
+  dateApprovated: Date = new Date();
   status: number = 0;
   transferMoney: TransferMoney = new TransferMoney();
   user: User = new User();

@@ -5,7 +5,7 @@ import { TaxReceiptCounterPayment} from "./TaxReceiptCounterPayment";
 
 export class TaxReceiptCounterApproved {
   pkTaxReceiptCounterApproved: number;
-  date: Date = new Date(new Date().setHours(12, 0, 0, 0));
+  date: Date = new Date();
   status: number = 0;
   counter: Counter = new Counter();
   attachment: Attachment = new Attachment();

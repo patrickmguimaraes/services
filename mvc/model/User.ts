@@ -27,8 +27,8 @@ export class User {
   pkUser: number;
   username: string;
   password: string;
-  dateOfCreatingAccount: Date = new Date(new Date().setHours(12, 0, 0, 0));
-  dateOfFinishingAccount: Date = new Date(new Date().setHours(12, 0, 0, 0));
+  dateOfCreatingAccount: Date = new Date();
+  dateOfFinishingAccount: Date = new Date();
   facebookAccount: String;
   useTwoStepsVerification: boolean;
   status: number = 0;

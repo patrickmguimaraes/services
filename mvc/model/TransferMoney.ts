@@ -8,7 +8,7 @@ export class TransferMoney {
   type: number;
   note: string;
   value: number = 0.0;
-  date: Date = new Date(new Date().setHours(12, 0, 0, 0));
+  date: Date = new Date();
   identification: string;
   status: number = 0;
   fromMainBankAccount: MainBankAccount = new MainBankAccount();

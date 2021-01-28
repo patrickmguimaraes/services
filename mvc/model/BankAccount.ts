@@ -13,7 +13,7 @@ export class BankAccount {
   pkBankAccount: number;
   branch: string;
   account: string;
-  validatedAccount: Date = new Date();
+  validatedAccount: Date = new Date(new Date().setHours(12, 0, 0, 0));
   status: number = 0;
   currency: Currency = new Currency();
   juridicalPerson: JuridicalPerson = new JuridicalPerson();

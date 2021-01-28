@@ -4,7 +4,7 @@ import { HelpCenterAssistant} from "./HelpCenterAssistant";
 export class HelpCenterMessages {
   pkHelpCenterMessages: number;
   message: string;
-  date: Date = new Date(new Date().setHours(12, 0, 0, 0));
+  date: Date = new Date();
   status: number;
   user: User = new User();
   userCompany: User = new User();

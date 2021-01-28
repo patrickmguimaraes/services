@@ -9,7 +9,7 @@ export class Balance {
   name: string;
   value: number = 0.0;
   consolidatedValue: Number = 0.0;
-  consolidatedDate: Date = new Date(new Date().setHours(12, 0, 0, 0));
+  consolidatedDate: Date = new Date();
   status: number = 0;
   currency: Currency = new Currency();
   juridicalPerson: JuridicalPerson = new JuridicalPerson();

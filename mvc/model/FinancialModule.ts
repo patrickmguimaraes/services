@@ -8,7 +8,7 @@ import { FinancialModuleTermsOfService} from "./FinancialModuleTermsOfService";
 
 export class FinancialModule {
   pkFinancialModule: number;
-  date: Date = new Date(new Date().setHours(12, 0, 0, 0));
+  date: Date = new Date();
   wallet: String;
   status: number = 0;
   mainBankAccount: MainBankAccount = new MainBankAccount();

@@ -6,7 +6,7 @@ import { MainBankAccount} from "./MainBankAccount";
 export class Payment {
   pkPayment: number;
   type: number = 1;
-  date: Date = new Date(new Date().setHours(12, 0, 0, 0));
+  date: Date = new Date();
   value: number = 0.0;
   note: string;
   status: number = 0;

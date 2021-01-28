@@ -13,9 +13,9 @@ export class Bill {
   number: string;
   controlCode: String;
   type: number = 1;
-  issueDate: Date = new Date();
-  dueDate: Date = new Date();
-  expirationDate: Date = new Date();
+  issueDate: Date = new Date(new Date().setHours(12, 0, 0, 0));
+  dueDate: Date = new Date(new Date().setHours(12, 0, 0, 0));
+  expirationDate: Date = new Date(new Date().setHours(12, 0, 0, 0));
   value: number = 0.0;
   discount: Number = 0.0;
   interest: Number = 0.0;

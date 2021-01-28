@@ -7,7 +7,7 @@ export class Contact {
   pkContact: number;
   type: string;
   value: string;
-  expirationDate: Date = new Date();
+  expirationDate: Date = new Date(new Date().setHours(12, 0, 0, 0));
   status: number = 0;
   person: Person = new Person();
   juridicalPerson: JuridicalPerson = new JuridicalPerson();

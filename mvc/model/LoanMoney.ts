@@ -6,7 +6,7 @@ import { Currency} from "./Currency";
 
 export class LoanMoney {
   pkLoanMoney: number;
-  date: Date = new Date(new Date().setHours(12, 0, 0, 0));
+  date: Date = new Date();
   status: number;
   person: Person = new Person();
   juridicalPerson: JuridicalPerson = new JuridicalPerson();

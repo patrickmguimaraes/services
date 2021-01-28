@@ -5,6 +5,7 @@ import { LoanBankProgramProfileCategory} from "./LoanBankProgramProfileCategory"
 export class Category {
   pkCategory: number;
   name: string;
+  image: string;
   code: String;
   status: number = 0;
   category: Category = new Category();

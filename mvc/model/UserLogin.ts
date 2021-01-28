@@ -5,7 +5,7 @@ import { User} from "./User";
 export class UserLogin {
   pkUserLogin: number;
   dispositive: string;
-  date: Date = new Date(new Date().setHours(12, 0, 0, 0));
+  date: Date = new Date();
   trust: boolean = false;
   status: number = 0;
   address: Address = new Address();

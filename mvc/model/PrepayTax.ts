@@ -5,7 +5,7 @@ import { BalanceItem} from "./BalanceItem";
 export class PrepayTax {
   pkPrepayTax: number;
   value: number = 0.0;
-  date: Date = new Date(new Date().setHours(12, 0, 0, 0));
+  date: Date = new Date();
   status: number = 0;
   user: User = new User();
   payment: Payment = new Payment();

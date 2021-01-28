@@ -9,8 +9,8 @@ export class LoanBankProgram {
   pkLoanBankProgram: number;
   name: string;
   description: string;
-  beginning: Date = new Date(new Date().setHours(12, 0, 0, 0));
-  end: Date = new Date(new Date().setHours(12, 0, 0, 0));
+  beginning: Date = new Date();
+  end: Date = new Date();
   interestRate: number = 0.0;
   status: number = 0;
   bank: Bank = new Bank();

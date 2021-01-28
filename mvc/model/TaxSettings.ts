@@ -13,9 +13,9 @@ import { TaxSettingsApproval} from "./TaxSettingsApproval";
 
 export class TaxSettings {
   pkTaxSettings: number;
-  filedDate: Date = new Date(new Date().setHours(12, 0, 0, 0));
-  approvatedDate: Date = new Date(new Date().setHours(12, 0, 0, 0));
-  expiredDate: Date = new Date(new Date().setHours(12, 0, 0, 0));
+  filedDate: Date = new Date();
+  approvatedDate: Date = new Date();
+  expiredDate: Date = new Date();
   observation: string;
   localType: number = 1;
   hasRevenue: boolean = false;

@@ -5,7 +5,7 @@ import { UserPayment} from "./UserPayment";
 export class UserPaymentDigitalWallet {
   pkUserPaymentDigitalWallet: number;
   userCodeAccess: string;
-  datePairedUp: Date = new Date(new Date().setHours(12, 0, 0, 0));
+  datePairedUp: Date = new Date();
   digitalWallet: DigitalWallet = new DigitalWallet();
   userPayment: UserPayment = new UserPayment();
   userPaymentDigitalWalletPaymentDigitalWalletList: Array<PaymentDigitalWallet> = new Array<PaymentDigitalWallet>();

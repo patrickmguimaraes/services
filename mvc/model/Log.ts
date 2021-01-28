@@ -5,6 +5,6 @@ export class Log {
   type: number;
   title: string;
   message: string;
-  date: Date = new Date(new Date().setHours(12, 0, 0, 0));
+  date: Date = new Date();
   country: Country = new Country();
 }

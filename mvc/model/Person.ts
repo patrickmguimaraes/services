@@ -12,7 +12,8 @@ export class Person {
   pkPerson: number;
   name: string;
   lastName: string;
-  bithday: Date = new Date();
+  bithday: Date = new Date(new Date().setHours(12, 0, 0, 0));
+  passedAway: Date = new Date(new Date().setHours(12, 0, 0, 0));
   maritalStatus: number;
   status: number = 0;
   birthCountry: Country = new Country();

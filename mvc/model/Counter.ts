@@ -6,7 +6,7 @@ import { TaxReceiptCounterApproved} from "./TaxReceiptCounterApproved";
 
 export class Counter {
   pkCounter: number;
-  dateApproved: Date = new Date();
+  dateApproved: Date = new Date(new Date().setHours(12, 0, 0, 0));
   status: number = 0;
   juridicalPerson: JuridicalPerson = new JuridicalPerson();
   person: Person = new Person();

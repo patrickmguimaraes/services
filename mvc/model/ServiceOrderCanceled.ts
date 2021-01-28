@@ -4,7 +4,7 @@ import { ServiceOrderRefund} from "./ServiceOrderRefund";
 
 export class ServiceOrderCanceled {
   pkServiceOrderCanceled: number;
-  date: Date = new Date(new Date().setHours(12, 0, 0, 0));
+  date: Date = new Date();
   detail: string;
   status: number = 0;
   serviceOrder: ServiceOrder = new ServiceOrder();

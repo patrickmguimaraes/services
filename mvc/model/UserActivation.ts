@@ -7,8 +7,8 @@ export class UserActivation {
   pkUserActivation: number;
   type: number = 1;
   code: string;
-  date: Date = new Date(new Date().setHours(12, 0, 0, 0));
-  dateActive: Date = new Date(new Date().setHours(12, 0, 0, 0));
+  date: Date = new Date();
+  dateActive: Date = new Date();
   status: number;
   userLogin: UserLogin = new UserLogin();
   email: Email = new Email();

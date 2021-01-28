@@ -5,7 +5,7 @@ import { ApprovalAttachment} from "./ApprovalAttachment";
 export class Approval {
   pkApproval: number;
   observation: string;
-  date: Date = new Date(new Date().setHours(12, 0, 0, 0));
+  date: Date = new Date();
   status: number = 0;
   user: User = new User();
   screenApproval: ScreenApproval = new ScreenApproval();

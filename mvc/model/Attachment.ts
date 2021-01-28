@@ -10,7 +10,7 @@ import { LoanBankProgramContract} from "./LoanBankProgramContract";
 export class Attachment {
   pkAttachment: number;
   name: string;
-  date: Date = new Date(new Date().setHours(12, 0, 0, 0));
+  date: Date = new Date();
   type: string;
   path: string;
   status: number = 0;

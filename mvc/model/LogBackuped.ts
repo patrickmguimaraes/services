@@ -6,9 +6,9 @@ import { LogBackupedApproval} from "./LogBackupedApproval";
 export class LogBackuped {
   pkLogBackuped: number;
   path: string;
-  date: Date = new Date(new Date().setHours(12, 0, 0, 0));
-  beginning: Date = new Date(new Date().setHours(12, 0, 0, 0));
-  end: Date = new Date(new Date().setHours(12, 0, 0, 0));
+  date: Date = new Date();
+  beginning: Date = new Date();
+  end: Date = new Date();
   status: number = 0;
   screenApproval: ScreenApproval = new ScreenApproval();
   country: Country = new Country();

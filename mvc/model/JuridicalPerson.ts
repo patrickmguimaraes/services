@@ -12,7 +12,7 @@ export class JuridicalPerson {
   pkJuridicalPerson: number;
   name: string;
   socialReason: string;
-  openedDate: Date = new Date();
+  openedDate: Date = new Date(new Date().setHours(12, 0, 0, 0));
   companyType: number = 1;
   legalStructure: number = 1;
   originCountry: Country = new Country();

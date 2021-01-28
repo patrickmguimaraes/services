@@ -11,7 +11,7 @@ import { ServiceOrderAttachment} from "./ServiceOrderAttachment";
 export class ServiceOrder {
   pkServiceOrder: number;
   code: string;
-  date: Date = new Date(new Date().setHours(12, 0, 0, 0));
+  date: Date = new Date();
   cost: number = 0.0;
   discount: number = 0;
   fee: number = 0;
