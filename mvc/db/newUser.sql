@@ -70,6 +70,7 @@ SELECT sysCol.TBNAME, sysCol.NAME, sysCol.IDENTITY, sysCol.COLTYPE, sysCol.LENGT
 
  AND sysCol.TBNAME = 'NEWTABLE'
 
+SELECT * FROM SVZ98608.SERVICE WHERE status = 1
 
 -----------------
 SELECT TABNAME, REFTABNAME, FK_COLNAMES, PK_COLNAMES FROM syscat.references 
@@ -118,3 +119,34 @@ SELECT systable.name as tableName, syscolumns.name as columnName, syscolumns.col
             AND syscolumns.tbname = systable.name
              
 SELECT TBNAME, name, colType, length, NULLS, default FROM SYSIBM.SYSCOLUMNS WHERE TBCREATOR = 'SVZ98608' ORDER BY tbname
+
+--------------------STATES--------------------
+INSERT INTO SVZ98608.State (code, name, abbreviation) VALUES ('11', 'Rondônia', 'RO');
+INSERT INTO SVZ98608.State (code, name, abbreviation) VALUES ('12', 'Acre', 'AC');
+INSERT INTO SVZ98608.State (code, name, abbreviation) VALUES ('13', 'Amazonas', 'AM');
+INSERT INTO SVZ98608.State (code, name, abbreviation) VALUES ('14', 'Roraima', 'RR');
+INSERT INTO SVZ98608.State (code, name, abbreviation) VALUES ('15', 'Pará', 'PA');
+INSERT INTO SVZ98608.State (code, name, abbreviation) VALUES ('16', 'Amapá', 'AP');
+INSERT INTO SVZ98608.State (code, name, abbreviation) VALUES ('17', 'Tocantins', 'TO');
+INSERT INTO SVZ98608.State (code, name, abbreviation) VALUES ('21', 'Maranhão', 'MA');
+INSERT INTO SVZ98608.State (code, name, abbreviation) VALUES ('22', 'Piauí', 'PI');
+INSERT INTO SVZ98608.State (code, name, abbreviation) VALUES ('23', 'Ceará', 'CE');
+INSERT INTO SVZ98608.State (code, name, abbreviation) VALUES ('24', 'Rio Grande do Norte', 'RN');
+INSERT INTO SVZ98608.State (code, name, abbreviation) VALUES ('25', 'Paraíba', 'PB');
+INSERT INTO SVZ98608.State (code, name, abbreviation) VALUES ('26', 'Pernambuco', 'PE');
+INSERT INTO SVZ98608.State (code, name, abbreviation) VALUES ('27', 'Alagoas', 'AL');
+INSERT INTO SVZ98608.State (code, name, abbreviation) VALUES ('28', 'Sergipe', 'SE');
+INSERT INTO SVZ98608.State (code, name, abbreviation) VALUES ('29', 'Bahia', 'BA');
+INSERT INTO SVZ98608.State (code, name, abbreviation) VALUES ('31', 'Minas Gerais', 'MG');
+INSERT INTO SVZ98608.State (code, name, abbreviation) VALUES ('32', 'Espírito Santo', 'ES');
+INSERT INTO SVZ98608.State (code, name, abbreviation) VALUES ('33', 'Rio de Janeiro', 'RJ');
+INSERT INTO SVZ98608.State (code, name, abbreviation) VALUES ('35', 'São Paulo', 'SP');
+INSERT INTO SVZ98608.State (code, name, abbreviation) VALUES ('41', 'Paraná', 'PR');
+INSERT INTO SVZ98608.State (code, name, abbreviation) VALUES ('42', 'Santa Catarina', 'SC');
+INSERT INTO SVZ98608.State (code, name, abbreviation) VALUES ('43', 'Rio Grande do Sul', 'RS');
+INSERT INTO SVZ98608.State (code, name, abbreviation) VALUES ('50', 'Mato Grosso do Sul', 'MS');
+INSERT INTO SVZ98608.State (code, name, abbreviation) VALUES ('51', 'Mato Grosso', 'MT');
+INSERT INTO SVZ98608.State (code, name, abbreviation) VALUES ('52', 'Goiás', 'GO');
+INSERT INTO SVZ98608.State (code, name, abbreviation) VALUES ('53', 'Distrito Federal', 'DF');
+--------------------STATES--------------------
+
